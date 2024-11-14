@@ -10,6 +10,9 @@ lerna-debug.log*
 # Node modules for both frontend and backend
 node_modules
 
+# Prevent dangerous environment variable information from leaking
+*.env
+
 # Build directories (frontend and backend)
 frontend/dist/
 frontend/build/   # Vite build output
