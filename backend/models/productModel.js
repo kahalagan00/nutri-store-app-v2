@@ -20,9 +20,9 @@ const productSchema = new mongoose.Schema({
     type: Number,
     required: [true, 'The product must have a weight (grams)'],
   },
-  matter_type: {
+  matterType: {
     type: String,
-    trim: true, // JMARDEBUG: What does this do?
+    trim: true, // JMARDEBUG: What does this do? : Removes whitespaces from right and left
     required: [true, 'The product must specify their matter state'],
   },
   price: {
@@ -34,13 +34,13 @@ const productSchema = new mongoose.Schema({
     default: true,
     required: [true, 'The availability of the product needs to be specified'],
   },
-  stock_quantity: {
+  stockQuantity: {
     type: Number,
     required: [true, 'The number of products in stock must be specified'],
   },
   warnings: [String],
   ingredients: [String],
-  nutritional_facts: {
+  nutritionalFacts: {
     type: {
       calories: {
         type: Number,

@@ -2,6 +2,8 @@ const fs = require('fs');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const Product = require('../../models/productModel');
+const User = require('../../models/userModel');
+const Cart = require('../../models/cartModel');
 
 dotenv.config({ path: '../../config.env' });
 
@@ -20,8 +22,8 @@ const products = JSON.parse(
   fs.readFileSync(`${__dirname}/products-simple.json`, 'utf-8')
 );
 // const users = JSON.parse(fs.readFileSync(`${__dirname}/users.json`, 'utf-8'));
-// const reviews = JSON.parse(
-//   fs.readFileSync(`${__dirname}/reviews.json`, 'utf-8')
+// const carts = JSON.parse(
+//   fs.readFileSync(`${__dirname}/carts.json`, 'utf-8')
 // );
 
 // IMPORT DATA INTO DB
@@ -29,7 +31,7 @@ const importData = async () => {
   try {
     await Product.create(products);
     // await User.create(users, { validateBeforeSave: false });
-    // await Review.create(reviews);
+    // await Cart.create(carts);
     console.log('Data successfully loaded!');
   } catch (err) {
     console.log("Doesn't work 🤣");
@@ -43,7 +45,7 @@ const deleteData = async () => {
   try {
     await Product.deleteMany();
     // await User.deleteMany();
-    // await Review.deleteMany();
+    // await Cart.deleteMany();
     console.log('Data successfully deleted!');
   } catch (err) {
     console.error(err);

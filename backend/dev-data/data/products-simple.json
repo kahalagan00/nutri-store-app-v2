@@ -4,9 +4,9 @@
     "name": "Whey Protein",
     "image": "whey_protein_image_url.jpg",
     "grams": 30,
-    "matter_type": "solid",
+    "matterType": "solid",
     "price": 29.99,
-    "stock_quantity": 1,
+    "stockQuantity": 1,
     "warnings": [
       "Contains dairy",
       "Not suitable for lactose-intolerant individuals"
@@ -17,7 +17,7 @@
       "Natural flavors",
       "Sucralose"
     ],
-    "nutritional_facts": {
+    "nutritionalFacts": {
       "calories": 120,
       "carbohydrates": 3,
       "protein": 24
@@ -28,16 +28,16 @@
     "name": "Glucosamine Chondroitin",
     "image": "glucosamine_chondroitin_image_url.jpg",
     "grams": 1.5,
-    "matter_type": "solid",
+    "matterType": "solid",
     "price": 19.99,
-    "stock_quantity": 90,
+    "stockQuantity": 90,
     "warnings": ["Consult a doctor if pregnant or nursing"],
     "ingredients": [
       "Glucosamine sulfate",
       "Chondroitin sulfate",
       "Gelatin capsule"
     ],
-    "nutritional_facts": {
+    "nutritionalFacts": {
       "calories": 0,
       "carbohydrates": 0,
       "protein": 0
@@ -48,16 +48,16 @@
     "name": "Vitamin C",
     "image": "vitamin_c_image_url.jpg",
     "grams": 0.5,
-    "matter_type": "solid",
+    "matterType": "solid",
     "price": 12.99,
-    "stock_quantity": 100,
+    "stockQuantity": 100,
     "warnings": ["High doses may cause stomach upset"],
     "ingredients": [
       "Vitamin C (ascorbic acid)",
       "Cellulose",
       "Magnesium stearate"
     ],
-    "nutritional_facts": {
+    "nutritionalFacts": {
       "calories": 0,
       "carbohydrates": 0,
       "protein": 0
@@ -68,12 +68,12 @@
     "name": "Caffeine",
     "image": "caffeine_image_url.jpg",
     "grams": 0.2,
-    "matter_type": "solid",
+    "matterType": "solid",
     "price": 9.99,
-    "stock_quantity": 100,
+    "stockQuantity": 100,
     "warnings": ["Avoid if sensitive to caffeine"],
     "ingredients": ["Caffeine anhydrous"],
-    "nutritional_facts": {
+    "nutritionalFacts": {
       "calories": 0,
       "carbohydrates": 0,
       "protein": 0
@@ -84,12 +84,12 @@
     "name": "Omega-3 Fish Oil",
     "image": "omega_3_image_url.jpg",
     "grams": 1,
-    "matter_type": "liquid",
+    "matterType": "liquid",
     "price": 24.99,
-    "stock_quantity": 90,
+    "stockQuantity": 90,
     "warnings": ["Consult a doctor if taking blood thinners"],
     "ingredients": ["Fish oil", "Gelatin", "Glycerin", "Water"],
-    "nutritional_facts": {
+    "nutritionalFacts": {
       "calories": 10,
       "carbohydrates": 0,
       "protein": 0
@@ -100,12 +100,12 @@
     "name": "Melatonin",
     "image": "melatonin_image_url.jpg",
     "grams": 0.005,
-    "matter_type": "solid",
+    "matterType": "solid",
     "price": 8.99,
-    "stock_quantity": 60,
+    "stockQuantity": 60,
     "warnings": ["May cause drowsiness"],
     "ingredients": ["Melatonin", "Microcrystalline cellulose", "Stearic acid"],
-    "nutritional_facts": {
+    "nutritionalFacts": {
       "calories": 0,
       "carbohydrates": 0,
       "protein": 0
@@ -116,9 +116,9 @@
     "name": "BCAA",
     "image": "bcaa_image_url.jpg",
     "grams": 5,
-    "matter_type": "solid",
+    "matterType": "solid",
     "price": 22.99,
-    "stock_quantity": 30,
+    "stockQuantity": 30,
     "warnings": ["Not recommended for people with kidney issues"],
     "ingredients": [
       "Leucine",
@@ -127,7 +127,7 @@
       "Natural flavors",
       "Sucralose"
     ],
-    "nutritional_facts": {
+    "nutritionalFacts": {
       "calories": 20,
       "carbohydrates": 0,
       "protein": 5
@@ -138,9 +138,9 @@
     "name": "Calcium + Vitamin D",
     "image": "calcium_vitamin_d_image_url.jpg",
     "grams": 1.2,
-    "matter_type": "solid",
+    "matterType": "solid",
     "price": 15.99,
-    "stock_quantity": 100,
+    "stockQuantity": 100,
     "warnings": ["Do not exceed recommended dose"],
     "ingredients": [
       "Calcium carbonate",
@@ -148,7 +148,7 @@
       "Cellulose",
       "Stearic acid"
     ],
-    "nutritional_facts": {
+    "nutritionalFacts": {
       "calories": 0,
       "carbohydrates": 0,
       "protein": 0
@@ -159,16 +159,16 @@
     "name": "Probiotic",
     "image": "probiotic_image_url.jpg",
     "grams": 0.5,
-    "matter_type": "solid",
+    "matterType": "solid",
     "price": 17.99,
-    "stock_quantity": 60,
+    "stockQuantity": 60,
     "warnings": ["Consult a doctor if immunocompromised"],
     "ingredients": [
       "Lactobacillus acidophilus",
       "Bifidobacterium lactis",
       "Cellulose"
     ],
-    "nutritional_facts": {
+    "nutritionalFacts": {
       "calories": 0,
       "carbohydrates": 0,
       "protein": 0
@@ -179,9 +179,9 @@
     "name": "Multivitamin",
     "image": "multivitamin_image_url.jpg",
     "grams": 1,
-    "matter_type": "solid",
+    "matterType": "solid",
     "price": 14.99,
-    "stock_quantity": 90,
+    "stockQuantity": 90,
     "warnings": ["Keep out of reach of children"],
     "ingredients": [
       "Vitamin A",
@@ -190,7 +190,7 @@
       "Vitamin E",
       "B vitamins"
     ],
-    "nutritional_facts": {
+    "nutritionalFacts": {
       "calories": 0,
       "carbohydrates": 0,
       "protein": 0

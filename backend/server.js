@@ -25,21 +25,21 @@ mongoose.connect(DB).then((conn) => {
   console.log('DB connected successfully 👍');
 });
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT ? process.env.PORT : 3000;
 const server = app.listen(port, () => {
   console.log(`App running on port ${port}...}`);
 });
 
-// JMARDEBUG: What does this do?
+// JMARDEBUG: What does this do? : Handles error handling for Promise errors that were not catched
 process.on('unhandledRejection', (err) => {
-  console.log('UNHANDLER REJECTION! 💥 Shuting down...');
+  console.log('Unhandled Rejection Detected! 💥 Shuting down...');
   console.log(err.name, err.message);
   server.close(() => {
     process.exit(1);
   });
 });
 
-// JMARDEBUG: What does this do?
+// JMARDEBUG: What does this do? : Processes the SIGTERM signal which is a signal used for program termination
 process.on('SIGTERM', () => {
   console.log('👋 SIGTERM RECEIVED. Shutting down gracefully');
   server.close(() => {

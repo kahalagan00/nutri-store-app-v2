@@ -14,20 +14,20 @@ const productRouter = require('./routes/productRoutes');
 // Start express app
 const app = express();
 
-app.enable('trust proxy'); // JMARDEBUG: What does this do?
+app.enable('trust proxy'); // JMARDEBUG: What does this do? : Allows requests from proxy servers that are being used
 
 // <------------------------------------------------------------------------------------------>
 // Middlewares -->
 
-app.use(cors()); // JMARDEBUG: What does this do?
-app.options('*', cors()); // JMARDEBUG: What does this do?
+app.use(cors()); // JMARDEBUG: What does this do? : Makes the resources in the server accesible to other domains
+app.options('*', cors());
 
 // Development logging
 if (process.env.NODE_ENV === 'development') {
-  app.use(morgan('dev')); // JMARDEBUG: What does this do?
+  app.use(morgan('dev')); // JMARDEBUG: What does this do? : Morgan logs HTTP request details
 }
 
-// JMARDEBUG: What does this do? Does it limit the amount of requests in the "/api" route?
+// JMARDEBUG: What does this do? Does it limit the amount of requests in the "/api" route? : Limits the number of requests a user can make to the API
 const limiter = rateLimit({
   max: 100,
   windowMs: 60 * 60 * 1000,
