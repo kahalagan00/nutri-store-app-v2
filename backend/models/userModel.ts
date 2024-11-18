@@ -1,8 +1,23 @@
-const mongoose = require('mongoose');
-const slugify = require('slugify');
-const { trim } = require('validator');
+import mongoose from 'mongoose';
+import slugify from 'slugify';
+import { trim } from 'validator';
 
-const userSchema = new mongoose.Schema({
+// Define the interface for the User
+interface IUser extends mongoose.Document {
+  name: string;
+  email: string;
+  password: string;
+  image: string;
+  dateOfBirth: string;
+  height: string;
+  weight: string;
+  symptoms: string;
+  paymentInfo: string;
+  cart: string;
+  slug: string;
+}
+
+const userSchema = new mongoose.Schema<IUser>({
   name: {
     type: String,
     required: [true, 'A user must have a full name specified'],
@@ -23,24 +38,12 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, 'The user must have a picture'],
   },
-  dateOfBirth: {
-
-  },
-  height: {
-   
-  },
-  weight: {
-
-  },
-  symptoms: {
-
-  },
-  paymentInfo: {
-
-  },
-  cart: {
-
-  }
+  dateOfBirth: {},
+  height: {},
+  weight: {},
+  symptoms: {},
+  paymentInfo: {},
+  cart: {},
   slug: String,
 });
 

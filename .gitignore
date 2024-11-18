@@ -34,3 +34,7 @@ backend/public/js/bundle.js  # Ignore only the bundle.js in public/js/
 
 # Operating System files
 Thumbs.db
+
+
+# Netlify specific
+netlify.toml

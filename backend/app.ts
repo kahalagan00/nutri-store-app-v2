@@ -1,24 +1,21 @@
-const path = require('path');
-const express = require('express');
-const morgan = require('morgan');
-const rateLimit = require('express-rate-limit');
-const helmet = require('helmet');
-const mongoSanitize = require('express-mongo-sanitize');
+import path from 'path';
+import express from 'express';
+import morgan from 'morgan';
+import rateLimit from 'express-rate-limit';
+import helmet from 'helmet';
+import ExpressMongoSanitize from 'express-mongo-sanitize';
+import hpp from 'hpp';
+import cookieParser from 'cookie-parser';
+import compression from 'compression';
+import cors from 'cors';
+import productRouter from './routes/productRoutes';
 const xss = require('xss-clean');
-const hpp = require('hpp');
-const cookieParser = require('cookie-parser');
-const compression = require('compression');
-const cors = require('cors');
-const productRouter = require('./routes/productRoutes');
 
 // Start express app
 const app = express();
 
-app.enable('trust proxy'); // JMARDEBUG: What does this do? : Allows requests from proxy servers that are being used
-
 // <------------------------------------------------------------------------------------------>
 // Middlewares -->
-
 app.use(cors()); // JMARDEBUG: What does this do? : Makes the resources in the server accesible to other domains
 app.options('*', cors());
 
@@ -47,7 +44,7 @@ app.use(
 app.use(cookieParser());
 
 // Data sanitization against NoSQL query injection
-app.use(mongoSanitize());
+app.use(ExpressMongoSanitize());
 
 // Data sanitization against XSS
 app.use(xss());
@@ -70,4 +67,4 @@ app.all('*', (req, res, next) => {
   next(new Error("Can't find given url on this server! 🛑"));
 });
 
-module.exports = app;
+export default app;

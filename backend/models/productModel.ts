@@ -1,8 +1,33 @@
-const mongoose = require('mongoose');
-const slugify = require('slugify');
-const { trim } = require('validator');
+// const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
-const productSchema = new mongoose.Schema({
+// const slugify = require('slugify');
+import slugify from 'slugify';
+
+// const { trim } = require('validator');
+import { trim } from 'validator';
+
+// Define the interface for the product
+interface IProduct extends mongoose.Document {
+  name: string;
+  purpose: string;
+  image: string;
+  grams: number;
+  matterType: string;
+  price: number;
+  availability: boolean;
+  stockQuantity: number;
+  warnings?: string[]; // Optional field
+  ingredients?: string[]; // Optional field
+  nutritionalFacts: {
+    calories?: number;
+    carbohydrates?: number;
+    protein?: number;
+  };
+  slug?: string; // Optional field
+}
+
+const productSchema = new mongoose.Schema<IProduct>({
   name: {
     type: String,
     required: [true, 'A product must have a name'],
@@ -11,6 +36,7 @@ const productSchema = new mongoose.Schema({
   purpose: {
     type: String,
     required: [true, 'The purpose of the product must be specified'],
+    trim: true,
   },
   image: {
     type: String,
@@ -52,6 +78,7 @@ const productSchema = new mongoose.Schema({
         type: Number,
       },
     },
+    required: [true, 'The product must contain its specific nutritional facts'],
   },
   slug: String,
 });
@@ -67,4 +94,4 @@ productSchema.pre('save', function (next) {
 
 const Product = mongoose.model('Product', productSchema);
 
-module.exports = Product;
+export default Product;
