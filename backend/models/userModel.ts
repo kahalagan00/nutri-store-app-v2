@@ -8,6 +8,7 @@ interface IUser extends mongoose.Document {
   name: string;
   email: string;
   password: string;
+  role: string;
   image?: string;
   dateOfBirth: Date;
   height?: {
@@ -41,6 +42,10 @@ const userSchema = new mongoose.Schema<IUser>({
     minLength: 8, // Minmal security = 8, Optimal security = 12, Maximum security = 15 or 16
     select: false,
     unique: true,
+  },
+  role: {
+    type: String,
+    default: 'user',
   },
   image: {
     type: String,
