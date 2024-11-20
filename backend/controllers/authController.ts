@@ -3,7 +3,7 @@ import { promisify } from 'util';
 // const jwt = require('jsonwebtoken');
 import jwt from 'jsonwebtoken';
 import User from '../models/userModel';
-import { Request, RequestHandler, Response } from 'express';
+import { NextFunction, Request, RequestHandler, Response } from 'express';
 
 const signToken = (id: string) => {
   return jwt.sign(
@@ -208,19 +208,26 @@ const protect: RequestHandler = async (req, res, next) => {
 //   next();
 // };
 
-// // Authorization: Granting permission to user
-// exports.restrictTo = (...roles) => {
-//   return (req, res, next) => {
-//     // roles ['admin', 'lead-guide']. role='user'
-//     if (!roles.includes(req.user.role)) {
-//       return next(
-//         new AppError('You do not have permission to perform this action', 403)
-//       );
-//     }
-
-//     next();
-//   };
-// };
+// Authorization: Granting permission to user
+const restrictTo = (...roles: string[]) => {
+  return (req: Request, res: Response, next: NextFunction) => {
+    try {
+      // roles ['admin', 'lead-guide']. role='user'
+      if (!roles.includes(req.user.role)) {
+        throw new Error('You do not have permission to perform this action');
+      }
+      next(); // Only go to next function if the check passes
+    } catch (err) {
+      res.status(403).json({
+        status: 'error',
+        message:
+          err instanceof Error
+            ? err.message
+            : 'An error occurred when trying to restrict user access',
+      });
+    }
+  };
+};
 
 // exports.forgetPassword = catchAsync(async (req, res, next) => {
 //   // 1) Get user based on POSTed email
@@ -304,4 +311,4 @@ const protect: RequestHandler = async (req, res, next) => {
 //   createSendToken(user, 200, req, res);
 // });
 
-export { login, protect };
+export { login, protect, restrictTo };

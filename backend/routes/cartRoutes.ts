@@ -6,7 +6,7 @@ import {
   updateCart,
 } from '../controllers/cartController';
 
-import { protect } from '../controllers/authController';
+import { protect, restrictTo } from '../controllers/authController';
 
 const router = express.Router();
 
@@ -20,10 +20,15 @@ const router = express.Router();
 //     "products": [],
 // }
 // }
-router.route('/').get(getAllCarts);
 
-router.route('/user/:id').post(protect, createCart);
+// Protect all the routes that come after this
+router.use(protect);
+
+router.route('/user/:id').post(createCart);
 
 router.route('/:id').get(getCart).patch(updateCart);
+
+router.use(restrictTo('admin'));
+router.route('/').get(getAllCarts);
 
 export default router;
