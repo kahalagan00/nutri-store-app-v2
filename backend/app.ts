@@ -8,8 +8,12 @@ import hpp from 'hpp';
 import cookieParser from 'cookie-parser';
 import compression from 'compression';
 import cors from 'cors';
-import productRouter from './routes/productRoutes';
 const xss = require('xss-clean');
+
+// Routers
+import productRouter from './routes/productRoutes';
+import userRouter from './routes/userRoutes';
+import cartRouter from './routes/cartRoutes';
 
 // Start express app
 const app = express();
@@ -55,6 +59,8 @@ app.use(compression()); // JMARDEUBG: Does this compress the overall code or jus
 
 // Routes -->
 app.use('/api/v1/products', productRouter);
+app.use('/api/v1/users', userRouter);
+app.use('/api/v1/carts', cartRouter);
 
 // JMARDEBUG: What does this do overall?
 // Handling unhandled routes (NEEDS TO BE AT THE BOTTOM, ORDER MATTERS!)

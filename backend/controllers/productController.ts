@@ -12,7 +12,7 @@ const getAllProducts: RequestHandler = async (req, res) => {
       return;
     }
 
-    console.log('Yay we got Requested 🥳');
+    console.log('Yay (getAllProducts) we got Requested 🥳');
 
     res.status(200).json({
       status: 'success',
@@ -36,6 +36,8 @@ const getProduct: RequestHandler = async (req, res) => {
   try {
     const doc = await Product.findById(req.params.id);
 
+    console.log('Yay (getProduct) we got Requested 🥳');
+
     res.status(200).json({
       status: 'success',
       data: doc,
@@ -57,6 +59,8 @@ const createProduct: RequestHandler = async (req, res, next) => {
   try {
     const doc = await Product.create(req.body);
 
+    console.log('Yay (createProduct) we got Requested 🥳');
+
     res.status(201).json({
       status: 'success',
       data: doc,
@@ -67,7 +71,7 @@ const createProduct: RequestHandler = async (req, res, next) => {
       message:
         err instanceof Error
           ? err.message
-          : 'Please fill out all required fields',
+          : 'Please fill out all required fields for the product',
     });
   }
 };
