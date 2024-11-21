@@ -1,15 +1,15 @@
 import { Outlet } from "react-router-dom";
 import Header from "./Header";
 
-function AppLayout() {
+const AppLayout: React.FC = () => {
   return (
     <div className="max-w-screen-xl mx-auto">
       <Header />
-      <main>
+      <main className="h-screen">
         <Outlet />
       </main>
     </div>
   );
-}
+};
 
 export default AppLayout;

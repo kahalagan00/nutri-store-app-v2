@@ -1,7 +1,8 @@
 const fs = require('fs');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const Product = require('../../models/productModel');
+// const Product = require('../../models/productModel');
+import Product from '../../models/productModel';
 const User = require('../../models/userModel');
 const Cart = require('../../models/cartModel');
 
@@ -13,7 +14,7 @@ const DB = process.env.DATABASE.replace(
 );
 
 mongoose.connect(DB).then((conn) => {
-  // console.log('conn', conn.connections);
+  // console.log('conn' , conn.connections);
   console.log('DB connected successfully 👍');
 });
 

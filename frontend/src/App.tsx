@@ -23,7 +23,7 @@ const queryClient = new QueryClient({
   },
 });
 
-function App() {
+const App: React.FC = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
@@ -73,6 +73,6 @@ function App() {
       />
     </QueryClientProvider>
   );
-}
+};
 
 export default App;
