@@ -12,9 +12,9 @@ const router = express.Router();
 // Protect all the routes that follows below
 router.use(protect);
 
-router.route('/user/:id').post(createCart);
-
-router.route('/:id').get(getCart).patch(updateCart);
+router.post('/createCart', createCart);
+router.route('/:id').get(getCart);
+router.route('/:product').patch(updateCart);
 
 // Only admins can get information about the users' carts
 router.use(restrictTo('admin'));

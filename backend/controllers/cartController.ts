@@ -59,16 +59,17 @@ const getCart: RequestHandler = async (req, res) => {
 const createCart: RequestHandler = async (req, res, next) => {
   try {
     // Check if there is a cart that already belongs to the current user
-    let doc: any = await Cart.find({ user: req.params.id });
+    let doc: any = await Cart.find({ user: req.user.id });
+
     let statusCode;
     console.log(doc.length);
     if (doc.length > 0) {
       console.log('This user already has a cart. No modification done');
       statusCode = 200;
     } else {
-      console.log('No cart detected from this user.');
+      console.log('No cart detected from this user. Creating one now...');
       doc = await Cart.create({
-        user: req.params.id,
+        user: req.user.id,
         ...req.body,
       });
       statusCode = 201;
@@ -93,19 +94,37 @@ const createCart: RequestHandler = async (req, res, next) => {
 
 const updateCart: RequestHandler = async (req, res, next) => {
   try {
-    const product = await Product.findById(req.body.product);
-    const doc = await Cart.findByIdAndUpdate(
-      req.params.id,
+    const product = await Product.findById(req.params.product);
+
+    if (!product) {
+      throw new Error('Product does not exist in the store');
+    }
+
+    if (!product.availability) {
+      throw new Error('Product is out of stock and is no longer available');
+    }
+
+    product.stockQuantity -= 1;
+    product.availability = product.stockQuantity > 0;
+    await product.save();
+
+    const doc = await Cart.findOneAndUpdate(
+      { user: req.user.id },
       {
         ...req.body,
         $inc: { totalPrice: product?.price },
-        $push: { products: req.body.product },
+        $push: { products: req.params.product },
       },
       {
         new: true,
         runValidators: true,
       }
     );
+
+    if (!doc) {
+      throw new Error('Current user does not have a cart');
+    }
+
     console.log('Yay (updateCart) we got Requested 🥳');
 
     res.status(200).json({
