@@ -1,9 +1,11 @@
 import CryptoJS from 'crypto-js';
-import { promisify } from 'util';
-// const jwt = require('jsonwebtoken');
+const { promisify } = require('util');
 import jwt from 'jsonwebtoken';
 import User from '../models/userModel';
 import { NextFunction, Request, RequestHandler, Response } from 'express';
+
+// ***NOTE
+// "return" statements are good practice for TypeScript
 
 const signToken = (id: string) => {
   return jwt.sign(
@@ -12,7 +14,8 @@ const signToken = (id: string) => {
     },
     process.env.JWT_SECRET as string,
     {
-      expiresIn: process.env.JWT_EXPIRES_IN,
+      // 15 minutes common security measure
+      expiresIn: process.env.JWT_EXPIRES_IN as string,
     }
   );
 };
@@ -25,13 +28,9 @@ const createSendToken = (
 ) => {
   const token = signToken(user._id);
 
-  // In hours
-  // const cookieExpirationOffset: number =
-  parseInt(process.env.JWT_COOKIE_EXPIRES_IN, 10) * 24 * 60 * 60 * 1000;
-
-  // In minutes
+  // 15 minutes common security measure
   const cookieExpirationOffset: number =
-    parseInt(process.env.JWT_COOKIE_EXPIRES_IN, 10) * 60 * 1000;
+    parseInt(process.env.JWT_COOKIE_EXPIRES_IN as string, 10) * 60 * 1000;
 
   res.cookie('jwt', token, {
     expires: new Date(Date.now() + cookieExpirationOffset),
@@ -49,29 +48,35 @@ const createSendToken = (
       user,
     },
   });
+  return;
 };
 
-// exports.signup = catchAsync(async (req, res, next) => {
-//   // Bad practice
-//   // const newUser = await User.create(req.body);
+const signup: RequestHandler = async (req, res, next) => {
+  try {
+    const newUser = await User.create({
+      name: req.body.name,
+      email: req.body.email,
+      password: req.body.password,
+      passwordConfirm: req.body.passwordConfirm,
+      // passwordChangedAt: req.body.passwordChangedAt,
+      role: req.body.role,
+    });
 
-//   // Good practice
-//   const newUser = await User.create({
-//     name: req.body.name,
-//     email: req.body.email,
-//     password: req.body.password,
-//     passwordConfirm: req.body.passwordConfirm,
-//     passwordChangedAt: req.body.passwordChangedAt,
-//     role: req.body.role,
-//   });
+    createSendToken(newUser, 201, req, res);
+  } catch (err) {
+    res.status(400).json({
+      status: 'error',
+      message:
+        err instanceof Error
+          ? err.message
+          : 'Please fill out all required fields to create the user',
+    });
+  }
 
-//   const url = `${req.protocol}://${req.get('host')}/me`;
-//   // console.log(url);
-//   await new Email(newUser, url).sendWelcome();
+  return;
+};
 
-//   createSendToken(newUser, 201, req, res);
-// });
-
+// Login the user
 const login: RequestHandler = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -79,13 +84,15 @@ const login: RequestHandler = async (req, res) => {
     // 1) Check if email and password exists
     if (!email || !password) {
       throw new Error('Please provide an email and password');
-      // return next(new AppError('Please provide email and password!', 400));
     }
 
     // 2) Check if user exists && password is correct
     const user = await User.findOne({ email }).select('+password');
 
-    if (!user || user.checkPassword(password, user.password)) {
+    console.log(`🔑: ${password}`);
+    console.log(`🔐: ${user.password}`);
+
+    if (!user || !user.checkPassword(password, user.password)) {
       throw new Error('Incorrect email or password detected');
       // return next(new AppError('Incorrect email or password', 401));
     }
@@ -99,20 +106,21 @@ const login: RequestHandler = async (req, res) => {
         err instanceof Error ? err.message : 'An error occured during login',
     });
   }
-
   return;
 };
 
-// // Logging out the user
-// exports.logout = (req, res) => {
-//   res.cookie('jwt', 'loggedout', {
-//     expires: new Date(Date.now() + 10 * 1000),
-//     httpOnly: true,
-//   });
-//   res.status(200).json({
-//     status: 'success',
-//   });
-// };
+// Logout the user
+const logout: RequestHandler = (req, res) => {
+  res.cookie('jwt', 'loggedout', {
+    expires: new Date(Date.now() + 10 * 1000),
+    httpOnly: true,
+  });
+  res.status(200).json({
+    status: 'success',
+    message: 'Successfully logged out the current user',
+  });
+  return;
+};
 
 // Authenticate user
 const protect: RequestHandler = async (req, res, next) => {
@@ -129,28 +137,22 @@ const protect: RequestHandler = async (req, res, next) => {
     }
 
     if (!token) {
+      console.log('🪙 Token is undefined!!!');
       throw new Error(
         'You are not logged in! Please log in to get access to this service'
       );
-      // return next(
-      //   new AppError('You are not logged in! Please log in to get access.', 401)
-      // );
     }
 
     // 2) Verification token
-    const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
-    // console.log(decoded);
+    const decoded = await promisify(jwt.verify)(
+      token,
+      process.env.JWT_SECRET as string
+    );
 
     // 3) Check if user still exists
     const currentUser = await User.findById(decoded.id);
     if (!currentUser) {
       throw new Error('The user holding this token no longer exists');
-      // return next(
-      //   new AppError(
-      //     'The user belonging to this token does no longer exist.',
-      //     401
-      //   )
-      // );
     }
 
     // 4) Check if user changed password after the JWT token was issued
@@ -163,6 +165,7 @@ const protect: RequestHandler = async (req, res, next) => {
     // GRANT ACCESS TO PROTECTED ROUTE (All security tests passed!)
     req.user = currentUser;
     res.locals.user = currentUser;
+    next();
   } catch (err) {
     res.status(401).json({
       status: 'error',
@@ -172,8 +175,6 @@ const protect: RequestHandler = async (req, res, next) => {
           : 'An error occurred when trying to authorize user',
     });
   }
-
-  next();
 };
 
 // // Only for rendered pages, no errors
@@ -311,4 +312,4 @@ const restrictTo = (...roles: string[]) => {
 //   createSendToken(user, 200, req, res);
 // });
 
-export { login, protect, restrictTo };
+export { login, protect, restrictTo, signup, logout };
