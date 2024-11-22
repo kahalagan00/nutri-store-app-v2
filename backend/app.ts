@@ -29,12 +29,13 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // JMARDEBUG: What does this do? Does it limit the amount of requests in the "/api" route? : Limits the number of requests a user can make to the API
-const limiter = rateLimit({
-  max: 100,
-  windowMs: 60 * 60 * 1000,
-  message: 'Too many requests from this IP, please try again in an hour!',
-});
-app.use('/api', limiter);
+// Uncomment during production mode so that there is a limit to the requests
+// const limiter = rateLimit({
+//   max: 100,
+//   windowMs: 60 * 60 * 1000,
+//   message: 'Too many requests from this IP, please try again in an hour!',
+// });
+// app.use('/api', limiter);
 
 // JMARDEBUG: What do these do? Des it limit the amount of data that can be inside the "req.body"?
 // Body parser, reading data from body into req.body

@@ -5,8 +5,13 @@ import { trim } from 'validator';
 // Define the interface for the User
 interface ICart extends mongoose.Document {
   totalPrice: number;
-  user: typeof mongoose.Schema.ObjectId;
-  products: (typeof mongoose.Schema.ObjectId)[];
+  userId: typeof mongoose.Schema.ObjectId;
+  cartItems: {
+    productId: typeof mongoose.Schema.ObjectId;
+    name: String;
+    price: number;
+    quantity: Number;
+  };
 }
 
 const cartSchema = new mongoose.Schema<ICart>({
@@ -18,17 +23,21 @@ const cartSchema = new mongoose.Schema<ICart>({
       'The total amount of all products in the cart need to be added.',
     ],
   },
-  user: {
+  userId: {
     type: mongoose.Schema.ObjectId,
     ref: 'User',
     required: [true, 'A cart must belong to a user'],
     select: true,
   },
-  products: [
+  cartItems: [
     // Items added to cart will be updated/pushed here in this array
     {
-      type: mongoose.Schema.ObjectId,
-      ref: 'Product',
+      type: {
+        productId: mongoose.Schema.ObjectId,
+        name: String,
+        price: Number,
+        quantity: Number,
+      },
     },
   ],
 });

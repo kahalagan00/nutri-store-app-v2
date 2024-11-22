@@ -14,10 +14,14 @@ export const getProducts = async () => {
 };
 
 export const useGetProducts = () => {
-  const { data: products, error } = useQuery({
+  const {
+    isLoading,
+    data: products,
+    error,
+  } = useQuery({
     queryKey: ["products"],
     queryFn: getProducts,
   });
 
-  return { error, products };
+  return { isLoading, error, products };
 };

@@ -14,7 +14,7 @@ router.use(protect);
 
 router.post('/createCart', createCart);
 router.route('/:id').get(getCart);
-router.route('/:product').patch(updateCart);
+router.route('/updateCart').patch(updateCart);
 
 // Only admins can get information about the users' carts
 router.use(restrictTo('admin'));

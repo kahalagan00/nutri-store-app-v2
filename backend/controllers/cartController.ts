@@ -69,7 +69,7 @@ const createCart: RequestHandler = async (req, res, next) => {
     } else {
       console.log('No cart detected from this user. Creating one now...');
       doc = await Cart.create({
-        user: req.user.id,
+        userId: req.user.id,
         ...req.body,
       });
       statusCode = 201;
@@ -94,26 +94,11 @@ const createCart: RequestHandler = async (req, res, next) => {
 
 const updateCart: RequestHandler = async (req, res, next) => {
   try {
-    const product = await Product.findById(req.params.product);
-
-    if (!product) {
-      throw new Error('Product does not exist in the store');
-    }
-
-    if (!product.availability) {
-      throw new Error('Product is out of stock and is no longer available');
-    }
-
-    product.stockQuantity -= 1;
-    product.availability = product.stockQuantity > 0;
-    await product.save();
-
     const doc = await Cart.findOneAndUpdate(
-      { user: req.user.id },
+      { userId: req.user.id },
       {
-        ...req.body,
-        $inc: { totalPrice: product?.price },
-        $push: { products: req.params.product },
+        $inc: { totalPrice: req.body.price * req.body.quantity },
+        $push: { cartItems: req.body },
       },
       {
         new: true,
