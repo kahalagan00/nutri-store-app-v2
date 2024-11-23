@@ -59,7 +59,8 @@ const getCart: RequestHandler = async (req, res) => {
 const createCart: RequestHandler = async (req, res, next) => {
   try {
     // Check if there is a cart that already belongs to the current user
-    let doc: any = await Cart.find({ user: req.user.id });
+    console.log(req.user);
+    let doc: any = await Cart.find({ userId: req.user.id });
 
     let statusCode;
     console.log(doc.length);
@@ -94,21 +95,33 @@ const createCart: RequestHandler = async (req, res, next) => {
 
 const updateCart: RequestHandler = async (req, res, next) => {
   try {
-    const doc = await Cart.findOneAndUpdate(
-      { userId: req.user.id },
-      {
-        $inc: { totalPrice: req.body.price * req.body.quantity },
-        $push: { cartItems: req.body },
-      },
-      {
-        new: true,
-        runValidators: true,
-      }
-    );
+    const doc = await Cart.findOne({ userId: req.user.id });
 
     if (!doc) {
-      throw new Error('Current user does not have a cart');
+      throw new Error('Cart not found');
     }
+
+    // Modify the document
+    doc.totalPrice += req.body.price * req.body.quantity;
+
+    const isProductInCart = doc.cartItems.some(
+      (item) => item.productId.toString() === req.body.productId
+    );
+
+    // If the item is already in the cart then just increase the quantity
+    if (isProductInCart) {
+      doc.cartItems = doc.cartItems.map((item) =>
+        item.name === req.body.name
+          ? { ...item, quantity: item.quantity + req.body.quantity }
+          : item
+      );
+    } else {
+      console.log('It just pushes...');
+      doc.cartItems.push(req.body);
+    }
+
+    // Save the updated document
+    await doc.save();
 
     console.log('Yay (updateCart) we got Requested 🥳');
 

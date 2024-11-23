@@ -3,18 +3,18 @@ import { NavLink } from "react-router-dom";
 
 const CartMenu: React.FC = () => {
   return (
-    <div className="w-[180px] flex justify-evenly items-center">
-      <NavLink to="/cart">
+    <div className="flex w-[180px] items-center justify-evenly">
+      <NavLink to="/cart" className="rounded-full p-2 hover:bg-slate-300">
         <IoMdCart className="h-7 w-7" />
-        <div className="absolute h-5 w-5 text-xs font-bold rounded-full bg-rose-600 text-white flex items-center justify-center -translate-y-9 translate-x-5">
+        <div className="absolute flex h-5 w-5 -translate-y-9 translate-x-5 items-center justify-center rounded-full bg-rose-600 text-xs font-bold text-white">
           5
         </div>
       </NavLink>
       <div>
-        <p className="tracking-wide text-xs font-lato font-bold text-gray-600">
+        <p className="font-lato text-xs font-bold tracking-wide text-gray-600">
           My Cart
         </p>
-        <p className="tracking-wide text-xs font-lato text-blue-600">$225.00</p>
+        <p className="font-lato text-xs tracking-wide text-blue-600">$225.00</p>
       </div>
       <button>
         <IoMdArrowDropdown />

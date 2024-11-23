@@ -4,27 +4,24 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
-axios.defaults.withCredentials = true;
-
 type LoginVariables = {
   email: string;
   password: string;
 };
 
 type User = {
-  id: string;
+  _id: string;
   name: string;
   email: string;
+  dateOfBirth: Date;
+  passwordChangedAt: Date;
+  role: string;
+  slug: string;
+  symptoms: string[];
 };
 
 const loginUser = async (email: string, password: string): Promise<User> => {
   try {
-    // const res = await axios.post(
-    //   `${LOCAL_BACKEND_API}/users/login`,
-    //   { email, password },
-    //   { withCredentials: true },
-    // );
-
     const res = await fetch(`${LOCAL_BACKEND_API}/users/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -32,14 +29,11 @@ const loginUser = async (email: string, password: string): Promise<User> => {
       body: JSON.stringify({ email, password }),
     });
 
-    // console.log(res.headers);
-    // const user: User = res.data.data;
     const user = await res.json();
 
     console.log(user);
 
-    console.log(document.cookie);
-
+    // Create the cart
     if (user) {
       const res2 = await fetch(`${LOCAL_BACKEND_API}/carts/createCart`, {
         method: "POST",
@@ -52,9 +46,8 @@ const loginUser = async (email: string, password: string): Promise<User> => {
       console.log(cart);
     }
 
-    return user;
+    return user.data.user;
   } catch (err) {
-    console.log(err.response.data.message);
     throw new Error("Failed to log in or create cart.");
   }
 };
@@ -66,8 +59,8 @@ export const useLoginUser = () => {
   const { mutate: login, isLoading } = useMutation({
     mutationFn: ({ email, password }: LoginVariables) =>
       loginUser(email, password),
-    onSuccess: (user: any) => {
-      queryClient.setQueryData(["user"], user.user as User);
+    onSuccess: (user: User) => {
+      queryClient.setQueryData(["user"], user as User);
       navigate("/", { replace: true });
     },
     onError: (err: unknown) => {

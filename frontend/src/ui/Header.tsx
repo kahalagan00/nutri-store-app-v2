@@ -26,34 +26,34 @@ const Header: React.FC = () => {
   const handleClick = (route: string) => setActiveNavLink(route);
 
   return (
-    <header className="bg-white w-full pl-8 drop-shadow-md xl:drop-shadow-none">
-      <div className="grid grid-cols-[160px_200px_300px_180px_50px_100px_100px] overflow-hidden items-center h-24">
+    <header className="w-full bg-white pl-8 drop-shadow-md xl:drop-shadow-none">
+      <div className="grid h-24 grid-cols-[160px_200px_300px_180px_50px_100px_100px] items-center overflow-hidden">
         <Logo />
         <Delivery />
         <SearchBar />
         <CartMenu />
         <LikedMenu />
         <NavLink
-          className=" tracking-wide text-sm font-lato font-bold text-gray-600"
+          className="font-lato justify-self-center text-sm font-bold tracking-wide text-gray-600 hover:border-b-2"
           to="/login"
         >
           Login
         </NavLink>
         <NavLink
-          className=" tracking-wide text-sm font-lato font-bold text-gray-600"
+          className="font-lato text-sm font-bold tracking-wide text-gray-600 hover:bg-slate-400"
           to="/signup"
         >
           Sign Up
         </NavLink>
         {/* <div>PFP | User Name</div> */}
       </div>
-      <div className="flex justify-between w-2/4 pb-4 pt-6">
+      <div className="flex w-2/4 justify-between pb-4 pt-6">
         {bottomNavLinks.map((link) => (
           <NavLink
             onClick={() => handleClick(link.route)}
             to={link.route}
             key={link.route}
-            className={`border-b-4 font-lato font-bold text-sm tracking-wide ${
+            className={`font-lato border-b-4 text-sm font-bold tracking-wide ${
               activeNavLink === link.route ? "border-blue-400" : "border-white"
             }`}
           >

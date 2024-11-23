@@ -1,17 +1,19 @@
 import { LOCAL_BACKEND_API } from "../../utils/constants";
-import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 
 const getProducts = async () => {
-  axios.defaults.withCredentials = true;
   try {
-    const res = await axios.get(`${LOCAL_BACKEND_API}/products`);
-    const data: object[] = res.data.data;
+    const res = await fetch(`${LOCAL_BACKEND_API}/products`);
+    if (!res.ok) {
+      throw new Error(`HTTP error! status: ${res.status}`);
+    }
+    const { data } = await res.json();
+
     return data;
   } catch (err) {
     console.log(err);
   }
-  return;
+  return [];
 };
 
 export const useGetProducts = () => {

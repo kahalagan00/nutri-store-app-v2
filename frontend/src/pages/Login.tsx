@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useLoginUser } from "../features/users/useLoginUser";
 
@@ -9,7 +9,6 @@ type LoginVariables = {
 
 const Login: React.FC = () => {
   const formErrorStyle = "font-lato font-light text-red-500";
-
   const { login, isLoading } = useLoginUser();
 
   const {

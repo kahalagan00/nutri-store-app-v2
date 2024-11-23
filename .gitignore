@@ -13,6 +13,8 @@ node_modules
 # Prevent dangerous environment variable information from leaking
 *.env
 
+*.prettierrc
+
 # Build directories (frontend and backend)
 frontend/dist/
 frontend/build/   # Vite build output

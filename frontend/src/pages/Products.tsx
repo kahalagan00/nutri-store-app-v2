@@ -18,12 +18,13 @@ const Products: React.FC = () => {
   console.log(products);
 
   return (
-    <div className="p-8 bg-slate-200 xl:bg-white">
-      <h1 className="text-5xl pt-4 pb-8 font-neuton tracking-wide">Products</h1>
-      <div className="w-full grid gap-12 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 justify-items-center">
+    <div className="bg-slate-200 p-8 xl:bg-white">
+      <h1 className="font-neuton pb-8 pt-4 text-5xl tracking-wide">Products</h1>
+      <div className="grid w-full grid-cols-1 justify-items-center gap-12 sm:grid-cols-2 lg:grid-cols-3">
         {products?.map((product) => (
           <ProductCard
-            key={product.name}
+            key={product._id}
+            _id={product._id}
             name={product.name}
             image={product.image}
             price={product.price}

@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { IoMdAdd, IoMdCart, IoMdHeartEmpty, IoMdRemove } from "react-icons/io";
+import { useUpdateCart } from "../features/cart/useUpdateCart";
 
 interface ProductCard {
+  _id: string;
   name: string;
   image: string;
   price: number;
@@ -13,6 +15,7 @@ interface ProductCard {
 }
 
 const ProductCard: React.FC<ProductCard> = ({
+  _id,
   name,
   image,
   price,
@@ -35,26 +38,27 @@ const ProductCard: React.FC<ProductCard> = ({
   };
 
   const addToCart = () => {
-    console.log(`User wants to add ${bagAmount} of ${name} in the cart`);
+    const cart = useUpdateCart(_id, name, price, bagAmount);
+    console.log(cart);
   };
 
   return (
-    <div className="rounded-xl xl:border xl:border-gray-300 bg-white w-72 h-[25rem] flex flex-col justify-start overflow-hidden">
-      <div className="flex justify-between items-center pr-4 pt-4" id="pointer">
-        <div className="bg-rose-500 w-16 px-4 py-1 -skew-x-12 -translate-x-1 flex justify-center items-center">
-          <p className="text-white text-bold text-sm">-25%</p>
+    <div className="flex h-[25rem] w-72 flex-col justify-start overflow-hidden rounded-xl bg-white xl:border xl:border-gray-300">
+      <div className="flex items-center justify-between pr-4 pt-4" id="pointer">
+        <div className="flex w-16 -translate-x-1 -skew-x-12 items-center justify-center bg-rose-500 px-4 py-1">
+          <p className="text-bold text-sm text-white">-25%</p>
         </div>
         <IoMdHeartEmpty className="h-7 w-7 cursor-pointer" />
       </div>
-      <div className="h-3/5 overflow-hidden flex justify-center items-center">
+      <div className="flex h-3/5 items-center justify-center overflow-hidden">
         <img className="max-h-full" src={`./src/assets/${image}`} alt="" />
       </div>
       <div className="pl-4">
-        <p className="font-lato tracking-wide uppercase text-gray-400 text-xs font-semibold">
+        <p className="font-lato text-xs font-semibold uppercase tracking-wide text-gray-400">
           {purpose}
         </p>
-        <p className="text-2xl font-semibold font-neuton">{name}</p>
-        <p className="py-2 text-2xl text-blue-500 font-normal font-neuton">
+        <p className="font-neuton text-2xl font-semibold">{name}</p>
+        <p className="font-neuton py-2 text-2xl font-normal text-blue-500">
           ${price}
         </p>
       </div>
@@ -63,24 +67,28 @@ const ProductCard: React.FC<ProductCard> = ({
           Stock: {stockQuantity} Available: {`${availability ? "Yes" : "No"}`}
         </p>
       </div> */}
-      <div className="flex justify-between px-4 py-4 items-center">
-        <div className="grid grid-cols-3 gap-3 border-2 bord rounded-md w-32 h-8 px-2 place-items-center">
-          <button onClick={handleRemoveBagAmount}>
-            <IoMdRemove />
-          </button>
-          <p className="h-full text-xs w-10 bg-gray-200 flex items-center justify-center">
-            {bagAmount}
-          </p>
-          <button onClick={handleAddBagAmount}>
-            <IoMdAdd />
-          </button>
-        </div>
+      <div className="flex items-center justify-between px-4 py-4">
+        {stockQuantity !== 0 ? (
+          <div className="bord grid h-8 w-32 grid-cols-3 place-items-center gap-3 rounded-md border-2 px-2">
+            <button onClick={handleRemoveBagAmount}>
+              <IoMdRemove />
+            </button>
+            <p className="flex h-full w-10 items-center justify-center bg-gray-200 text-xs">
+              {bagAmount}
+            </p>
+            <button onClick={handleAddBagAmount}>
+              <IoMdAdd />
+            </button>
+          </div>
+        ) : (
+          <p className="font-bold text-red-500">No stock</p>
+        )}
         <button
           onClick={addToCart}
-          disabled={false}
-          className={`bg-blue-500 rounded-full flex justify-center items-center p-2.5 h-11`}
+          disabled={stockQuantity === 0}
+          className={`flex h-11 items-center justify-center rounded-full bg-blue-500 p-2.5 ${stockQuantity === 0 ? "opacity-50" : ""}`}
         >
-          <IoMdCart className="text-white h-full w-full" />
+          <IoMdCart className="h-full w-full text-white" />
         </button>
       </div>
     </div>

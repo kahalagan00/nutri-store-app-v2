@@ -20,7 +20,7 @@ const app = express();
 
 // <------------------------------------------------------------------------------------------>
 // Middlewares -->
-app.use(cors()); // JMARDEBUG: What does this do? : Makes the resources in the server accesible to other domains
+app.use(cors({ credentials: true, origin: 'http://localhost:5173' }));
 app.options('*', cors());
 
 // Development logging
@@ -46,6 +46,7 @@ app.use(
     limit: '10kb',
   })
 );
+
 app.use(cookieParser());
 
 // Data sanitization against NoSQL query injection
