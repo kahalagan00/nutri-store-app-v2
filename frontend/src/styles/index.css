@@ -2,6 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Main Colors for the Application */
+/* 
+  Tailwind Rose
+  Tailwind Red
+  Tailwind Blue
+  Tailwind Gray
+  Tailwind Slate
+  Tailwind Sky 
+*/
+
+/* Spinner Component Styles */
 .spinnerBase {
   width: 48px;
   height: 48px;

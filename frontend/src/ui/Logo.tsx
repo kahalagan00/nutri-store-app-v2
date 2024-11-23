@@ -5,7 +5,7 @@ function Logo() {
         <img
           className="max-w-16 max-h-16"
           src="./src/assets/company-logo-2.svg"
-          alt="Comapny logo"
+          alt="Company logo"
         />
       </div>
       <div className="pl-4">

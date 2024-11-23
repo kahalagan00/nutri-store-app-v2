@@ -45,9 +45,9 @@ const App: React.FC = () => {
             <Route path="contact" element={<Contact />} />
             <Route path="promotions" element={<Promotions />} />
             <Route path="reviews" element={<Reviews />} />
-            <Route path="login" element={<Login />} />
-            <Route path="signup" element={<SignUp />} />
           </Route>
+          <Route path="login" element={<Login />} />
+          <Route path="signup" element={<SignUp />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
@@ -67,8 +67,8 @@ const App: React.FC = () => {
             fontSize: "16px",
             maxWidth: "500px",
             padding: "16px 24px",
-            backgroundColor: "var(--color-grey-0)",
-            color: "var(--color-grey-700)",
+            backgroundColor: "white",
+            color: "black",
           },
         }}
       />

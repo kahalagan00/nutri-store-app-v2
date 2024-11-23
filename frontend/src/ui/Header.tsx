@@ -4,6 +4,7 @@ import Logo from "./Logo";
 import Delivery from "./Delivery";
 import SearchBar from "./SearchBar";
 import CartMenu from "./CartMenu";
+import LikedMenu from "./LikedMenu";
 
 const Header: React.FC = () => {
   const bottomNavLinks = [
@@ -25,12 +26,13 @@ const Header: React.FC = () => {
   const handleClick = (route: string) => setActiveNavLink(route);
 
   return (
-    <header className="bg-white w-full drop-shadow-lg pl-8">
-      <div className="grid grid-cols-[160px_200px_300px_180px_100px_100px] overflow-hidden items-center h-24">
+    <header className="bg-white w-full pl-8 drop-shadow-md xl:drop-shadow-none">
+      <div className="grid grid-cols-[160px_200px_300px_180px_50px_100px_100px] overflow-hidden items-center h-24">
         <Logo />
         <Delivery />
         <SearchBar />
         <CartMenu />
+        <LikedMenu />
         <NavLink
           className=" tracking-wide text-sm font-lato font-bold text-gray-600"
           to="/login"

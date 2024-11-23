@@ -39,7 +39,7 @@ const ProductCard: React.FC<ProductCard> = ({
   };
 
   return (
-    <div className="rounded-lg border border-gray-300 bg-white w-72 h-[25rem] flex flex-col justify-start overflow-hidden">
+    <div className="rounded-xl xl:border xl:border-gray-300 bg-white w-72 h-[25rem] flex flex-col justify-start overflow-hidden">
       <div className="flex justify-between items-center pr-4 pt-4" id="pointer">
         <div className="bg-rose-500 w-16 px-4 py-1 -skew-x-12 -translate-x-1 flex justify-center items-center">
           <p className="text-white text-bold text-sm">-25%</p>

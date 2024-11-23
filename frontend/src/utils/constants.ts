@@ -1,1 +1,1 @@
-export const LOCAL_BACKEND_API: string = "http://127.0.0.1:3000/api/v1";
+export const LOCAL_BACKEND_API: string = "http://localhost:3000/api/v1";

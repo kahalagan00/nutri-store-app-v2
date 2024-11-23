@@ -18,9 +18,9 @@ const Products: React.FC = () => {
   console.log(products);
 
   return (
-    <div className="p-8">
+    <div className="p-8 bg-slate-200 xl:bg-white">
       <h1 className="text-5xl pt-4 pb-8 font-neuton tracking-wide">Products</h1>
-      <div className="w-full grid gap-12 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
+      <div className="w-full grid gap-12 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 justify-items-center">
         {products?.map((product) => (
           <ProductCard
             key={product.name}
