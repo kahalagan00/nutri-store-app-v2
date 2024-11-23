@@ -1,20 +1,27 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useLoginUser } from "../features/users/useLoginUser";
+import {
+  FORM_BASE_INPUT_STYLE,
+  FORM_ERROR_STYLE,
+  LOG_IN_BOX_STYLE,
+  LOG_IN_SCREEN_BACKGROUND_STYLE,
+} from "../utils/constants";
 
 type LoginVariables = {
   email: string;
   password: string;
 };
 
-const Login: React.FC = () => {
-  const formErrorStyle = "font-lato font-light text-red-500";
-  const { login, isLoading } = useLoginUser();
-
+const Login = ({
+  setIsAuthenticated,
+}: {
+  setIsAuthenticated: (auth: boolean) => void;
+}) => {
+  const { login, isLoading: isLoggingIn } = useLoginUser();
   const {
     register,
     formState: { errors },
-    getValues,
     handleSubmit,
     reset,
   } = useForm<Inputs>();
@@ -25,13 +32,17 @@ const Login: React.FC = () => {
     }
 
     login(data, {
-      onSettled: () => reset(),
+      onSuccess: () => {
+        setIsAuthenticated(true);
+        reset();
+      },
+      onError: () => setIsAuthenticated(false),
     });
   };
 
   return (
-    <main className="flex h-screen w-screen items-center justify-center bg-slate-200">
-      <div className="flex h-[35rem] w-[30rem] flex-col justify-start rounded-xl bg-white px-12 py-10 drop-shadow-lg">
+    <main className={LOG_IN_SCREEN_BACKGROUND_STYLE}>
+      <div className={LOG_IN_BOX_STYLE}>
         <img
           className="max-h-16 max-w-16 self-center"
           src="./src/assets/company-logo-2.svg"
@@ -51,14 +62,14 @@ const Login: React.FC = () => {
           <p className="font-lato mb-1 mt-8">
             Email &nbsp;
             {errors.email && (
-              <span className={formErrorStyle}>{errors.email.message}</span>
+              <span className={FORM_ERROR_STYLE}>{errors.email.message}</span>
             )}
           </p>
           <input
-            disabled={isLoading}
-            className="font-lato h-12 w-full rounded-md border-2 border-slate-200 bg-white pl-4 text-sm tracking-wide drop-shadow-sm"
+            disabled={isLoggingIn}
+            className={FORM_BASE_INPUT_STYLE}
             type="email"
-            placeholder="Enter email..."
+            placeholder="Enter email"
             id="email"
             {...register("email", {
               required: "This field is required",
@@ -72,14 +83,16 @@ const Login: React.FC = () => {
           <p className="font-lato mb-1 mt-6">
             Password &nbsp;
             {errors.password && (
-              <span className={formErrorStyle}>{errors.password.message}</span>
+              <span className={FORM_ERROR_STYLE}>
+                {errors.password.message}
+              </span>
             )}
           </p>
           <input
-            disabled={isLoading}
-            className="font-lato h-12 w-full rounded-md border-2 border-slate-200 bg-white pl-4 text-sm tracking-wide drop-shadow-sm"
+            disabled={isLoggingIn}
+            className={FORM_BASE_INPUT_STYLE}
             type="password"
-            placeholder="Enter password..."
+            placeholder="Enter password"
             id="password"
             {...register("password", {
               required: "This field is required",

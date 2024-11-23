@@ -23,7 +23,7 @@ interface IUser extends mongoose.Document {
   };
   symptoms?: string[];
   paymentInfo?: string;
-  cart: typeof mongoose.Schema.ObjectId;
+  // cart: typeof mongoose.Schema.ObjectId;
   slug: string;
   checkPassword: (candidatePassword: string, userPassword: string) => boolean;
   createPasswordResetToken: () => string;
@@ -106,10 +106,10 @@ const userSchema = new mongoose.Schema<IUser>({
   paymentInfo: {
     type: String,
   },
-  cart: {
-    type: mongoose.Schema.ObjectId,
-    ref: 'Cart',
-  },
+  // cart: {
+  //   type: mongoose.Schema.ObjectId,
+  //   ref: 'Cart',
+  // },
   passwordChangedAt: Date,
   passwordResetToken: String,
   passwordResetExpires: Date,

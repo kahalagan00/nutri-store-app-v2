@@ -35,7 +35,7 @@ const getAllCarts: RequestHandler = async (req, res) => {
 
 const getCart: RequestHandler = async (req, res) => {
   try {
-    const doc = await Cart.findById(req.params.id);
+    const doc = await Cart.findOne({ userId: req.user.id });
 
     console.log('Yay (getCart) we got Requested 🥳');
 

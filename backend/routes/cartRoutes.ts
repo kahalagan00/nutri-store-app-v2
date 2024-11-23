@@ -13,7 +13,7 @@ const router = express.Router();
 router.use(protect);
 
 router.post('/createCart', createCart);
-router.route('/:id').get(getCart);
+router.route('/cart').get(getCart);
 router.route('/updateCart').patch(updateCart);
 
 // Only admins can get information about the users' carts

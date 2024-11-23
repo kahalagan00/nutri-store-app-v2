@@ -1,10 +1,19 @@
 import { Outlet } from "react-router-dom";
 import Header from "./Header";
 
-const AppLayout: React.FC = () => {
+const AppLayout = ({
+  isAuthenticated,
+  setIsAuthenticated,
+}: {
+  isAuthenticated: boolean | null;
+  setIsAuthenticated: (auth: boolean) => void;
+}) => {
   return (
-    <div className="max-w-screen-xl mx-auto">
-      <Header />
+    <div className="mx-auto max-w-screen-xl">
+      <Header
+        isAuthenticated={isAuthenticated}
+        setIsAuthenticated={setIsAuthenticated}
+      />
       <main className="h-screen">
         <Outlet />
       </main>

@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { IoMdAdd, IoMdCart, IoMdHeartEmpty, IoMdRemove } from "react-icons/io";
 import { useUpdateCart } from "../features/cart/useUpdateCart";
+import { ADD_TO_CART_DELAY } from "../utils/constants";
+import { useCart } from "../context/CartContext";
 
 interface ProductCard {
   _id: string;
@@ -26,6 +28,9 @@ const ProductCard: React.FC<ProductCard> = ({
   availability,
 }) => {
   const [bagAmount, setBagAmount] = useState(1);
+  const [isAddingToCart, setIsAddingToCart] = useState(false);
+  const { setCartNumber, setCartTotal } = useCart();
+  const { update, isLoading } = useUpdateCart();
 
   const handleAddBagAmount = () => {
     setBagAmount((bagAmount) => bagAmount + 1);
@@ -37,9 +42,24 @@ const ProductCard: React.FC<ProductCard> = ({
     setBagAmount((bagAmount) => bagAmount - 1);
   };
 
-  const addToCart = () => {
-    const cart = useUpdateCart(_id, name, price, bagAmount);
-    console.log(cart);
+  const handleAddToCart = () => {
+    setIsAddingToCart(true);
+
+    update(
+      { productId: _id, name, price, quantity: bagAmount },
+      {
+        onSuccess: (cart) => {
+          console.log(cart);
+          setCartNumber(cart.cartItems.length);
+          setCartTotal(cart.totalPrice);
+        },
+      },
+    );
+
+    // Disable cart functionality for current product for some time before enabling it again
+    setTimeout(() => {
+      setIsAddingToCart(false);
+    }, ADD_TO_CART_DELAY);
   };
 
   return (
@@ -84,9 +104,9 @@ const ProductCard: React.FC<ProductCard> = ({
           <p className="font-bold text-red-500">No stock</p>
         )}
         <button
-          onClick={addToCart}
-          disabled={stockQuantity === 0}
-          className={`flex h-11 items-center justify-center rounded-full bg-blue-500 p-2.5 ${stockQuantity === 0 ? "opacity-50" : ""}`}
+          onClick={handleAddToCart}
+          disabled={isAddingToCart || stockQuantity === 0}
+          className={`flex h-11 items-center justify-center rounded-full bg-blue-500 p-2.5 ${isAddingToCart || stockQuantity === 0 ? "opacity-50" : ""}`}
         >
           <IoMdCart className="h-full w-full text-white" />
         </button>

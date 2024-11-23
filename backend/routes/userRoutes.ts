@@ -25,8 +25,9 @@ router.use(protect);
 
 router.patch('/updateMyPassword', updateMyPassword);
 
+router.route('/user').get(getUser);
+
 router.use(restrictTo('admin'));
 router.route('/').get(getAllUsers);
-router.route('/:id').get(getUser);
 
 export default router;

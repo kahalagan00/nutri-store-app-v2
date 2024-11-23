@@ -34,7 +34,7 @@ const getAllUsers: RequestHandler = async (req, res) => {
 
 const getUser: RequestHandler = async (req, res) => {
   try {
-    const doc = await User.findById(req.params.id);
+    const doc = await User.findById(req.user.id);
 
     console.log('Yay (getUser) we got Requested 🥳');
 

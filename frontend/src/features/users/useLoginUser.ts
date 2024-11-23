@@ -1,8 +1,8 @@
 import { LOCAL_BACKEND_API } from "../../utils/constants";
-import axios from "axios";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { useCart } from "../../context/CartContext";
 
 type LoginVariables = {
   email: string;
@@ -20,7 +20,16 @@ type User = {
   symptoms: string[];
 };
 
-const loginUser = async (email: string, password: string): Promise<User> => {
+type LoginResponse = {
+  user: User;
+  cartNumber: number;
+  cartTotal: number;
+};
+
+const loginUser = async (
+  email: string,
+  password: string,
+): Promise<LoginResponse> => {
   try {
     const res = await fetch(`${LOCAL_BACKEND_API}/users/login`, {
       method: "POST",
@@ -29,9 +38,17 @@ const loginUser = async (email: string, password: string): Promise<User> => {
       body: JSON.stringify({ email, password }),
     });
 
-    const user = await res.json();
+    if (!res.ok) {
+      throw new Error("User no exist");
+    }
+
+    const {
+      data: { user },
+    } = await res.json();
 
     console.log(user);
+
+    let cartNumber, cartTotal;
 
     // Create the cart
     if (user) {
@@ -42,29 +59,52 @@ const loginUser = async (email: string, password: string): Promise<User> => {
         body: JSON.stringify({ totalPrice: 0, cartItems: [] }),
       });
 
-      const cart = await res2.json();
-      console.log(cart);
+      const { data } = await res2.json();
+      cartNumber = data[0].cartItems.length;
+      cartTotal = data[0].totalPrice;
     }
 
-    return user.data.user;
+    return {
+      user,
+      cartNumber,
+      cartTotal,
+    };
+
+    // return userData;
   } catch (err) {
-    throw new Error("Failed to log in or create cart.");
+    console.log(err);
   }
+
+  return {
+    user: {},
+    cartNumber: 0,
+    cartTotal: 0,
+  };
 };
 
 export const useLoginUser = () => {
+  const { setCartNumber, setCartTotal } = useCart();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
   const { mutate: login, isLoading } = useMutation({
     mutationFn: ({ email, password }: LoginVariables) =>
       loginUser(email, password),
-    onSuccess: (user: User) => {
+    onSuccess: ({
+      user,
+      cartNumber,
+      cartTotal,
+    }: {
+      user: User;
+      cartNumber: number;
+      cartTotal: number;
+    }) => {
       queryClient.setQueryData(["user"], user as User);
+      setCartNumber(cartNumber);
+      setCartTotal(cartTotal);
       navigate("/", { replace: true });
     },
     onError: (err: unknown) => {
-      console.log("ERROR 💩", err);
       toast.error("Provided email or password are incorrect");
     },
   });

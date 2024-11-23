@@ -9,6 +9,9 @@ import Email from '../utils/email';
 // ***NOTE
 // "return" statements are good practice for TypeScript
 
+const INCHES_IN_METER = 39.3701;
+const LBS_IN_KG = 2.2;
+
 const signToken = (id: string) => {
   return jwt.sign(
     {
@@ -58,12 +61,16 @@ const createSendToken = (
 const signup: RequestHandler = async (req, res, next) => {
   try {
     const newUser = await User.create({
-      name: req.body.name,
-      email: req.body.email,
-      password: req.body.password,
-      passwordConfirm: req.body.passwordConfirm,
-      // passwordChangedAt: req.body.passwordChangedAt,
-      role: req.body.role,
+      ...req.body,
+      height: {
+        heightMetric: req.body.height,
+        heightImperial: req.body.height * INCHES_IN_METER,
+      },
+      weight: {
+        weightMetric: req.body.weight,
+        weightImperial: req.body.weight * LBS_IN_KG,
+      },
+      symptoms: [req.body.symptoms],
     });
 
     createSendToken(newUser, 201, req, res);

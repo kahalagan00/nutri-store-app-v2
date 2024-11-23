@@ -1,12 +1,20 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import Logo from "./Logo";
 import Delivery from "./Delivery";
 import SearchBar from "./SearchBar";
 import CartMenu from "./CartMenu";
 import LikedMenu from "./LikedMenu";
+import { useLogoutUser } from "../features/users/useLogoutUser";
+import { useCart } from "../context/CartContext";
 
-const Header: React.FC = () => {
+const Header = ({
+  isAuthenticated,
+  setIsAuthenticated,
+}: {
+  isAuthenticated: boolean | null;
+  setIsAuthenticated: (auth: boolean) => void;
+}) => {
   const bottomNavLinks = [
     { route: "/home", label: "Home" },
     { route: "/products", label: "Products" },
@@ -15,15 +23,26 @@ const Header: React.FC = () => {
     { route: "/reviews", label: "Reviews" },
     { route: "/contact", label: "Contacts" },
   ];
-
   const location = useLocation();
   if (location.pathname === "/") {
     location.pathname = "/home";
   }
 
   const [activeNavLink, setActiveNavLink] = useState(location.pathname);
-
+  const { setCartNumber, setCartTotal } = useCart();
+  const { logout, isLoading: isLoggingOut } = useLogoutUser();
   const handleClick = (route: string) => setActiveNavLink(route);
+
+  const handleLogOut = () => {
+    logout(undefined, {
+      onSuccess: () => {
+        setIsAuthenticated(false);
+        setCartNumber(0);
+        setCartTotal(0);
+      },
+      onError: () => setIsAuthenticated(true),
+    });
+  };
 
   return (
     <header className="w-full bg-white pl-8 drop-shadow-md xl:drop-shadow-none">
@@ -33,19 +52,32 @@ const Header: React.FC = () => {
         <SearchBar />
         <CartMenu />
         <LikedMenu />
-        <NavLink
-          className="font-lato justify-self-center text-sm font-bold tracking-wide text-gray-600 hover:border-b-2"
-          to="/login"
-        >
-          Login
-        </NavLink>
-        <NavLink
-          className="font-lato text-sm font-bold tracking-wide text-gray-600 hover:bg-slate-400"
-          to="/signup"
-        >
-          Sign Up
-        </NavLink>
-        {/* <div>PFP | User Name</div> */}
+        {!isAuthenticated ? (
+          <NavLink
+            className="font-lato justify-self-center text-sm font-bold tracking-wide text-gray-600 hover:border-b-2 hover:border-slate-800"
+            to="/signup"
+          >
+            Sign Up
+          </NavLink>
+        ) : (
+          <div>PFP | User Name</div>
+        )}
+        {!isAuthenticated ? (
+          <NavLink
+            className="font-lato justify-self-center text-sm font-bold tracking-wide text-gray-600 hover:border-b-2 hover:border-slate-800"
+            to="/login"
+          >
+            Login
+          </NavLink>
+        ) : (
+          <button
+            disabled={isLoggingOut}
+            onClick={handleLogOut}
+            className="font-lato justify-self-center text-sm font-bold tracking-wide text-gray-600 hover:border-b-2 hover:border-slate-800"
+          >
+            {isLoggingOut ? "Logging out..." : "Logout"}
+          </button>
+        )}
       </div>
       <div className="flex w-2/4 justify-between pb-4 pt-6">
         {bottomNavLinks.map((link) => (

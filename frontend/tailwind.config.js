@@ -7,6 +7,9 @@ export default {
         neuton: ["Neuton", "serif"],
         lato: ["Lato", "sans-serif"],
       },
+      backgroundImage: {
+        "login-gradient": "linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%)",
+      },
     },
   },
   plugins: [],
