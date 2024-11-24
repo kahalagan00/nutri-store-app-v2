@@ -16,5 +16,4 @@ export const SIGN_UP_SCREEN_BACKGROUND_STYLE: string =
   "bg-login-gradient absolute inset-0 flex h-screen w-screen items-center justify-center";
 export const LOG_IN_SCREEN_BACKGROUND_STYLE: string =
   "bg-login-gradient absolute inset-0 flex h-screen w-screen items-center justify-center";
-export const PAGE_BASE_BACKGROUND_STYLE: string =
-  "h-full bg-slate-200 p-8 xl:bg-white";
+export const PAGE_BASE_BACKGROUND_STYLE: string = "h-full bg-slate-200 p-8";
