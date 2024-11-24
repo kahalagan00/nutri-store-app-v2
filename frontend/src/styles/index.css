@@ -12,6 +12,9 @@
   Tailwind Sky 
 */
 
+/* Color Coding to use in undraw.com */
+/* #3b82f6 */
+
 /* Hide scrollbar but keep scroll functionality */
 .scrollbar-hidden::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Edge */
