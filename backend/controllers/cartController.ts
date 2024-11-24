@@ -59,11 +59,12 @@ const getCart: RequestHandler = async (req, res) => {
 const createCart: RequestHandler = async (req, res, next) => {
   try {
     // Check if there is a cart that already belongs to the current user
-    console.log(req.user);
+    // console.log(req.user);
     let doc: any = await Cart.find({ userId: req.user.id });
 
-    let statusCode;
+    let statusCode = 200;
     console.log(doc.length);
+
     if (doc.length > 0) {
       console.log('This user already has a cart. No modification done');
       statusCode = 200;
@@ -81,6 +82,7 @@ const createCart: RequestHandler = async (req, res, next) => {
       data: doc,
     });
   } catch (err) {
+    console.error(err);
     res.status(400).json({
       status: 'error',
       message:

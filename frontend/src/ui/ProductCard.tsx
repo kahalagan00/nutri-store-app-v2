@@ -3,6 +3,7 @@ import { IoMdAdd, IoMdCart, IoMdHeartEmpty, IoMdRemove } from "react-icons/io";
 import { useUpdateCart } from "../features/cart/useUpdateCart";
 import { ADD_TO_CART_DELAY } from "../utils/constants";
 import { useCart } from "../context/CartContext";
+import QuantityModifier from "./QuantityModifier";
 
 interface ProductCard {
   _id: string;
@@ -46,7 +47,7 @@ const ProductCard: React.FC<ProductCard> = ({
     setIsAddingToCart(true);
 
     update(
-      { productId: _id, name, price, quantity: bagAmount },
+      { productId: _id, name, price, quantity: bagAmount, image, purpose },
       {
         onSuccess: (cart) => {
           console.log(cart);
@@ -82,31 +83,20 @@ const ProductCard: React.FC<ProductCard> = ({
           ${price}
         </p>
       </div>
-      {/* <div>
-        <p>
-          Stock: {stockQuantity} Available: {`${availability ? "Yes" : "No"}`}
-        </p>
-      </div> */}
       <div className="flex items-center justify-between px-4 py-4">
         {stockQuantity !== 0 ? (
-          <div className="bord grid h-8 w-32 grid-cols-3 place-items-center gap-3 rounded-md border-2 px-2">
-            <button onClick={handleRemoveBagAmount}>
-              <IoMdRemove />
-            </button>
-            <p className="flex h-full w-10 items-center justify-center bg-gray-200 text-xs">
-              {bagAmount}
-            </p>
-            <button onClick={handleAddBagAmount}>
-              <IoMdAdd />
-            </button>
-          </div>
+          <QuantityModifier
+            number={bagAmount}
+            onClickDecrement={handleRemoveBagAmount}
+            onClickIncrement={handleAddBagAmount}
+          />
         ) : (
           <p className="font-bold text-red-500">No stock</p>
         )}
         <button
           onClick={handleAddToCart}
           disabled={isAddingToCart || stockQuantity === 0}
-          className={`flex h-11 items-center justify-center rounded-full bg-blue-500 p-2.5 ${isAddingToCart || stockQuantity === 0 ? "opacity-50" : ""}`}
+          className={`flex h-11 items-center justify-center rounded-full bg-blue-600 p-2.5 hover:bg-blue-500 ${isAddingToCart || stockQuantity === 0 ? "opacity-50" : ""}`}
         >
           <IoMdCart className="h-full w-full text-white" />
         </button>

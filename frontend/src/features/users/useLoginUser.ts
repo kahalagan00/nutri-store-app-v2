@@ -48,7 +48,8 @@ const loginUser = async (
 
     console.log(user);
 
-    let cartNumber, cartTotal;
+    let cartNumber = 0;
+    let cartTotal = 0;
 
     // Create the cart
     if (user) {
@@ -60,8 +61,11 @@ const loginUser = async (
       });
 
       const { data } = await res2.json();
-      cartNumber = data[0].cartItems.length;
-      cartTotal = data[0].totalPrice;
+      console.log(data);
+      if (data) {
+        cartTotal = data[0].totalPrice;
+        cartNumber = data[0].cartItems?.length;
+      }
     }
 
     return {
@@ -73,13 +77,8 @@ const loginUser = async (
     // return userData;
   } catch (err) {
     console.log(err);
+    throw err;
   }
-
-  return {
-    user: {},
-    cartNumber: 0,
-    cartTotal: 0,
-  };
 };
 
 export const useLoginUser = () => {
@@ -100,9 +99,11 @@ export const useLoginUser = () => {
       cartTotal: number;
     }) => {
       queryClient.setQueryData(["user"], user as User);
+      console.log(cartNumber, cartTotal);
       setCartNumber(cartNumber);
       setCartTotal(cartTotal);
       navigate("/", { replace: true });
+      toast.success("Successfully logged in");
     },
     onError: (err: unknown) => {
       toast.error("Provided email or password are incorrect");

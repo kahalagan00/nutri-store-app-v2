@@ -3,20 +3,20 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import AppLayout from "./ui/AppLayout";
-import Home from "./pages/Home";
-import Products from "./pages/Products";
-import Cart from "./pages/Cart";
-import Contact from "./pages/Contact";
-import Promotions from "./pages/Promotions";
-import Reviews from "./pages/Reviews";
-import About from "./pages/About";
-import Login from "./pages/Login";
-import PageNotFound from "./pages/PageNotFound";
-import SignUp from "./pages/SignUp";
+import HomePage from "./pages/HomePage";
+import ContactPage from "./pages/ContactPage";
+import PromotionsPage from "./pages/PromotionsPage";
+import ReviewsPage from "./pages/ReviewsPage";
+import AboutPage from "./pages/AboutPage";
+import LoginPage from "./pages/LoginPage";
+import PageNotFoundPage from "./pages/PageNotFound";
+import SignUpPage from "./pages/SignUpPage";
+import ProductPage from "./pages/ProductPage";
+import CartPage from "./pages/CartPage";
 import { useEffect, useState } from "react";
 import { LOCAL_BACKEND_API } from "./utils/constants";
-import ProtectedRoute from "./ui/ProtectedRoute";
 import { CartProvider } from "./context/CartContext";
+import ProtectedRoute from "./ui/ProtectedRoute";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -73,13 +73,16 @@ const App: React.FC = () => {
               }
             >
               <Route index element={<Navigate replace to="home" />}></Route>
-              <Route path="home" element={<Home />} />
-              <Route path="products" element={<Products />} />
-              <Route path="cart" element={<Cart />} />
-              <Route path="about" element={<About />} />
-              <Route path="contact" element={<Contact />} />
-              <Route path="promotions" element={<Promotions />} />
-              <Route path="reviews" element={<Reviews />} />
+              <Route path="home" element={<HomePage />} />
+              <Route path="products" element={<ProductPage />} />
+              <Route
+                path="cart"
+                element={<CartPage isAuthenticated={isAuthenticated} />}
+              />
+              <Route path="about" element={<AboutPage />} />
+              <Route path="contact" element={<ContactPage />} />
+              <Route path="promotions" element={<PromotionsPage />} />
+              <Route path="reviews" element={<ReviewsPage />} />
             </Route>
             {/* Redirect authenticated users away from login and signup */}
             <Route
@@ -89,7 +92,7 @@ const App: React.FC = () => {
                   isAuthenticated={isAuthenticated}
                   redirectPath="/"
                 >
-                  <Login setIsAuthenticated={setIsAuthenticated} />
+                  <LoginPage setIsAuthenticated={setIsAuthenticated} />
                 </ProtectedRoute>
               }
             />
@@ -100,11 +103,11 @@ const App: React.FC = () => {
                   isAuthenticated={isAuthenticated}
                   redirectPath="/"
                 >
-                  <SignUp setIsAuthenticated={setIsAuthenticated} />
+                  <SignUpPage setIsAuthenticated={setIsAuthenticated} />
                 </ProtectedRoute>
               }
             />
-            <Route path="*" element={<PageNotFound />} />
+            <Route path="*" element={<PageNotFoundPage />} />
           </Routes>
         </BrowserRouter>
 

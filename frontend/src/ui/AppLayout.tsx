@@ -14,7 +14,7 @@ const AppLayout = ({
         isAuthenticated={isAuthenticated}
         setIsAuthenticated={setIsAuthenticated}
       />
-      <main className="h-screen">
+      <main>
         <Outlet />
       </main>
     </div>

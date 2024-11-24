@@ -11,6 +11,8 @@ interface ICart extends mongoose.Document {
     name: String;
     price: number;
     quantity: Number;
+    image: string;
+    purpose: string;
   };
 }
 
@@ -37,6 +39,8 @@ const cartSchema = new mongoose.Schema<ICart>({
         name: String,
         price: Number,
         quantity: Number,
+        image: String,
+        purpose: String,
       },
     },
   ],

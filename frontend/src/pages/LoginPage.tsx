@@ -13,7 +13,7 @@ type LoginVariables = {
   password: string;
 };
 
-const Login = ({
+const LoginPage = ({
   setIsAuthenticated,
 }: {
   setIsAuthenticated: (auth: boolean) => void;
@@ -126,4 +126,4 @@ const Login = ({
   );
 };
 
-export default Login;
+export default LoginPage;

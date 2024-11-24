@@ -21,7 +21,7 @@ type SignUpVariables = {
   passwordConfirm: string;
 };
 
-const SignUp = ({
+const SignUpPage = ({
   setIsAuthenticated,
 }: {
   setIsAuthenticated: (auth: boolean) => void;
@@ -294,4 +294,4 @@ const SignUp = ({
   );
 };
 
-export default SignUp;
+export default SignUpPage;

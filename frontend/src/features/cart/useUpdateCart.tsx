@@ -7,20 +7,25 @@ type UpdateVariables = {
   name: string;
   price: number;
   quantity: number;
+  purpose: string;
+  image: string;
 };
 
-export const updateCart = async (
-  productId: string,
-  name: string,
-  price: number,
-  quantity: number,
-) => {
+export const updateCart = async (updateData: UpdateVariables) => {
   try {
+    const { productId, name, price, quantity, purpose, image } = updateData;
     const res = await fetch(`${LOCAL_BACKEND_API}/carts/updateCart`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
-      body: JSON.stringify({ productId, name, price, quantity }),
+      body: JSON.stringify({
+        productId,
+        name,
+        price,
+        quantity,
+        purpose,
+        image,
+      }),
     });
 
     if (!res.ok) {
@@ -40,8 +45,15 @@ export const useUpdateCart = () => {
   const queryClient = useQueryClient();
 
   const { mutate: update, isLoading } = useMutation({
-    mutationFn: ({ productId, name, price, quantity }: UpdateVariables) =>
-      updateCart(productId, name, price, quantity),
+    mutationFn: ({
+      productId,
+      name,
+      price,
+      quantity,
+      purpose,
+      image,
+    }: UpdateVariables) =>
+      updateCart({ productId, name, price, quantity, purpose, image }),
     onSuccess: (cart) => {
       queryClient.setQueryData(["cart"], cart);
       toast.success("Successfully updated user cart");

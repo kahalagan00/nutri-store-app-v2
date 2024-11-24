@@ -45,7 +45,7 @@ const Header = ({
   };
 
   return (
-    <header className="w-full bg-white pl-8 drop-shadow-md xl:drop-shadow-none">
+    <header className="w-full bg-white pl-16 drop-shadow-md xl:drop-shadow-none">
       <div className="grid h-24 grid-cols-[160px_200px_300px_180px_50px_100px_100px] items-center overflow-hidden">
         <Logo />
         <Delivery />

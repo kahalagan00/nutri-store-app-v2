@@ -12,6 +12,15 @@
   Tailwind Sky 
 */
 
+/* Hide scrollbar but keep scroll functionality */
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}
+.scrollbar-hidden {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
 /* Spinner Component Styles */
 .spinnerBase {
   width: 48px;
