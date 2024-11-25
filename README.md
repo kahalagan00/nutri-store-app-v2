@@ -130,6 +130,7 @@ src/
 ## Resources
 
 - Undraw
+- SVG Repo
 - Unsplash
 - Pixabay
 - Pexels

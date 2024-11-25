@@ -1,10 +1,13 @@
-import CarouselHome from "../ui/CarouselHome";
-import { PAGE_BASE_BACKGROUND_STYLE } from "../utils/constants";
+import HomeCarousel from "../ui/HomeCarousel";
+import HomeCompanyFeatures from "../ui/HomeCompanyFeatures";
+import HomeHotCategories from "../ui/HomeHotCategories";
 
 function HomePage() {
   return (
     <div className={`h-full bg-slate-200`}>
-      <CarouselHome />
+      <HomeCarousel />
+      <HomeCompanyFeatures />
+      <HomeHotCategories />
     </div>
   );
 }

@@ -9,7 +9,7 @@ export const ArrowButton = ({
 }) => {
   return (
     <button
-      className={`flex items-center justify-center rounded-full bg-${color}-500/50 h-[25px] w-[25px] md:h-[35px] md:w-[35px]`}
+      className={`flex items-center justify-center rounded-full ${color} h-[25px] w-[25px] md:h-[35px] md:w-[35px]`}
     >
       {direction === "back" ? <IoMdArrowBack /> : <IoMdArrowForward />}
     </button>
