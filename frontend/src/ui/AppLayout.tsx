@@ -22,7 +22,7 @@ const AppLayout = ({
           <Outlet />
         </main>
       </div>
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 };

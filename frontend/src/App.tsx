@@ -17,6 +17,7 @@ import { useEffect, useState } from "react";
 import { LOCAL_BACKEND_API } from "./utils/constants";
 import { CartProvider } from "./context/CartContext";
 import ProtectedRoute from "./ui/ProtectedRoute";
+import BlogsPage from "./pages/BlogsPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -80,9 +81,11 @@ const App: React.FC = () => {
                 element={<CartPage isAuthenticated={isAuthenticated} />}
               />
               <Route path="about" element={<AboutPage />} />
-              <Route path="contact" element={<ContactPage />} />
               <Route path="promotions" element={<PromotionsPage />} />
               <Route path="reviews" element={<ReviewsPage />} />
+              <Route path="blogs" element={<BlogsPage />} />
+
+              <Route path="contact" element={<ContactPage />} />
             </Route>
             {/* Redirect authenticated users away from login and signup */}
             <Route

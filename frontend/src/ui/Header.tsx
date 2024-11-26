@@ -21,6 +21,7 @@ const Header = ({
     { route: "/about", label: "About" },
     { route: "/promotions", label: "Promotions" },
     { route: "/reviews", label: "Reviews" },
+    { route: "/blogs", label: "Blogs" },
     { route: "/contact", label: "Contacts" },
   ];
   const location = useLocation();

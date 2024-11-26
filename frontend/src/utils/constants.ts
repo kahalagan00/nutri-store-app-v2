@@ -3,6 +3,8 @@ export const ADD_TO_CART_DELAY: number = 3000;
 
 // URLs
 export const LOCAL_BACKEND_API: string = "http://localhost:3000/api/v1";
+export const PAYMENT_METHODS_SRC: string =
+  "./src/assets/footer/payment_methods";
 
 // Styles
 export const FORM_ERROR_STYLE: string = "font-lato font-light text-red-500";
