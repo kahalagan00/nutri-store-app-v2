@@ -7,7 +7,10 @@ const CartMenu: React.FC = () => {
 
   return (
     <div className="flex w-[180px] items-center justify-evenly">
-      <NavLink to="/cart" className="rounded-full p-2 hover:bg-slate-300">
+      <NavLink
+        to="/cart"
+        className="relative rounded-full p-2 hover:bg-slate-300"
+      >
         <IoMdCart className="h-7 w-7" />
         <div className="absolute flex h-5 w-5 -translate-y-9 translate-x-5 items-center justify-center rounded-full bg-rose-600 text-xs font-bold text-white">
           {cartNumber}

@@ -1,4 +1,4 @@
-import { CapsuleForward } from "./CapsuleForward";
+import { CapsuleButtonForward } from "./CapsuleButtonForward";
 import { ArrowButton } from "./ArrowButton";
 
 const carouselData = [
@@ -34,7 +34,7 @@ const HomeCarousel: React.FC = () => {
       </div>
 
       <div className="z-2 absolute left-1/2 top-[90%] -translate-x-1/2 -translate-y-[90%] transform">
-        <CapsuleForward message="Shop now" />
+        <CapsuleButtonForward message="Shop now" />
       </div>
 
       <div className="-z-2 absolute left-8 top-1/2 -translate-y-1/2">

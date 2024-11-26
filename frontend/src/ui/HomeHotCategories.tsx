@@ -1,4 +1,4 @@
-import { CapsuleForward } from "./CapsuleForward";
+import { CapsuleButtonForward } from "./CapsuleButtonForward";
 
 const hotCategoriesData = [
   {
@@ -34,16 +34,16 @@ const HomeHotCategories: React.FC = () => {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="font-neuton text-[30px] font-bold lg:text-[40px]">
-            Browse our Popular
+            Browse our Hottest
           </h1>
           <h1 className="font-neuton text-[30px] font-bold text-blue-600 lg:text-[40px]">
             Categories
           </h1>
         </div>
-        <CapsuleForward message="See All" />
+        <CapsuleButtonForward message="See All" />
       </div>
 
-      <div className="grid grid-cols-[repeat(auto-fit,200px)] justify-center gap-6">
+      <div className="grid grid-cols-[repeat(auto-fit,200px)] justify-center gap-6 md:justify-normal">
         {hotCategoriesData.map((category) => (
           <HotCategoryCard
             key={category.title}
@@ -53,15 +53,6 @@ const HomeHotCategories: React.FC = () => {
             color="bg-gray-300"
           />
         ))}
-        {/* <div className="flex w-full flex-col items-center justify-evenly rounded-xl bg-gray-200 p-4">
-          <img
-            className="w-3/4"
-            src="./src/assets/popular_categories/0.svg"
-            alt=""
-          />
-          <h2 className="font-neuton text-3xl font-bold">Muscle</h2>
-          <p className="font-lato font-bold text-gray-500">(22 Items)</p>
-        </div> */}
       </div>
     </div>
   );
@@ -82,7 +73,7 @@ const HotCategoryCard = ({
 }) => {
   return (
     <div
-      className={`flex w-[200px] flex-col items-center justify-evenly rounded-xl ${color} p-4`}
+      className={`flex w-[200px] flex-col items-center justify-evenly rounded-xl ${color} p-4 transition-all hover:scale-110`}
     >
       <img
         className="w-3/4"

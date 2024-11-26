@@ -1,5 +1,6 @@
 import { Outlet } from "react-router-dom";
 import Header from "./Header";
+import Footer from "./Footer";
 
 const AppLayout = ({
   isAuthenticated,
@@ -16,11 +17,12 @@ const AppLayout = ({
           setIsAuthenticated={setIsAuthenticated}
         />
       </div>
-      <div className="w-screen bg-slate-200">
+      <div className="w-screen">
         <main className="mx-auto max-w-screen-xl">
           <Outlet />
         </main>
       </div>
+      {/* <Footer /> */}
     </div>
   );
 };

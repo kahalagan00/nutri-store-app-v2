@@ -1,6 +1,6 @@
 import { IoMdArrowForward } from "react-icons/io";
 
-export const CapsuleForward = ({ message }: { message: string }) => {
+export const CapsuleButtonForward = ({ message }: { message: string }) => {
   return (
     <div className="grid h-[30px] w-[100px] grid-cols-[1fr_20px] items-center rounded-full bg-blue-600 px-1 md:h-[45px] md:w-[150px] md:px-4">
       <p className="font-lato justify-self-center text-[10px] font-bold text-white md:text-sm">

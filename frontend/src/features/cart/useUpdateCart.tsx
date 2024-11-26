@@ -36,8 +36,8 @@ export const updateCart = async (updateData: UpdateVariables) => {
 
     return data;
   } catch (err: any) {
-    toast.error(err.message);
     console.error(err);
+    throw err;
   }
 };
 
@@ -56,7 +56,7 @@ export const useUpdateCart = () => {
       updateCart({ productId, name, price, quantity, purpose, image }),
     onSuccess: (cart) => {
       queryClient.setQueryData(["cart"], cart);
-      toast.success("Successfully updated user cart");
+      toast.success("Successfully updated user cart DD");
     },
     onError: () => {
       toast.error("Error when updating user cart");

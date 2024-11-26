@@ -12,8 +12,17 @@
   Tailwind Sky 
 */
 
+/* Check for overflows in the entire application */
+/* * { */
+/* outline: 1px solid red; Adds a red outline to all elements */
+/* } */
+
 /* Color Coding to use in undraw.com */
 /* #3b82f6 */
+
+/* Center absolute element to its relative parent */
+/* "absolute inset-0 m-auto" */
+/* absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 */
 
 /* Hide scrollbar but keep scroll functionality */
 .scrollbar-hidden::-webkit-scrollbar {

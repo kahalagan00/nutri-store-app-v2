@@ -13,7 +13,7 @@ const companyFeaturesData = [
   },
   {
     image: "3.svg",
-    message: "-25% discount on all vegetables",
+    message: "-25% discount on all fruits",
   },
 ];
 
@@ -44,7 +44,7 @@ const FeatureBlock = ({
   message: string;
 }) => {
   return (
-    <div className="grid h-full grid-cols-[50px_150px] items-center">
+    <div className="grid h-full grid-cols-[50px_120px] items-center">
       <img className="w-full" src={imageUrl} alt="" />
       <p className="font-neuton ml-6 text-wrap text-sm font-bold leading-6 text-gray-600">
         {message}
