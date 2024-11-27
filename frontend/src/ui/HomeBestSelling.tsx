@@ -114,7 +114,7 @@ const HomeBestSelling: React.FC = () => {
           Best Selling Products
         </h1>
         <div className="flex gap-2">
-          <ArrowButton direction="back" color="bg-white" />
+          <ArrowButton direction="back" color="bg-slate-200" />
           <ArrowButton direction="forward" color="bg-slate-400" />
         </div>
       </div>

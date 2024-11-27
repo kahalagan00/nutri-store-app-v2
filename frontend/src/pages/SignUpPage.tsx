@@ -1,5 +1,5 @@
-import { NavLink, useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import { NavLink } from "react-router-dom";
+import { useForm, SubmitHandler } from "react-hook-form";
 import {
   FORM_BASE_INPUT_STYLE,
   FORM_ERROR_STYLE,
@@ -10,7 +10,7 @@ import { useSignUpUser } from "../features/users/useSignUpUser";
 import { useValidateBirthday } from "../utils/useValidateBirthday";
 import { useState } from "react";
 
-type SignUpVariables = {
+interface SignUpVariables {
   name: string;
   email: string;
   height: number;
@@ -19,26 +19,25 @@ type SignUpVariables = {
   symptoms: string;
   password: string;
   passwordConfirm: string;
-};
+}
 
 const SignUpPage = ({
   setIsAuthenticated,
 }: {
   setIsAuthenticated: (auth: boolean) => void;
 }) => {
-  const { signup, isLoading } = useSignUpUser();
+  const { signup, isPending: isSigningUp } = useSignUpUser();
   const [showPassword, setShowPassword] = useState(false);
 
   const {
     register,
     formState: { errors },
-    getValues,
     handleSubmit,
     watch,
     reset,
-  } = useForm<Inputs>();
+  } = useForm<SignUpVariables>();
 
-  const onSubmit: SubmitHandler<Inputs> = (data: SignUpVariables) => {
+  const onSubmit: SubmitHandler<SignUpVariables> = (data) => {
     if (
       !data.name ||
       !data.email ||
@@ -85,7 +84,7 @@ const SignUpPage = ({
               )}
             </p>
             <input
-              disabled={isLoading}
+              disabled={isSigningUp}
               className={FORM_BASE_INPUT_STYLE}
               type="name"
               placeholder="Enter name"
@@ -104,7 +103,7 @@ const SignUpPage = ({
               )}
             </p>
             <input
-              disabled={isLoading}
+              disabled={isSigningUp}
               className={FORM_BASE_INPUT_STYLE}
               type="email"
               placeholder="Enter email"
@@ -129,7 +128,7 @@ const SignUpPage = ({
               )}
             </p>
             <input
-              disabled={isLoading}
+              disabled={isSigningUp}
               className={`${FORM_BASE_INPUT_STYLE} text-gray-400 hover:text-black focus:text-black`}
               type="date"
               placeholder="MM/DD/YYYY"
@@ -151,7 +150,7 @@ const SignUpPage = ({
               )}
             </p>
             <input
-              disabled={isLoading}
+              disabled={isSigningUp}
               className={FORM_BASE_INPUT_STYLE}
               type="text"
               placeholder="Optional"
@@ -170,7 +169,7 @@ const SignUpPage = ({
               )}
             </p>
             <input
-              disabled={isLoading}
+              disabled={isSigningUp}
               className={FORM_BASE_INPUT_STYLE}
               type="number"
               min="0"
@@ -192,7 +191,7 @@ const SignUpPage = ({
               )}
             </p>
             <input
-              disabled={isLoading}
+              disabled={isSigningUp}
               className={FORM_BASE_INPUT_STYLE}
               type="number"
               min="0"
@@ -214,7 +213,7 @@ const SignUpPage = ({
               )}
             </p>
             <input
-              disabled={isLoading}
+              disabled={isSigningUp}
               className={FORM_BASE_INPUT_STYLE}
               type={showPassword ? "text" : "password"}
               placeholder="Enter password"
@@ -248,7 +247,7 @@ const SignUpPage = ({
               )}
             </p>
             <input
-              disabled={isLoading}
+              disabled={isSigningUp}
               className={FORM_BASE_INPUT_STYLE}
               type="password"
               placeholder="Enter password"
@@ -262,7 +261,7 @@ const SignUpPage = ({
           </div>
 
           <button
-            disabled={isLoading}
+            disabled={isSigningUp}
             type="submit"
             className="mt-6 h-12 w-full rounded-lg border-2 border-slate-200 bg-white"
           >
@@ -270,7 +269,7 @@ const SignUpPage = ({
           </button>
 
           <button
-            disabled={isLoading}
+            disabled={isSigningUp}
             type="submit"
             className="mt-6 h-12 w-full rounded-lg bg-blue-800 text-white hover:bg-blue-700"
           >

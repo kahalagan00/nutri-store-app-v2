@@ -24,7 +24,7 @@ const CartMenu: React.FC = () => {
           ${cartTotal.toFixed(2)}
         </p>
       </div>
-      <button>
+      <button disabled={true}>
         <IoMdArrowDropdown />
       </button>
     </div>

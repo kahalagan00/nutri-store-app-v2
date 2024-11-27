@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useGetCart } from "../features/cart/useGetCart";
-import QuantityModifier from "../ui/QuantityModifier";
 import { useCart } from "../context/CartContext";
 import { PAGE_BASE_BACKGROUND_STYLE } from "../utils/constants";
 import CartProductCard from "../ui/CartProductCard";
@@ -85,8 +84,6 @@ const CartPage = ({ isAuthenticated }: { isAuthenticated: boolean | null }) => {
   const savedCartItems = localStorage.getItem("cartItems");
   const parsedCartItems = savedCartItems ? JSON.parse(savedCartItems) : null;
 
-  console.log(isLoadingCart);
-
   return (
     <div className={`${PAGE_BASE_BACKGROUND_STYLE} mb-12`}>
       <h1 className="font-neuton pb-2 pt-4 text-5xl tracking-wide">Cart</h1>
@@ -118,11 +115,9 @@ const CartPage = ({ isAuthenticated }: { isAuthenticated: boolean | null }) => {
                   <p className="text-md justify-self-center font-bold">
                     {item.price}
                   </p>
-                  <QuantityModifier
-                    number={orderQuantity}
-                    onClickDecrement={handleRemoveOrderQuantity}
-                    onClickIncrement={handleAddOrderQuantity}
-                  />
+                  <p className="text-md justify-self-center font-bold">
+                    {item.quantity}
+                  </p>
                   <p className="justify-self-center text-lg font-light text-blue-600">
                     {(item.price * item.quantity).toFixed(2)}
                   </p>
@@ -138,11 +133,9 @@ const CartPage = ({ isAuthenticated }: { isAuthenticated: boolean | null }) => {
                   <p className="text-md justify-self-center font-bold">
                     {item.price}
                   </p>
-                  <QuantityModifier
-                    number={orderQuantity}
-                    onClickDecrement={handleRemoveOrderQuantity}
-                    onClickIncrement={handleAddOrderQuantity}
-                  />
+                  <p className="text-md justify-self-center font-bold">
+                    {item.quantity}
+                  </p>
                   <p className="justify-self-center text-lg font-light text-blue-600">
                     {(item.price * item.quantity).toFixed(2)}
                   </p>
@@ -157,7 +150,7 @@ const CartPage = ({ isAuthenticated }: { isAuthenticated: boolean | null }) => {
             onCheckout={handleCheckout}
             shippingFee={shippingFee}
             couponDiscount={couponDiscount}
-            cartSubTotal={cartTotal}
+            cartSubTotal={parseFloat(cartTotal.toFixed(2))}
           />
         </div>
       </div>

@@ -1,94 +1,12 @@
-import { LOCAL_BACKEND_API } from "../../utils/constants";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useCart } from "../../context/CartContext";
+import { loginUserApi } from "../../services/apiUsers";
 
 type LoginVariables = {
   email: string;
   password: string;
-};
-
-type User = {
-  _id: string;
-  name: string;
-  email: string;
-  dateOfBirth: Date;
-  passwordChangedAt: Date;
-  role: string;
-  slug: string;
-  symptoms: string[];
-};
-
-type LoginResponse = {
-  user: User;
-  cartNumber: number;
-  cartTotal: number;
-};
-
-const loginUser = async (
-  email: string,
-  password: string,
-): Promise<LoginResponse> => {
-  try {
-    const res = await fetch(`${LOCAL_BACKEND_API}/users/login`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
-      body: JSON.stringify({ email, password }),
-    });
-
-    if (!res.ok) {
-      const errorData = await res.json();
-      throw new Error(
-        errorData.message || "Something went wrong when trying to log in",
-      );
-    }
-
-    const {
-      data: { user },
-    } = await res.json();
-
-    console.log(user);
-
-    let cartNumber = 0;
-    let cartTotal = 0;
-
-    // Create the cart
-    if (user) {
-      const res2 = await fetch(`${LOCAL_BACKEND_API}/carts/createCart`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({ totalPrice: 0, cartItems: [] }),
-      });
-
-      if (!res2.ok) {
-        const errorData = await res.json();
-        throw new Error(
-          errorData.message ||
-            "Something went wrong when trying to create or load user cart",
-        );
-      }
-
-      const { data } = await res2.json();
-      // console.log(data);
-
-      if (data) {
-        cartTotal = data[0].totalPrice;
-        cartNumber = data[0].cartItems?.length;
-      }
-    }
-
-    return {
-      user,
-      cartNumber,
-      cartTotal,
-    };
-  } catch (err) {
-    console.log(err);
-    throw err;
-  }
 };
 
 export const useLoginUser = () => {
@@ -98,18 +16,9 @@ export const useLoginUser = () => {
 
   const { mutate: login, isPending } = useMutation({
     mutationFn: ({ email, password }: LoginVariables) =>
-      loginUser(email, password),
-    onSuccess: ({
-      user,
-      cartNumber,
-      cartTotal,
-    }: {
-      user: User;
-      cartNumber: number;
-      cartTotal: number;
-    }) => {
-      queryClient.setQueryData(["user"], user as User);
-      // console.log(cartNumber, cartTotal);
+      loginUserApi(email, password),
+    onSuccess: ({ user, cartNumber, cartTotal }) => {
+      queryClient.setQueryData(["user"], user);
       setCartNumber(cartNumber);
       setCartTotal(cartTotal);
       navigate("/", { replace: true });
@@ -117,7 +26,6 @@ export const useLoginUser = () => {
     },
     onError: (err: Error) => {
       toast.error(err.message);
-      // toast.error("Provided email or password are incorrect");
     },
   });
 

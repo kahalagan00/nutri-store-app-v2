@@ -6,7 +6,7 @@ const Delivery: React.FC = () => {
       <p className="font-lato text-xs font-bold tracking-wide text-gray-600">
         Delivery to
       </p>
-      <button>
+      <button disabled={true}>
         <RiMapPinLine className="h-5 w-5" />
       </button>
       <p className="font-lato text-xs font-bold tracking-wide text-gray-600">

@@ -11,13 +11,15 @@ const SearchBar: React.FC = () => {
   return (
     <div className="flex items-center">
       <input
-        className="font-lato tracking-wide outline-none w-72 pl-4 bg-slate-100 rounded-md text-xs h-10"
+        disabled={true}
+        className="font-lato h-10 w-72 rounded-md bg-slate-100 pl-4 text-xs tracking-wide outline-none"
         type="text"
         placeholder="What are you looking for"
         value={searchValue}
         onChange={(e) => setSearchValue(e.target.value)}
       />
       <button
+        disabled={true}
         type="submit"
         className="-translate-x-8"
         onClick={handleSearchClick}

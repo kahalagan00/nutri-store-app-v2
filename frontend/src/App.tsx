@@ -19,6 +19,7 @@ import { CartProvider } from "./context/CartContext";
 import ProtectedRoute from "./ui/ProtectedRoute";
 import BlogsPage from "./pages/BlogsPage";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
+import AccountPage from "./pages/AccountPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -48,6 +49,7 @@ const App: React.FC = () => {
         setIsAuthenticated(true);
       } catch {
         setIsAuthenticated(false);
+        console.error("Log in needed");
       }
     };
 
@@ -75,6 +77,17 @@ const App: React.FC = () => {
               }
             >
               <Route index element={<Navigate replace to="home" />}></Route>
+              <Route
+                path="account"
+                element={
+                  <ProtectedRoute
+                    isAuthenticated={!isAuthenticated}
+                    redirectPath="/"
+                  >
+                    <AccountPage />
+                  </ProtectedRoute>
+                }
+              />
               <Route path="home" element={<HomePage />} />
               <Route path="products" element={<ProductPage />} />
               <Route
@@ -85,7 +98,6 @@ const App: React.FC = () => {
               <Route path="promotions" element={<PromotionsPage />} />
               <Route path="reviews" element={<ReviewsPage />} />
               <Route path="blogs" element={<BlogsPage />} />
-
               <Route path="contact" element={<ContactPage />} />
             </Route>
             {/* Redirect authenticated users away from login and signup */}

@@ -3,14 +3,16 @@
   "version": "1.0.0",
   "description": "Packages for the Back-End portion of Jhuv Nutri Store V2",
   "main": "app.js",
+  "type": "module",
   "scripts": {
-    "start": "node dist/server.js",
+    "start": "node ./server.ts",
     "build": "tsc && parcel build ./src/public/js/index.ts --out-dir ./dist/public/js --out-file bundle.js",
     "start:dev": "ts-node-dev --respawn --transpile-only ./server.ts",
-    "start:prod": "NODE_ENV=production node dist/server.js",
+    "start:prod": "cross-env NODE_ENV=production node dist/server.js",
     "debug": "node --inspect dist/server.js",
     "watch:js": "parcel watch ./src/public/js/index.ts --out-dir ./dist/public/js --out-file bundle.js",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "build:server": "tsc"
   },
   "author": "Joshmar Morales",
   "license": "ISC",

@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import Logo from "./Logo";
 import Delivery from "./Delivery";
@@ -22,17 +21,15 @@ const Header = ({
     { route: "/promotions", label: "Promotions" },
     { route: "/reviews", label: "Reviews" },
     { route: "/blogs", label: "Blogs" },
-    { route: "/contact", label: "Contacts" },
+    { route: "/contact", label: "Contact" },
   ];
   const location = useLocation();
   if (location.pathname === "/") {
     location.pathname = "/home";
   }
 
-  const [activeNavLink, setActiveNavLink] = useState(location.pathname);
   const { setCartNumber, setCartTotal } = useCart();
   const { logout, isLoading: isLoggingOut } = useLogoutUser();
-  const handleClick = (route: string) => setActiveNavLink(route);
 
   const handleLogOut = () => {
     logout(undefined, {
@@ -64,7 +61,12 @@ const Header = ({
             Sign Up
           </NavLink>
         ) : (
-          <div>PFP | User Name</div>
+          <NavLink
+            className="font-lato justify-self-center border-b-2 border-b-white text-sm font-bold tracking-wide text-gray-600 hover:border-slate-800"
+            to="/account"
+          >
+            Account
+          </NavLink>
         )}
         {!isAuthenticated ? (
           <NavLink
@@ -86,7 +88,6 @@ const Header = ({
       <div className="flex w-2/4 justify-between pb-4 pt-6">
         {bottomNavLinks.map((link) => (
           <NavLink
-            onClick={() => handleClick(link.route)}
             to={link.route}
             key={link.route}
             className={`font-lato border-b-2 border-b-white text-sm font-bold tracking-wide hover:border-b-gray-500`}
