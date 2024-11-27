@@ -1,5 +1,5 @@
 import { LOCAL_BACKEND_API } from "../../utils/constants";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useCart } from "../../context/CartContext";
@@ -39,7 +39,10 @@ const loginUser = async (
     });
 
     if (!res.ok) {
-      throw new Error("User no exist");
+      const errorData = await res.json();
+      throw new Error(
+        errorData.message || "Something went wrong when trying to log in",
+      );
     }
 
     const {
@@ -60,8 +63,17 @@ const loginUser = async (
         body: JSON.stringify({ totalPrice: 0, cartItems: [] }),
       });
 
+      if (!res2.ok) {
+        const errorData = await res.json();
+        throw new Error(
+          errorData.message ||
+            "Something went wrong when trying to create or load user cart",
+        );
+      }
+
       const { data } = await res2.json();
-      console.log(data);
+      // console.log(data);
+
       if (data) {
         cartTotal = data[0].totalPrice;
         cartNumber = data[0].cartItems?.length;
@@ -73,8 +85,6 @@ const loginUser = async (
       cartNumber,
       cartTotal,
     };
-
-    // return userData;
   } catch (err) {
     console.log(err);
     throw err;
@@ -86,7 +96,7 @@ export const useLoginUser = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
-  const { mutate: login, isLoading } = useMutation({
+  const { mutate: login, isPending } = useMutation({
     mutationFn: ({ email, password }: LoginVariables) =>
       loginUser(email, password),
     onSuccess: ({
@@ -99,16 +109,17 @@ export const useLoginUser = () => {
       cartTotal: number;
     }) => {
       queryClient.setQueryData(["user"], user as User);
-      console.log(cartNumber, cartTotal);
+      // console.log(cartNumber, cartTotal);
       setCartNumber(cartNumber);
       setCartTotal(cartTotal);
       navigate("/", { replace: true });
       toast.success("Successfully logged in");
     },
-    onError: (err: unknown) => {
-      toast.error("Provided email or password are incorrect");
+    onError: (err: Error) => {
+      toast.error(err.message);
+      // toast.error("Provided email or password are incorrect");
     },
   });
 
-  return { login, isLoading };
+  return { login, isPending };
 };

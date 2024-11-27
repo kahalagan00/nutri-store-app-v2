@@ -44,7 +44,7 @@ export const updateCart = async (updateData: UpdateVariables) => {
 export const useUpdateCart = () => {
   const queryClient = useQueryClient();
 
-  const { mutate: update, isLoading } = useMutation({
+  const { mutate: update, isPending } = useMutation({
     mutationFn: ({
       productId,
       name,
@@ -58,10 +58,10 @@ export const useUpdateCart = () => {
       queryClient.setQueryData(["cart"], cart);
       toast.success("Successfully updated user cart");
     },
-    onError: () => {
-      toast.error("Error when updating user cart");
+    onError: (err: Error) => {
+      toast.error(err.message);
     },
   });
 
-  return { update, isLoading };
+  return { update, isPending };
 };

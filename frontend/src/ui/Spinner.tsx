@@ -1,6 +1,6 @@
 const Spinner: React.FC = () => {
   return (
-    <div className="h-screen w-screen flex justify-center items-center">
+    <div className="flex h-full w-full items-center justify-center">
       <span className="spinnerBase"></span>
     </div>
   );

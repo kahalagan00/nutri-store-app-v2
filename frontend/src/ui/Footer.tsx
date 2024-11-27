@@ -7,7 +7,12 @@ import {
 } from "react-icons/io";
 import { FaXTwitter } from "react-icons/fa6";
 import { IoLogoTiktok } from "react-icons/io5";
-import { PAYMENT_METHODS_SRC, STORE_ADDRESS } from "../utils/constants";
+import {
+  PAYMENT_METHODS_SRC,
+  STORE_ADDRESS,
+  STORE_PHONE_NUMBER,
+  STORE_WEBSITE,
+} from "../utils/constants";
 import Logo from "./Logo";
 import React from "react";
 
@@ -74,11 +79,17 @@ const Footer: React.FC = () => {
             />
             <IoMdArrowForward className="h-5 text-blue-500" />
           </div>
+          <p className="font-lato mt-4 text-sm font-bold text-gray-400">
+            T: &nbsp; {STORE_PHONE_NUMBER}
+          </p>
+          <p className="font-lato mt-4 text-sm font-bold text-gray-400">
+            E: &nbsp; {STORE_WEBSITE}
+          </p>
         </div>
       </div>
 
       {/* Bottom footer */}
-      <div className="font-lato flex h-[50px] items-center justify-between bg-white text-xs font-semibold text-gray-400">
+      <div className="font-lato flex h-[50px] items-center justify-between bg-white px-6 text-xs font-semibold text-gray-400">
         <p>&copy;&nbsp;{currentYear} Jhuv Nutrition</p>
         <div className="flex w-[40%] justify-evenly">
           <p>Privacy Policy</p>

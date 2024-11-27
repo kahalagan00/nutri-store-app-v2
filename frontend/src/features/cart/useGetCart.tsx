@@ -26,15 +26,15 @@ export const getCart = async () => {
 export const useGetCart = () => {
   const queryClient = useQueryClient();
 
-  const { mutate: get, isLoading } = useMutation({
+  const { mutate: get, isPending } = useMutation({
     mutationFn: getCart,
     onSuccess: (cart) => {
-      // queryClient.setQueryData(["cart"], cart);
+      queryClient.setQueryData(["cart"], cart);
     },
     onError: () => {
       toast.error("Error when fetching user cart");
     },
   });
 
-  return { get, isLoading };
+  return { get, isPending };
 };

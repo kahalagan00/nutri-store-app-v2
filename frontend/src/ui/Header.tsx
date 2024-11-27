@@ -40,6 +40,7 @@ const Header = ({
         setIsAuthenticated(false);
         setCartNumber(0);
         setCartTotal(0);
+        localStorage.setItem("cartItems", JSON.stringify([]));
       },
       onError: () => setIsAuthenticated(true),
     });

@@ -111,7 +111,7 @@ const login: RequestHandler = async (req, res) => {
     // 3) If everything is ok, send token (JWT) to the client
     createSendToken(user, 200, req, res);
 
-    console.log('Logged in', Math.floor(Date.now() / 1000));
+    // console.log('Logged in', Math.floor(Date.now() / 1000));
   } catch (err) {
     res.status(401).json({
       status: 'error',

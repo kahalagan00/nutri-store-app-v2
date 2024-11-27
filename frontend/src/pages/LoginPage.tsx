@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { useLoginUser } from "../features/users/useLoginUser";
 import {
   FORM_BASE_INPUT_STYLE,
@@ -8,25 +8,25 @@ import {
   LOG_IN_SCREEN_BACKGROUND_STYLE,
 } from "../utils/constants";
 
-type LoginVariables = {
+interface LoginVariables {
   email: string;
   password: string;
-};
+}
 
 const LoginPage = ({
   setIsAuthenticated,
 }: {
   setIsAuthenticated: (auth: boolean) => void;
 }) => {
-  const { login, isLoading: isLoggingIn } = useLoginUser();
+  const { login, isPending: isLoggingIn } = useLoginUser();
   const {
     register,
     formState: { errors },
     handleSubmit,
     reset,
-  } = useForm<Inputs>();
+  } = useForm<LoginVariables>();
 
-  const onSubmit: SubmitHandler<Inputs> = (data: LoginVariables) => {
+  const onSubmit: SubmitHandler<LoginVariables> = (data) => {
     if (!data.email || !data.password) {
       return;
     }
@@ -60,7 +60,7 @@ const LoginPage = ({
 
         <form onSubmit={handleSubmit(onSubmit)}>
           <p className="font-lato mb-1 mt-8">
-            Email &nbsp;
+            Email <span className="font-bold text-red-500">*</span> &nbsp;
             {errors.email && (
               <span className={FORM_ERROR_STYLE}>{errors.email.message}</span>
             )}
@@ -81,7 +81,7 @@ const LoginPage = ({
           />
 
           <p className="font-lato mb-1 mt-6">
-            Password &nbsp;
+            Password <span className="font-bold text-red-500">*</span> &nbsp;
             {errors.password && (
               <span className={FORM_ERROR_STYLE}>
                 {errors.password.message}
@@ -119,6 +119,14 @@ const LoginPage = ({
             to="/signup"
           >
             Sign up for Free
+          </NavLink>
+        </div>
+        <div className="flex justify-center">
+          <NavLink
+            to="/forgotPassword"
+            className="font-lato self-center border-b-2 border-b-white text-sm tracking-wide text-gray-600 hover:border-b-slate-400"
+          >
+            Forgot your password? &nbsp;
           </NavLink>
         </div>
       </div>

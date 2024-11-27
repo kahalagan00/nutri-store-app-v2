@@ -19,7 +19,7 @@ export const FORM_BASE_INPUT_STYLE: string =
 export const SIGN_UP_BOX_STYLE: string =
   "flex h-[50rem] w-[50rem] flex-col justify-start rounded-xl bg-white px-12 py-10 drop-shadow-lg font-lato";
 export const LOG_IN_BOX_STYLE: string =
-  "flex h-[35rem] w-[30rem] flex-col justify-start rounded-xl bg-white px-12 py-10 drop-shadow-lg";
+  "flex h-[36rem] w-[30rem] flex-col justify-start rounded-xl bg-white px-12 py-10 drop-shadow-lg";
 export const SIGN_UP_SCREEN_BACKGROUND_STYLE: string =
   "bg-login-gradient absolute inset-0 flex h-screen w-screen items-center justify-center";
 export const LOG_IN_SCREEN_BACKGROUND_STYLE: string =

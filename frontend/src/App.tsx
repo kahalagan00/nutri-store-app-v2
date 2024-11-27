@@ -18,6 +18,7 @@ import { LOCAL_BACKEND_API } from "./utils/constants";
 import { CartProvider } from "./context/CartContext";
 import ProtectedRoute from "./ui/ProtectedRoute";
 import BlogsPage from "./pages/BlogsPage";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -107,6 +108,17 @@ const App: React.FC = () => {
                   redirectPath="/"
                 >
                   <SignUpPage setIsAuthenticated={setIsAuthenticated} />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="forgotPassword"
+              element={
+                <ProtectedRoute
+                  isAuthenticated={isAuthenticated}
+                  redirectPath="/"
+                >
+                  <ForgotPasswordPage />
                 </ProtectedRoute>
               }
             />

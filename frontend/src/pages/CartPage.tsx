@@ -6,12 +6,57 @@ import { PAGE_BASE_BACKGROUND_STYLE } from "../utils/constants";
 import CartProductCard from "../ui/CartProductCard";
 import CartProductRow from "../ui/CartProductRow";
 import { useForm } from "react-hook-form";
+import Modal from "../ui/Modal";
+import toast from "react-hot-toast";
+import Spinner from "../ui/Spinner";
+
+type CartItem = {
+  name: string;
+  image: string;
+  price: number;
+  productId: string;
+  purpose: string;
+  quantity: number;
+};
 
 const CartPage = ({ isAuthenticated }: { isAuthenticated: boolean | null }) => {
-  const { get, isLoading } = useGetCart();
+  const { get, isPending: isLoadingCart } = useGetCart();
   const { cartNumber, cartTotal } = useCart();
   const [orderQuantity, setOrderQuantity] = useState(1);
   const [cartItems, setCartItems] = useState([]);
+  const [checkout, setCheckout] = useState(false);
+  const [shippingFee, setShippingFee] = useState(0);
+  const [couponDiscount, setCouponDiscount] = useState(0);
+
+  const handleApplyCouponDiscount = (value: number) => {
+    console.log(value);
+    setCouponDiscount(value);
+  };
+
+  const handleUpdateShippingFee = (data: { country: string }) => {
+    if (data.country === "United States") {
+      setShippingFee(5);
+    } else {
+      setShippingFee(20);
+    }
+  };
+
+  const handleCheckout = () => {
+    if (shippingFee === 0) {
+      toast.error("Please enter address to calculate shipping");
+      return;
+    }
+    // console.log(`${!checkout ? "Opened Cart Modal" : "Closed Cart Modal"}`);
+    setCheckout(!checkout);
+  };
+
+  // Generic Modal buttons
+  const handleAccept = () => {
+    // console.log("Accepted in Modal");
+  };
+  // const handleDecline = () => {
+  //   console.log("Declined in Modal");
+  // };
 
   const handleAddOrderQuantity = () => {
     setOrderQuantity((orderQuantity) => orderQuantity + 1);
@@ -28,12 +73,19 @@ const CartPage = ({ isAuthenticated }: { isAuthenticated: boolean | null }) => {
     if (isAuthenticated) {
       get(undefined, {
         onSuccess: (cart) => {
-          console.log(cart);
+          // console.log(cart);
           setCartItems(cart.cartItems);
+          localStorage.setItem("cartItems", JSON.stringify(cart.cartItems));
         },
       });
     }
   }, []);
+
+  // Grabs from local storage whenever the page reloads
+  const savedCartItems = localStorage.getItem("cartItems");
+  const parsedCartItems = savedCartItems ? JSON.parse(savedCartItems) : null;
+
+  console.log(isLoadingCart);
 
   return (
     <div className={`${PAGE_BASE_BACKGROUND_STYLE} mb-12`}>
@@ -52,52 +104,96 @@ const CartPage = ({ isAuthenticated }: { isAuthenticated: boolean | null }) => {
             <p className="text-md justify-self-center font-bold">Total Price</p>
           </div>
 
-          {cartItems.map((item) => (
-            <CartProductRow key={item.name}>
-              <CartProductCard
-                image={item.image}
-                name={item.name}
-                purpose={item.purpose}
-              />
-              <p className="text-md justify-self-center font-bold">
-                {item.price}
-              </p>
-              <QuantityModifier
-                number={orderQuantity}
-                onClickDecrement={handleRemoveOrderQuantity}
-                onClickIncrement={handleAddOrderQuantity}
-              />
-              <p className="justify-self-center text-lg font-light text-blue-600">
-                {(item.price * item.quantity).toFixed(2)}
-              </p>
-            </CartProductRow>
-          ))}
+          {isLoadingCart && <Spinner />}
+
+          {/* If no results from getCarts API or localstorage. The user is not logged in or they don't have anything in the cart at all */}
+          {cartItems[0]
+            ? cartItems.map((item: CartItem) => (
+                <CartProductRow key={item.name}>
+                  <CartProductCard
+                    image={item.image}
+                    name={item.name}
+                    purpose={item.purpose}
+                  />
+                  <p className="text-md justify-self-center font-bold">
+                    {item.price}
+                  </p>
+                  <QuantityModifier
+                    number={orderQuantity}
+                    onClickDecrement={handleRemoveOrderQuantity}
+                    onClickIncrement={handleAddOrderQuantity}
+                  />
+                  <p className="justify-self-center text-lg font-light text-blue-600">
+                    {(item.price * item.quantity).toFixed(2)}
+                  </p>
+                </CartProductRow>
+              ))
+            : parsedCartItems?.map((item: CartItem) => (
+                <CartProductRow key={item.name}>
+                  <CartProductCard
+                    image={item.image}
+                    name={item.name}
+                    purpose={item.purpose}
+                  />
+                  <p className="text-md justify-self-center font-bold">
+                    {item.price}
+                  </p>
+                  <QuantityModifier
+                    number={orderQuantity}
+                    onClickDecrement={handleRemoveOrderQuantity}
+                    onClickIncrement={handleAddOrderQuantity}
+                  />
+                  <p className="justify-self-center text-lg font-light text-blue-600">
+                    {(item.price * item.quantity).toFixed(2)}
+                  </p>
+                </CartProductRow>
+              ))}
         </div>
 
         <div className="h-full w-full rounded-xl bg-slate-200 drop-shadow-xl">
-          <CalculateShippingBox />
-          <CouponCodeBox />
-          <CartTotalBox />
+          <CalculateShippingBox onUpdateShippingFee={handleUpdateShippingFee} />
+          <CouponCodeBox onApplyCouponDiscount={handleApplyCouponDiscount} />
+          <CartTotalBox
+            onCheckout={handleCheckout}
+            shippingFee={shippingFee}
+            couponDiscount={couponDiscount}
+            cartSubTotal={cartTotal}
+          />
         </div>
       </div>
+
+      {checkout && (
+        <div className="p-4">
+          <Modal
+            title="Payment Integration Still In Development..."
+            content="We’re excited to let you know that payment integration is currently in development to make your shopping experience even smoother. In the meantime, we appreciate your patience and invite you to explore our products and stay tuned for updates!"
+            onAccept={handleAccept}
+            // onDecline={handleDecline}
+            checkout={checkout}
+            onCheckout={handleCheckout}
+          />
+        </div>
+      )}
     </div>
   );
 };
 
 export default CartPage;
 
-const CalculateShippingBox: React.FC = () => {
+const CalculateShippingBox = ({
+  onUpdateShippingFee,
+}: {
+  onUpdateShippingFee: (data: object) => void;
+}) => {
   const {
     register,
     formState: { errors },
-    getValues,
     handleSubmit,
-    watch,
     reset,
-  } = useForm<Inputs>();
+  } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = (data: object) => {
+    onUpdateShippingFee(data);
     reset();
   };
 
@@ -157,18 +253,27 @@ const CalculateShippingBox: React.FC = () => {
   );
 };
 
-const CouponCodeBox: React.FC = () => {
+const CouponCodeBox = ({
+  onApplyCouponDiscount,
+}: {
+  onApplyCouponDiscount: (value: number) => void;
+}) => {
   const {
     register,
     formState: { errors },
-    getValues,
     handleSubmit,
-    watch,
     reset,
   } = useForm<Inputs>();
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = (data: { coupon: string }) => {
+    // console.log(data);
+
+    // Store discount is random between 5% - 20%
+    const randomDiscount = Math.floor(Math.random() * (20 - 5 + 1)) + 5;
+    toast.success(
+      `Applied "${data.coupon}" and received ${randomDiscount}% discount`,
+    );
+    onApplyCouponDiscount(randomDiscount);
     reset();
   };
 
@@ -207,30 +312,48 @@ const CouponCodeBox: React.FC = () => {
   );
 };
 
-const CartTotalBox: React.FC = () => {
+const CartTotalBox = ({
+  shippingFee,
+  onCheckout,
+  couponDiscount,
+  cartSubTotal,
+}: {
+  shippingFee: number;
+  onCheckout: () => void;
+  couponDiscount: number;
+  cartSubTotal: number;
+}) => {
+  const finalDiscount = parseFloat(
+    (cartSubTotal * (couponDiscount / 100)).toFixed(2),
+  );
+  const total = parseFloat(
+    (shippingFee + cartSubTotal - finalDiscount).toFixed(2),
+  );
+
   return (
     <div className="m-4 flex h-[280px] flex-col rounded-xl bg-blue-600 p-4 text-gray-100">
       <h1 className="font-neuton text-2xl font-bold">Cart Total</h1>
       <div className="font-lato mt-4 flex justify-between text-sm tracking-wide text-gray-100">
         <p>Shipping Fee</p>
-        <p className="font-bold">$4.37</p>
+        <p className="font-bold">${shippingFee}</p>
       </div>
       <div className="font-lato mt-4 flex justify-between text-sm tracking-wide text-gray-100">
         <p>Cart Subtotal</p>
-        <p className="font-bold">$545.44</p>
+        <p className="font-bold">${cartSubTotal}</p>
       </div>
       <div className="font-lato mt-4 flex justify-between text-sm tracking-wide text-gray-100">
-        <p>Discount (XXXX)</p>
-        <p className="font-bold italic">-$4.00</p>
+        <p>Discount</p>
+        <p className="font-bold italic">-${finalDiscount}</p>
       </div>
       <div className="font-lato mt-4 flex justify-between text-sm tracking-wide text-gray-100">
         <p>Total</p>
-        <p className="text-lg font-bold">$545.81</p>
+        <p className="text-lg font-bold">${total}</p>
       </div>
 
       <button
-        type="submit"
+        type="button"
         className="font-lato mt-6 flex h-10 w-full items-center justify-center rounded-xl bg-slate-200 p-4 text-gray-800 hover:bg-slate-100"
+        onClick={onCheckout}
       >
         Checkout
       </button>
