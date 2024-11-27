@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import { CapsuleButtonForward } from "./CapsuleButtonForward";
 
 const hotCategoriesData = [
@@ -40,7 +41,9 @@ const HomeHotCategories: React.FC = () => {
             Categories
           </h1>
         </div>
-        <CapsuleButtonForward message="See All" />
+        <NavLink to="/products">
+          <CapsuleButtonForward message="See All" />
+        </NavLink>
       </div>
 
       <div className="grid grid-cols-[repeat(auto-fit,200px)] justify-center gap-6 md:justify-normal">

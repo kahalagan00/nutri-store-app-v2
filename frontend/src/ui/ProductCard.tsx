@@ -64,7 +64,7 @@ const ProductCard: React.FC<ProductCard> = ({
   };
 
   return (
-    <div className="flex h-[25rem] w-72 flex-col justify-start overflow-hidden rounded-xl bg-white xl:border xl:border-gray-300">
+    <div className="flex h-[25rem] w-72 flex-col justify-start overflow-hidden rounded-xl border border-gray-300 bg-slate-100 drop-shadow-xl">
       <div className="flex items-center justify-between pr-4 pt-4" id="pointer">
         <div className="flex w-16 -translate-x-1 -skew-x-12 items-center justify-center bg-rose-500 px-4 py-1">
           <p className="text-bold text-sm text-white">-25%</p>

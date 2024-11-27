@@ -1,6 +1,12 @@
 // Numbers
 export const ADD_TO_CART_DELAY: number = 3000;
 
+// Text
+export const STORE_ADDRESS: string =
+  "3708 Las Vegas Blvd S, Las Vegas, NV 89109";
+export const STORE_PHONE_NUMBER: string = "+1-702-GET-JHUV";
+export const STORE_WEBSITE: string = "jhuvNutri@vegas.com.us";
+
 // URLs
 export const LOCAL_BACKEND_API: string = "http://localhost:3000/api/v1";
 export const PAYMENT_METHODS_SRC: string =
@@ -18,4 +24,4 @@ export const SIGN_UP_SCREEN_BACKGROUND_STYLE: string =
   "bg-login-gradient absolute inset-0 flex h-screen w-screen items-center justify-center";
 export const LOG_IN_SCREEN_BACKGROUND_STYLE: string =
   "bg-login-gradient absolute inset-0 flex h-screen w-screen items-center justify-center";
-export const PAGE_BASE_BACKGROUND_STYLE: string = "h-full bg-slate-200 p-8";
+export const PAGE_BASE_BACKGROUND_STYLE: string = "h-full bg-white p-8";

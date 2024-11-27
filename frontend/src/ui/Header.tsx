@@ -48,14 +48,16 @@ const Header = ({
   return (
     <header className="mx-auto w-full max-w-screen-xl bg-white pl-16">
       <div className="grid h-24 grid-cols-[160px_200px_300px_180px_50px_100px_100px] items-center overflow-hidden">
-        <Logo />
+        <NavLink to="/home">
+          <Logo />
+        </NavLink>
         <Delivery />
         <SearchBar />
         <CartMenu />
         <LikedMenu />
         {!isAuthenticated ? (
           <NavLink
-            className="font-lato justify-self-center text-sm font-bold tracking-wide text-gray-600 hover:border-b-2 hover:border-slate-800"
+            className="font-lato justify-self-center border-b-2 border-b-white text-sm font-bold tracking-wide text-gray-600 hover:border-slate-800"
             to="/signup"
           >
             Sign Up
@@ -65,7 +67,7 @@ const Header = ({
         )}
         {!isAuthenticated ? (
           <NavLink
-            className="font-lato justify-self-center text-sm font-bold tracking-wide text-gray-600 hover:border-b-2 hover:border-slate-800"
+            className="font-lato justify-self-center border-b-2 border-b-white text-sm font-bold tracking-wide text-gray-600 hover:border-slate-800"
             to="/login"
           >
             Login
@@ -74,7 +76,7 @@ const Header = ({
           <button
             disabled={isLoggingOut}
             onClick={handleLogOut}
-            className="font-lato justify-self-center text-sm font-bold tracking-wide text-gray-600 hover:border-b-2 hover:border-slate-800"
+            className="font-lato justify-self-center border-b-2 border-b-white text-sm font-bold tracking-wide text-gray-600 hover:border-slate-800"
           >
             {isLoggingOut ? "Logging out..." : "Logout"}
           </button>
@@ -86,9 +88,7 @@ const Header = ({
             onClick={() => handleClick(link.route)}
             to={link.route}
             key={link.route}
-            className={`font-lato border-b-4 text-sm font-bold tracking-wide ${
-              activeNavLink === link.route ? "border-blue-400" : "border-white"
-            }`}
+            className={`font-lato border-b-2 border-b-white text-sm font-bold tracking-wide hover:border-b-gray-500`}
           >
             {link.label}
           </NavLink>

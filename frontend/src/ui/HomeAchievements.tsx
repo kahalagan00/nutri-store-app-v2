@@ -1,6 +1,6 @@
 const HomeAchievements: React.FC = () => {
   return (
-    <div className="relative mx-auto flex w-full gap-x-8 pb-16">
+    <div className="relative mx-auto flex w-full gap-x-8">
       <img
         className="w-full"
         src="./src/assets/achievements/background.png"

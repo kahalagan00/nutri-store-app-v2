@@ -17,25 +17,13 @@ function HomePage() {
       <HomeCompanyFeatures />
       <HomeHotCategories />
       <HomeCuratedCategories />
-      <div className="w-full bg-slate-200">
-        <HomeBestSelling />
-      </div>
-      <div className="w-full bg-white">
-        <HomeAboutSummary />
-      </div>
-      <div className="w-full bg-slate-200">
-        <HomeMostPopular />
-      </div>
+      <HomeBestSelling />
+      <HomeAboutSummary />
+      <HomeMostPopular />
       <HomeAchievements />
-      <div className="w-full bg-white">
-        <HomeReviewsSummary />
-      </div>
-      <div className="bg-whtie w-full">
-        <HomeMobileAppAdvert />
-      </div>
-      <div className="w-full">
-        <HomeBlogs />
-      </div>
+      <HomeReviewsSummary />
+      <HomeMobileAppAdvert />
+      <HomeBlogs />
     </div>
   );
 }

@@ -22,7 +22,9 @@ const AppLayout = ({
           <Outlet />
         </main>
       </div>
-      <Footer />
+      <div className="mx-auto max-w-screen-xl">
+        <Footer />
+      </div>
     </div>
   );
 };
