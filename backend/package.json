@@ -2,7 +2,7 @@
   "name": "nutri-store-app-v2-backend",
   "version": "1.0.0",
   "description": "Packages for the Back-End portion of Jhuv Nutri Store V2",
-  "main": "app.js",
+  "main": "dist/server.js",
   "scripts": {
     "start": "node dist/server.js",
     "build": "tsc && parcel build ./app.ts --out-dir ./dist/public/js --out-file bundle.js",
