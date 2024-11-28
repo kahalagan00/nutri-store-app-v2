@@ -53,6 +53,7 @@ const ProductCard: React.FC<ProductCard> = ({
           console.log(cart);
           setCartNumber(cart.cartItems.length);
           setCartTotal(cart.totalPrice);
+          localStorage.setItem("cartItems", JSON.stringify(cart.cartItems));
         },
       },
     );

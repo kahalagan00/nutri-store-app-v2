@@ -75,7 +75,6 @@ const CartPage = ({ isAuthenticated }: { isAuthenticated: boolean | null }) => {
         onSuccess: (cart) => {
           // console.log(cart);
           setCartItems(cart.cartItems);
-          localStorage.setItem("cartItems", JSON.stringify(cart.cartItems));
         },
       });
     }

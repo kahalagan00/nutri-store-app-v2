@@ -39,7 +39,7 @@ export const loginUserApi = async (
     data: { user },
   } = await res.json();
 
-  // console.log(user);
+  console.log(user);
 
   let cartNumber = 0;
   let cartTotal = 0;
@@ -54,7 +54,7 @@ export const loginUserApi = async (
     });
 
     if (!res2.ok) {
-      const errorData = await res.json();
+      const errorData = await res2.json();
       throw new Error(
         errorData.message ||
           "Something went wrong when trying to create or load user cart",
@@ -131,7 +131,7 @@ export const signUpUserApi = async (
     });
 
     if (!res2.ok) {
-      const errorData = await res.json();
+      const errorData = await res2.json();
       throw new Error(
         errorData.message ||
           "Something went wrong when trying to create or load user cart",
