@@ -6,6 +6,7 @@ import CartMenu from "./CartMenu";
 import LikedMenu from "./LikedMenu";
 import { useLogoutUser } from "../features/users/useLogoutUser";
 import { useCart } from "../context/CartContext";
+import NavigationBar from "./NavigationBar";
 
 const Header = ({
   isAuthenticated,
@@ -45,7 +46,7 @@ const Header = ({
 
   return (
     <header className="mx-auto w-full max-w-screen-xl bg-white pl-16">
-      <div className="grid h-24 grid-cols-[160px_200px_300px_180px_50px_100px_100px] items-center overflow-hidden">
+      <nav className="grid h-24 grid-cols-[160px_200px_300px_180px_50px_100px_100px] items-center overflow-hidden">
         <NavLink to="/home">
           <Logo />
         </NavLink>
@@ -84,8 +85,8 @@ const Header = ({
             {isLoggingOut ? "Logging out..." : "Logout"}
           </button>
         )}
-      </div>
-      <div className="flex w-2/4 justify-between pb-4 pt-6">
+      </nav>
+      <nav className="flex w-2/4 justify-between pb-4 pt-6">
         {bottomNavLinks.map((link) => (
           <NavLink
             to={link.route}
@@ -95,7 +96,7 @@ const Header = ({
             {link.label}
           </NavLink>
         ))}
-      </div>
+      </nav>
     </header>
   );
 };
