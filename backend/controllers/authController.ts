@@ -41,6 +41,7 @@ const createSendToken = (
     expires: new Date(Date.now() + cookieExpirationOffset),
     httpOnly: true,
     secure: req.secure || req.headers['x-forwarded-proto'] === 'https',
+    sameSite: 'none', // For cross-site cookies
   });
 
   // console.log(res.getHeaders());
