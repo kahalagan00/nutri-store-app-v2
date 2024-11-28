@@ -5,7 +5,7 @@ const SearchBar: React.FC = () => {
   const [searchValue, setSearchValue] = useState<string>("");
 
   const handleSearchClick = () => {
-    console.log(searchValue);
+    // console.log(searchValue);
   };
 
   return (

@@ -40,7 +40,7 @@ export const loginUserApi = async (
     data: { user },
   } = await res.json();
 
-  console.log(user);
+  // console.log(user);
   let cartNumber = 0;
   let cartTotal = 0;
 

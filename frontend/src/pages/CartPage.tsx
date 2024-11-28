@@ -28,7 +28,7 @@ const CartPage = ({ isAuthenticated }: { isAuthenticated: boolean | null }) => {
   const [couponDiscount, setCouponDiscount] = useState(0);
 
   const handleApplyCouponDiscount = (value: number) => {
-    console.log(value);
+    // console.log(value);
     setCouponDiscount(value);
   };
 

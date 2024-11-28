@@ -49,7 +49,7 @@ export const useSignUpUser = () => {
       toast.success("Successfully signed up");
     },
     onError: (err: unknown) => {
-      console.log("ERROR 💩", err);
+      // console.log("ERROR 💩", err);
       toast.error("Fill out all fields correctly to sign up");
     },
   });
