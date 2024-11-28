@@ -20,15 +20,22 @@ const app = express();
 
 // <------------------------------------------------------------------------------------------>
 // Middlewares -->
-const allowedOrigins =
-  process.env.NODE_ENV === 'production'
-    ? ['https://jhuv-nutrition-v2.netlify.app']
-    : ['http://localhost:5173'];
+const allowedOrigins = [
+  'https://jhuv-nutrition-v2.netlify.app',
+  'http://localhost:5173',
+];
 
 app.use(
   cors({
-    origin: allowedOrigins,
-    credentials: true,
+    origin: function (origin, callback) {
+      // Allow requests from allowed origins or no origin (e.g., Postman)
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+    credentials: true, // If you're using cookies
   })
 );
 
