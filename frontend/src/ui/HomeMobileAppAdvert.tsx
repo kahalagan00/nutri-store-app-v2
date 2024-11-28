@@ -13,11 +13,11 @@ const HomeMobileAppAdvert: React.FC = () => {
         </p>
         <div className="grid w-[90%] grid-cols-2">
           <DownloadButton
-            imageUrl="./src/assets/mobile_advert/apple-logo.svg"
+            imageUrl="./public/images/mobile_advert/apple-logo.svg"
             name="App Store"
           />
           <DownloadButton
-            imageUrl="./src/assets/mobile_advert/googleplay-logo.svg"
+            imageUrl="./public/images/mobile_advert/googleplay-logo.svg"
             name="Google Play"
           />
         </div>
@@ -25,7 +25,7 @@ const HomeMobileAppAdvert: React.FC = () => {
       <div className="h-full w-[40%]">
         <img
           className="h-full w-full object-cover"
-          src="./src/assets/mobile_advert/mobile-app.png"
+          src="./public/images/mobile_advert/mobile-app.png"
           alt="Mobile phone with app held by hand"
         />
       </div>

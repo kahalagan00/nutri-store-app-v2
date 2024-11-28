@@ -33,7 +33,7 @@ const HomeCuratedCategoies: React.FC = () => {
             key={data.message}
             title={data.title}
             message={data.message}
-            imageUrl={`./src/assets/curated_categories/${data.image}`}
+            imageUrl={`./public/images/curated_categories/${data.image}`}
             bgColor={data.bgColor}
             textColor={data.textColor}
           />

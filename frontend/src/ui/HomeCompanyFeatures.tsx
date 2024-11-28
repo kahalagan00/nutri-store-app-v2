@@ -24,7 +24,7 @@ const HomeCompanyFeatures: React.FC = () => {
         {companyFeaturesData.map((feature, i) => (
           <FeatureBlock
             key={`${feature.message}${i}`}
-            imageUrl={`./src/assets/company_features/${feature.image}`}
+            imageUrl={`./public/images/company_features/${feature.image}`}
             message={feature.message}
           />
         ))}

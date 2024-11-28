@@ -80,7 +80,7 @@ const HotCategoryCard = ({
     >
       <img
         className="w-3/4"
-        src={`./src/assets/popular_categories/${imageUrl}`}
+        src={`./public/images/popular_categories/${imageUrl}`}
         alt=""
       />
       <h2 className="font-neuton text-3xl font-bold">{title}</h2>

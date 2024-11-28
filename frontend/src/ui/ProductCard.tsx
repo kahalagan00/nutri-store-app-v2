@@ -74,7 +74,7 @@ const ProductCard: React.FC<ProductCard> = ({
       <div className="flex h-3/5 items-center justify-center overflow-hidden">
         <img
           className="max-h-full"
-          src={`./src/assets/products/${image}`}
+          src={`./public/images/products/${image}`}
           alt=""
         />
       </div>

@@ -42,7 +42,7 @@ const HomeBlogs: React.FC = () => {
             title={data.title}
             author={data.author}
             createdAt={data.createdAt}
-            imageUrl={`./src/assets/blogs/${data.image}`}
+            imageUrl={`./public/images/blogs/${data.image}`}
             reads={data.reads}
           />
         ))}
