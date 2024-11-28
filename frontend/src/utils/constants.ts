@@ -9,7 +9,8 @@ export const STORE_WEBSITE: string = "jhuvNutri@vegas.com.us";
 
 // URLs
 export const LOCAL_BACKEND_API: string =
-  "https://nutri-store-app-v2-backend-9qrdbwuc1-joshmar-morales-projects.vercel.app/api/v1";
+  "https://nutri-store-app-v2-backend-r3apcpwht-joshmar-morales-projects.vercel.app/api/v1";
+
 export const PAYMENT_METHODS_SRC: string = "/images/footer/payment_methods";
 
 // Styles
