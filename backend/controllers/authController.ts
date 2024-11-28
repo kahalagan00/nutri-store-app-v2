@@ -139,6 +139,7 @@ const logout: RequestHandler = (req, res) => {
 const protect: RequestHandler = async (req, res, next) => {
   try {
     // 1) Getting token and check if it's there
+    console.log(req.cookies);
     let token;
     if (
       req.headers.authorization &&
