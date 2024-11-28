@@ -20,7 +20,18 @@ const app = express();
 
 // <------------------------------------------------------------------------------------------>
 // Middlewares -->
-app.use(cors({ credentials: true, origin: 'http://localhost:5173' }));
+const allowedOrigins =
+  process.env.NODE_ENV === 'production'
+    ? ['https://your-frontend.netlify.app']
+    : ['http://localhost:5173'];
+
+app.use(
+  cors({
+    origin: allowedOrigins,
+    credentials: true,
+  })
+);
+
 app.options('*', cors());
 
 // Development logging
