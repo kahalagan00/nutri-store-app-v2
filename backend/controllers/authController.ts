@@ -137,6 +137,8 @@ const logout: RequestHandler = (req, res) => {
     // path: '/', // Match the original cookie (if set)
   });
 
+  console.log('Cookie removed and user logged out 🐼');
+
   res.status(200).json({
     status: 'success',
     message: 'Successfully logged out the current user',
@@ -189,6 +191,8 @@ const protect: RequestHandler = async (req, res, next) => {
     };
 
     res.locals.user = currentUser;
+
+    console.log('Authentication passed 🔐 ✅');
     next();
   } catch (err) {
     res.status(401).json({
@@ -201,6 +205,7 @@ const protect: RequestHandler = async (req, res, next) => {
   }
 };
 
+/* For SSR */
 // // Only for rendered pages, no errors
 // exports.isLoggedIn = async (req, res, next) => {
 //   // 1) Getting token and check if it's there

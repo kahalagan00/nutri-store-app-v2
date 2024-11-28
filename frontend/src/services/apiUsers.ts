@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 import { LOCAL_BACKEND_API } from "../utils/constants";
 
 type User = {
@@ -39,8 +40,6 @@ export const loginUserApi = async (
     data: { user },
   } = await res.json();
 
-  console.log(user);
-
   let cartNumber = 0;
   let cartTotal = 0;
 
@@ -62,7 +61,6 @@ export const loginUserApi = async (
     }
 
     const { data } = await res2.json();
-    // console.log(data);
 
     // If the user already had a cart then "data" will be an array
     // if not then it's an object
@@ -116,8 +114,6 @@ export const signUpUserApi = async (
     data: { user },
   } = await res.json();
 
-  console.log(user);
-
   let cartNumber = 0;
   let cartTotal = 0;
 
@@ -139,7 +135,6 @@ export const signUpUserApi = async (
     }
 
     const { data } = await res2.json();
-    console.log(data);
 
     // If the user already had a cart then "data" will be an array
     // if not then it's an object
@@ -173,7 +168,7 @@ export const forgotPasswordApi = async (email: string) => {
       );
     }
 
-    console.log("Token successfully sent");
+    toast.success("Token successfully sent");
   } catch (err) {
     console.error(err);
   }
@@ -204,8 +199,6 @@ export const resetPasswordUserApi = async (
     }
 
     const { data } = await res.json();
-
-    console.log(data.user);
 
     return data.user;
   } catch (err) {
