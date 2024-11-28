@@ -4,7 +4,7 @@ function Logo() {
       <div className="flex w-36 items-center justify-center">
         <img
           className="max-h-16 max-w-16"
-          src="./public/images/company-logo-2.svg"
+          src="/images/company-logo-2.svg"
           alt="Company logo"
         />
       </div>

@@ -7,7 +7,7 @@ const HomeAboutSummary: React.FC = () => {
       <div className="flex w-[50%] items-center justify-center">
         <img
           className="h-full w-full object-contain"
-          src="./public/images/about_summary/0.png"
+          src="/images/about_summary/0.png"
           alt="Picture of a scientist pharmacist"
         />
       </div>

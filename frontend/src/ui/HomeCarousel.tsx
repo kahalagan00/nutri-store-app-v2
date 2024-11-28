@@ -14,7 +14,7 @@ const HomeCarousel: React.FC = () => {
     <div className="relative h-auto w-full overflow-hidden">
       <img
         className="z-0 w-full"
-        src="./public/images/carousel_images/0_background.png"
+        src="/images/carousel_images/0_background.png"
         alt="Carousel picture 1"
       />
       <div className="z-1 absolute inset-0 left-0 top-0 m-auto flex w-full flex-col items-center justify-center px-16 md:flex-row md:px-36">
@@ -29,7 +29,7 @@ const HomeCarousel: React.FC = () => {
         </div>
         <img
           className="w-[180px] md:w-[300px] md:pl-8 lg:w-[500px]"
-          src="./public/images/carousel_images/0_item.png"
+          src="/images/carousel_images/0_item.png"
           alt=""
         />
       </div>

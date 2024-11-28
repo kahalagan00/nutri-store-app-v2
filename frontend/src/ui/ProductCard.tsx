@@ -72,11 +72,7 @@ const ProductCard: React.FC<ProductCard> = ({
         <IoMdHeartEmpty className="h-7 w-7 cursor-pointer" />
       </div>
       <div className="flex h-3/5 items-center justify-center overflow-hidden">
-        <img
-          className="max-h-full"
-          src={`./public/images/products/${image}`}
-          alt=""
-        />
+        <img className="max-h-full" src={`/images/products/${image}`} alt="" />
       </div>
       <div className="pl-4">
         <p className="font-lato text-xs font-semibold uppercase tracking-wide text-gray-400">

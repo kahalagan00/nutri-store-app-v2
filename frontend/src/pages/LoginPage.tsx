@@ -45,7 +45,7 @@ const LoginPage = ({
       <div className={LOG_IN_BOX_STYLE}>
         <img
           className="max-h-16 max-w-16 self-center"
-          src="./public/images/company-logo-2.svg"
+          src="/images/company-logo-2.svg"
           alt="Company logo"
         />
         <h1 className="font-lato self-center text-5xl tracking-wide">

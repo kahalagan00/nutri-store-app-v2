@@ -3,29 +3,29 @@ const HomeAchievements: React.FC = () => {
     <div className="relative mx-auto flex w-full gap-x-8">
       <img
         className="w-full"
-        src="./public/images/achievements/background.png"
+        src="/images/achievements/background.png"
         alt="Background image of achievements"
       />
       <div className="absolute inset-0 m-auto grid h-[40%] w-[70%] grid-cols-[repeat(4,_200px)] place-items-center gap-4">
         <AchievementCard
           numberFigure="10"
           message="Supplement Categories"
-          imageUrl="./public/images/achievements/categories.svg"
+          imageUrl="/images/achievements/categories.svg"
         />
         <AchievementCard
           numberFigure="50"
           message="Active Products"
-          imageUrl="./public/images/achievements/products.svg"
+          imageUrl="/images/achievements/products.svg"
         />
         <AchievementCard
           numberFigure="500"
           message="Awards Won"
-          imageUrl="./public/images/achievements/awards.svg"
+          imageUrl="/images/achievements/awards.svg"
         />
         <AchievementCard
           numberFigure="22,900"
           message="Satisfied Clients"
-          imageUrl="./public/images/achievements/clients.svg"
+          imageUrl="/images/achievements/clients.svg"
         />
       </div>
     </div>

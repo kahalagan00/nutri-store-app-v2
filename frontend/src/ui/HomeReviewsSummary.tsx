@@ -39,7 +39,7 @@ const HomeReviewsSummary: React.FC = () => {
       </h1>
       <img
         className="w-full object-contain"
-        src="./public/images/reviews_summary/background.png"
+        src="/images/reviews_summary/background.png"
         alt=""
       />
       <div className="absolute left-1/2 top-[60%] w-[90%] -translate-x-1/2 -translate-y-[60%] transform">
@@ -48,7 +48,7 @@ const HomeReviewsSummary: React.FC = () => {
             <ReviewCard
               key={data.name}
               name={data.name}
-              imageUrl={`./public/images/reviews_summary/${data.image}`}
+              imageUrl={`/images/reviews_summary/${data.image}`}
               occupation={data.occupation}
               company={data.company}
               rating={data.rating}

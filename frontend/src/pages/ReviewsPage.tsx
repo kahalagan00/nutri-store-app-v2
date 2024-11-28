@@ -8,7 +8,7 @@ function ReviewsPage() {
       </h1>
       <img
         className="my-16 h-1/2 w-1/2"
-        src="./public/images/under_development.svg
+        src="/images/under_development.svg
         "
         alt="Image of under development"
       />
