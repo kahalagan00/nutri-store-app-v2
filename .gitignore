@@ -19,6 +19,7 @@ node_modules
 backend/dist/
 backend/.cache
 frontend/dist/
+frontend/.cache
 frontend/build/   # Vite build output
 frontend/README.md
 backend/public/js/bundle.js  # Ignore only the bundle.js in public/js/

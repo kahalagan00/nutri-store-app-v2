@@ -29,7 +29,7 @@ const Header = ({
   }
 
   const { setCartNumber, setCartTotal } = useCart();
-  const { logout, isLoading: isLoggingOut } = useLogoutUser();
+  const { logout, isPending: isLoggingOut } = useLogoutUser();
 
   const handleLogOut = () => {
     logout(undefined, {

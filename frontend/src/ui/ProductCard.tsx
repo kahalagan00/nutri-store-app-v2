@@ -23,15 +23,15 @@ const ProductCard: React.FC<ProductCard> = ({
   image,
   price,
   purpose,
-  ingredients,
-  warnings,
+  // ingredients,
+  // warnings,
   stockQuantity,
-  availability,
+  // availability,
 }) => {
   const [bagAmount, setBagAmount] = useState(1);
   const [isAddingToCart, setIsAddingToCart] = useState(false);
   const { setCartNumber, setCartTotal } = useCart();
-  const { update, isPending } = useUpdateCart();
+  const { update } = useUpdateCart();
 
   const handleAddBagAmount = () => {
     setBagAmount((bagAmount) => bagAmount + 1);

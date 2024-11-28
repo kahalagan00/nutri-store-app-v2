@@ -4,6 +4,21 @@ import ProductCard from "../ui/ProductCard";
 import Spinner from "../ui/Spinner";
 import { PAGE_BASE_BACKGROUND_STYLE } from "../utils/constants";
 
+type Product = {
+  _id: string;
+  purpose: string;
+  name: string;
+  image: string;
+  grams: number;
+  matterType: string;
+  price: number;
+  stockQuantity: number;
+  warnings: string[];
+  ingredients: string[];
+  nutritionalFacts: object;
+  availability: boolean;
+};
+
 const ProductPage: React.FC = () => {
   const { isLoading, products, error } = useGetProducts();
 
@@ -24,7 +39,7 @@ const ProductPage: React.FC = () => {
     <div className={PAGE_BASE_BACKGROUND_STYLE}>
       <h1 className="font-neuton pb-8 pt-4 text-5xl tracking-wide">Products</h1>
       <div className="grid w-full grid-cols-1 justify-items-center gap-12 sm:grid-cols-2 lg:grid-cols-3">
-        {products?.map((product) => (
+        {products?.map((product: Product) => (
           <ProductCard
             key={product._id}
             _id={product._id}

@@ -21,7 +21,7 @@ type CartItem = {
 const CartPage = ({ isAuthenticated }: { isAuthenticated: boolean | null }) => {
   const { get, isPending: isLoadingCart } = useGetCart();
   const { cartNumber, cartTotal } = useCart();
-  const [orderQuantity, setOrderQuantity] = useState(1);
+  // const [orderQuantity, setOrderQuantity] = useState(1);
   const [cartItems, setCartItems] = useState([]);
   const [checkout, setCheckout] = useState(false);
   const [shippingFee, setShippingFee] = useState(0);
@@ -57,15 +57,16 @@ const CartPage = ({ isAuthenticated }: { isAuthenticated: boolean | null }) => {
   //   console.log("Declined in Modal");
   // };
 
-  const handleAddOrderQuantity = () => {
-    setOrderQuantity((orderQuantity) => orderQuantity + 1);
-  };
-  const handleRemoveOrderQuantity = () => {
-    if (orderQuantity === 1) {
-      return;
-    }
-    setOrderQuantity((orderQuantity) => orderQuantity - 1);
-  };
+  // Use only for QuantityModifier
+  // const handleAddOrderQuantity = () => {
+  //   setOrderQuantity((orderQuantity) => orderQuantity + 1);
+  // };
+  // const handleRemoveOrderQuantity = () => {
+  //   if (orderQuantity === 1) {
+  //     return;
+  //   }
+  //   setOrderQuantity((orderQuantity) => orderQuantity - 1);
+  // };
 
   useEffect(() => {
     // Only fetch cart data if there is a user currently logged in
@@ -176,16 +177,16 @@ export default CartPage;
 const CalculateShippingBox = ({
   onUpdateShippingFee,
 }: {
-  onUpdateShippingFee: (data: object) => void;
+  onUpdateShippingFee: (data: { country: string }) => void;
 }) => {
   const {
     register,
     formState: { errors },
     handleSubmit,
     reset,
-  } = useForm();
+  } = useForm<{ country: string; city: string; zip: string }>();
 
-  const onSubmit = (data: object) => {
+  const onSubmit = (data: { country: string }) => {
     onUpdateShippingFee(data);
     reset();
   };
@@ -256,7 +257,7 @@ const CouponCodeBox = ({
     formState: { errors },
     handleSubmit,
     reset,
-  } = useForm<Inputs>();
+  } = useForm<{ coupon: string }>();
 
   const onSubmit = (data: { coupon: string }) => {
     // console.log(data);

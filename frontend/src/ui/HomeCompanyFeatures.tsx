@@ -38,7 +38,6 @@ export default HomeCompanyFeatures;
 const FeatureBlock = ({
   imageUrl,
   message,
-  mobileMessage,
 }: {
   imageUrl: string;
   message: string;

@@ -6,7 +6,7 @@ interface ModalProps {
   onAccept: () => void;
   // onDecline: () => void;
   checkout: boolean;
-  onCheckout: (checkout) => void;
+  onCheckout: (checkout: boolean) => void;
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -14,7 +14,7 @@ const Modal: React.FC<ModalProps> = ({
   content,
   onAccept,
   // onDecline,
-  checkout = false,
+  // checkout = false,
   onCheckout,
 }) => {
   const [isOpen, setIsOpen] = useState(true);

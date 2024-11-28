@@ -16,7 +16,7 @@ export const logoutUser = async () => {
     }
 
     return true;
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error(err);
     return false;
   }
@@ -26,7 +26,7 @@ export const useLogoutUser = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
-  const { mutate: logout, isLoading } = useMutation({
+  const { mutate: logout, isPending } = useMutation({
     mutationFn: logoutUser,
     onSuccess: () => {
       queryClient.removeQueries();
@@ -38,5 +38,5 @@ export const useLogoutUser = () => {
     },
   });
 
-  return { logout, isLoading };
+  return { logout, isPending };
 };

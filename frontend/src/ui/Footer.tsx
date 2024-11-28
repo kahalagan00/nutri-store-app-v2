@@ -1,7 +1,6 @@
 import {
   IoLogoFacebook,
   IoLogoInstagram,
-  IoLogoTwitter,
   IoMdArrowForward,
   IoMdMail,
 } from "react-icons/io";
