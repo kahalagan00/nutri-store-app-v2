@@ -16,6 +16,8 @@ node_modules
 *.prettierrc
 
 # Build directories (frontend and backend)
+backend/dist/
+backend/.cache
 frontend/dist/
 frontend/build/   # Vite build output
 frontend/README.md

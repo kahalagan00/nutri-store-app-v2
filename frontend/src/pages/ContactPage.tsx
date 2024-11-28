@@ -6,6 +6,12 @@ function ContactPage() {
       <h1 className="font-neuton pb-8 pt-4 text-5xl tracking-wide">
         Contact Page Under Development...
       </h1>
+      <img
+        className="my-16 h-1/2 w-1/2"
+        src="./src/assets/under_development.svg
+        "
+        alt="Image of under development"
+      />
     </div>
   );
 }

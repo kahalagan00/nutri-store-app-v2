@@ -39,7 +39,7 @@ export const loginUserApi = async (
     data: { user },
   } = await res.json();
 
-  console.log(user);
+  // console.log(user);
 
   let cartNumber = 0;
   let cartTotal = 0;
@@ -62,7 +62,7 @@ export const loginUserApi = async (
     }
 
     const { data } = await res2.json();
-    console.log(data);
+    // console.log(data);
 
     // If the user already had a cart then "data" will be an array
     // if not then it's an object

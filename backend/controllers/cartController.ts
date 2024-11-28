@@ -35,7 +35,7 @@ const getAllCarts: RequestHandler = async (req, res) => {
 
 const getCart: RequestHandler = async (req, res) => {
   try {
-    const doc = await Cart.findOne({ userId: req.user.id });
+    const doc = await Cart.findOne({ userId: req.user?._id });
 
     console.log('Yay (getCart) we got Requested 🥳');
 
@@ -60,7 +60,7 @@ const createCart: RequestHandler = async (req, res, next) => {
   try {
     // Check if there is a cart that already belongs to the current user
     // console.log(req.user);
-    let doc: any = await Cart.find({ userId: req.user.id });
+    let doc: any = await Cart.find({ userId: req.user?._id });
 
     let statusCode = 200;
     console.log(doc.length);
@@ -71,7 +71,7 @@ const createCart: RequestHandler = async (req, res, next) => {
     } else {
       console.log('No cart detected from this user. Creating one now...');
       doc = await Cart.create({
-        userId: req.user.id,
+        userId: req.user?._id,
         ...req.body,
       });
       statusCode = 201;
@@ -97,7 +97,7 @@ const createCart: RequestHandler = async (req, res, next) => {
 
 const updateCart: RequestHandler = async (req, res, next) => {
   try {
-    const doc = await Cart.findOne({ userId: req.user.id });
+    const doc = await Cart.findOne({ userId: req.user?._id });
 
     if (!doc) {
       throw new Error('Cart not found');

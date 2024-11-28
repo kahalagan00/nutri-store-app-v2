@@ -8,12 +8,12 @@ const Cart = require('../../models/cartModel');
 
 dotenv.config({ path: '../../config.env' });
 
-const DB = process.env.DATABASE.replace(
+const DB = process.env.DATABASE?.replace(
   '<db_password>',
-  process.env.DATABASE_PASSWORD
+  process.env.DATABASE_PASSWORD as string
 );
 
-mongoose.connect(DB).then((conn) => {
+mongoose.connect(DB).then(() => {
   // console.log('conn' , conn.connections);
   console.log('DB connected successfully 👍');
 });

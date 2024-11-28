@@ -6,6 +6,7 @@ const crypto = require('crypto');
 
 // Define the interface for the User
 interface IUser extends mongoose.Document {
+  _id: typeof mongoose.Schema.ObjectId;
   name: string;
   email: string;
   password: string;

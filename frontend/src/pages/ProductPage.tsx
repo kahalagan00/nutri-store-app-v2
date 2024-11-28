@@ -7,8 +7,12 @@ import { PAGE_BASE_BACKGROUND_STYLE } from "../utils/constants";
 const ProductPage: React.FC = () => {
   const { isLoading, products, error } = useGetProducts();
 
-  if (isLoading) {
-    return <Spinner />;
+  if (isLoading || !products[0]) {
+    return (
+      <div className="h-[500px]">
+        <Spinner />
+      </div>
+    );
   }
 
   if (error) {

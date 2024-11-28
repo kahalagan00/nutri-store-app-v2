@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { IoMdAdd, IoMdCart, IoMdHeartEmpty, IoMdRemove } from "react-icons/io";
+import { IoMdCart, IoMdHeartEmpty } from "react-icons/io";
 import { useUpdateCart } from "../features/cart/useUpdateCart";
 import { ADD_TO_CART_DELAY } from "../utils/constants";
 import { useCart } from "../context/CartContext";
@@ -31,7 +31,7 @@ const ProductCard: React.FC<ProductCard> = ({
   const [bagAmount, setBagAmount] = useState(1);
   const [isAddingToCart, setIsAddingToCart] = useState(false);
   const { setCartNumber, setCartTotal } = useCart();
-  const { update, isLoading } = useUpdateCart();
+  const { update, isPending } = useUpdateCart();
 
   const handleAddBagAmount = () => {
     setBagAmount((bagAmount) => bagAmount + 1);
@@ -72,7 +72,11 @@ const ProductCard: React.FC<ProductCard> = ({
         <IoMdHeartEmpty className="h-7 w-7 cursor-pointer" />
       </div>
       <div className="flex h-3/5 items-center justify-center overflow-hidden">
-        <img className="max-h-full" src={`./src/assets/${image}`} alt="" />
+        <img
+          className="max-h-full"
+          src={`./src/assets/products/${image}`}
+          alt=""
+        />
       </div>
       <div className="pl-4">
         <p className="font-lato text-xs font-semibold uppercase tracking-wide text-gray-400">

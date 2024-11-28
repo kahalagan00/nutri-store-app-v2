@@ -7,7 +7,7 @@ export default class Email {
   firstName: string;
   url: string;
   from: string;
-  constructor(user: object, url: string) {
+  constructor(user: { email: string; name: string }, url: string) {
     this.to = user.email;
     this.firstName = user.name.split(' ')[0];
     this.url = url;
@@ -20,7 +20,7 @@ export default class Email {
       return nodemailer.createTransport({
         // service: 'Brevo',
         host: process.env.BREVO_HOST,
-        port: process.env.BREVO_PORT,
+        port: Number(process.env.BREVO_PORT),
         auth: {
           user: process.env.BREVO_LOGIN,
           pass: process.env.BREVO_SMTPKEY,
@@ -30,7 +30,7 @@ export default class Email {
 
     return nodemailer.createTransport({
       host: process.env.EMAIL_HOST,
-      port: process.env.EMAIL_PORT,
+      port: Number(process.env.EMAIL_PORT),
       auth: {
         user: process.env.EMAIL_USERNAME,
         pass: process.env.EMAIL_PASSWORD,

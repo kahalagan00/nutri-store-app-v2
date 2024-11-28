@@ -147,7 +147,7 @@ const App: React.FC = () => {
               duration: 3000, // 3 seconds
             },
             error: {
-              duration: 5000,
+              duration: 3000,
             },
             style: {
               fontSize: "16px",

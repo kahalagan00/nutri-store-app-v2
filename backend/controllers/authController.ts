@@ -173,7 +173,11 @@ const protect: RequestHandler = async (req, res, next) => {
     }
 
     // GRANT ACCESS TO PROTECTED ROUTE (All security tests passed!)
-    req.user = currentUser;
+    req.user = {
+      ...currentUser.toObject(),
+      _id: currentUser._id.toString(), // Converts ObjectId to string
+    };
+
     res.locals.user = currentUser;
     next();
   } catch (err) {
@@ -224,7 +228,7 @@ const restrictTo = (...roles: string[]) => {
   return (req: Request, res: Response, next: NextFunction) => {
     try {
       // roles ['admin', 'lead-guide']. role='user'
-      if (!roles.includes(req.user.role)) {
+      if (req.user?.role && !roles.includes(req.user.role)) {
         throw new Error('You do not have permission to perform this action');
       }
       next(); // Only go to next function if the check passes
@@ -327,7 +331,7 @@ const resetPassword: RequestHandler = async (req, res, next) => {
 const updateMyPassword: RequestHandler = async (req, res) => {
   try {
     // 1) Get user from collection
-    const user = await User.findById(req.user.id).select('+password');
+    const user = await User.findById(req.user?._id).select('+password');
 
     // 2) Check if POSTed req.body password is correct
     if (!(await user?.checkPassword(req.body.passwordCurrent, user.password))) {
@@ -335,9 +339,11 @@ const updateMyPassword: RequestHandler = async (req, res) => {
     }
 
     // 3) If password is correct --> update password
-    user.password = req.body.password;
-    user.passwordConfirm = req.body.passwordConfirm;
-    await user.save();
+    if (user) {
+      user.password = req.body.password;
+      user.passwordConfirm = req.body.passwordConfirm;
+      await user.save();
+    }
 
     // 4) Log user in, send JWT token
     createSendToken(user, 200, req, res);

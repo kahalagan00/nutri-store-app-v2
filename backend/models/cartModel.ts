@@ -2,18 +2,20 @@ import mongoose from 'mongoose';
 import slugify from 'slugify';
 import { trim } from 'validator';
 
+interface ICartItem {
+  productId: mongoose.Types.ObjectId;
+  name: string;
+  price: number;
+  quantity: number;
+  image: string;
+  purpose: string;
+}
+
 // Define the interface for the User
 interface ICart extends mongoose.Document {
   totalPrice: number;
   userId: typeof mongoose.Schema.ObjectId;
-  cartItems: {
-    productId: typeof mongoose.Schema.ObjectId;
-    name: String;
-    price: number;
-    quantity: Number;
-    image: string;
-    purpose: string;
-  };
+  cartItems: ICartItem[];
 }
 
 const cartSchema = new mongoose.Schema<ICart>({

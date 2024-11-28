@@ -1,9 +1,16 @@
 import { IoMdArrowDropdown, IoMdCart } from "react-icons/io";
 import { NavLink } from "react-router-dom";
 import { useCart } from "../context/CartContext";
+import toast from "react-hot-toast";
 
 const CartMenu: React.FC = () => {
   const { cartNumber, cartTotal } = useCart();
+
+  const handleClick = () => {
+    toast("Cart dropdown is under development", {
+      icon: "🛠️ 🛒",
+    });
+  };
 
   return (
     <div className="flex w-[180px] items-center justify-evenly">
@@ -24,7 +31,7 @@ const CartMenu: React.FC = () => {
           ${cartTotal.toFixed(2)}
         </p>
       </div>
-      <button disabled={true}>
+      <button onClick={handleClick}>
         <IoMdArrowDropdown />
       </button>
     </div>
