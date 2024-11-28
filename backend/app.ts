@@ -22,7 +22,7 @@ const app = express();
 // Middlewares -->
 const allowedOrigins =
   process.env.NODE_ENV === 'production'
-    ? ['https://your-frontend.netlify.app']
+    ? ['https://jhuv-nutrition-v2.netlify.app']
     : ['http://localhost:5173'];
 
 app.use(
