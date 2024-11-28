@@ -50,7 +50,6 @@ const ProductCard: React.FC<ProductCard> = ({
       { productId: _id, name, price, quantity: bagAmount, image, purpose },
       {
         onSuccess: (cart) => {
-          console.log(cart);
           setCartNumber(cart.cartItems.length);
           setCartTotal(cart.totalPrice);
           localStorage.setItem("cartItems", JSON.stringify(cart.cartItems));

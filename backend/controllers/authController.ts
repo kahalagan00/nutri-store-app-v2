@@ -40,8 +40,9 @@ const createSendToken = (
   res.cookie('jwt', token, {
     expires: new Date(Date.now() + cookieExpirationOffset),
     httpOnly: true,
-    secure: req.secure || req.headers['x-forwarded-proto'] === 'https',
-    sameSite: 'none', // REQURIED for cross-site cookies (very important to keep it here for authentication testing)
+    secure: false, // For development
+    // secure: req.secure || req.headers['x-forwarded-proto'] === 'https', // For production
+    // sameSite: 'none', // REQURIED for cross-site cookies (very important to keep it here for authentication testing) // For production
   });
 
   // console.log(res.getHeaders());
@@ -191,8 +192,6 @@ const protect: RequestHandler = async (req, res, next) => {
     };
 
     res.locals.user = currentUser;
-
-    console.log('Authentication passed 🔐 ✅');
     next();
   } catch (err) {
     res.status(401).json({
@@ -205,7 +204,6 @@ const protect: RequestHandler = async (req, res, next) => {
   }
 };
 
-/* For SSR */
 // // Only for rendered pages, no errors
 // exports.isLoggedIn = async (req, res, next) => {
 //   // 1) Getting token and check if it's there
