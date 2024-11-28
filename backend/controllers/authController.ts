@@ -41,7 +41,7 @@ const createSendToken = (
     expires: new Date(Date.now() + cookieExpirationOffset),
     httpOnly: true,
     secure: req.secure || req.headers['x-forwarded-proto'] === 'https',
-    sameSite: 'none', // For cross-site cookies
+    sameSite: 'none', // REQURIED for cross-site cookies (very important to keep it here for authentication testing)
   });
 
   // console.log(res.getHeaders());
@@ -125,10 +125,18 @@ const login: RequestHandler = async (req, res) => {
 
 // Logout the user
 const logout: RequestHandler = (req, res) => {
+  // res.cookie('jwt', 'loggedout', {
+  //   expires: new Date(Date.now() + 10 * 1000),
+  //   httpOnly: true,
+  // });
   res.cookie('jwt', 'loggedout', {
-    expires: new Date(Date.now() + 10 * 1000),
-    httpOnly: true,
+    expires: new Date(0), // Expire immediately
+    httpOnly: true, // Match the original cookie
+    secure: req.secure || req.headers['x-forwarded-proto'] === 'https',
+    sameSite: 'none', // Match the original cookie (if using cross-origin)
+    // path: '/', // Match the original cookie (if set)
   });
+
   res.status(200).json({
     status: 'success',
     message: 'Successfully logged out the current user',
