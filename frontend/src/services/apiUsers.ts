@@ -207,3 +207,38 @@ export const resetPasswordUserApi = async (
     throw err;
   }
 };
+
+export const updatePasswordUserApi = async (
+  currentPassword: string,
+  newPassword: string,
+  newPasswordConfirm: string,
+) => {
+  try {
+    const res = await fetch(`${LOCAL_BACKEND_API}/users/updateMyPassword`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({
+        passwordCurrent: currentPassword,
+        password: newPassword,
+        passwordConfirm: newPasswordConfirm,
+      }),
+    });
+
+    if (!res.ok) {
+      const errorData = await res.json();
+      throw new Error(
+        errorData.message ||
+          "Something went wrong when trying to update current user password",
+      );
+    }
+
+    toast.success("Successfully changed password");
+    // const { data } = await res.json();
+
+    // return data.user;
+  } catch (err) {
+    console.error(err);
+    toast.error("Password change failed");
+  }
+};

@@ -34,15 +34,15 @@ export const BlogCard = ({
         alt={`Image of ${title} by ${author}`}
       />
       <div className="mx-auto flex w-[95%] -translate-y-16 flex-col rounded-lg bg-white p-8">
-        <div className="flex gap-4">
+        <div className="flex gap-2 sm:gap-4">
           <div className="flex items-center">
             <IoMdPerson style={{ color: "#3b82f6" }} className="h-5 w-5" />
-            <p>&nbsp;By {author}</p>
+            <p className="text-xs sm:text-sm">&nbsp;By {author}</p>
           </div>
           <div className="flex items-center">
             <IoMdCalendar style={{ color: "#3b82f6" }} className="h-5 w-5" />
 
-            <p>&nbsp;{formattedDate}</p>
+            <p className="text-xs sm:text-sm">&nbsp;{formattedDate}</p>
           </div>
         </div>
 

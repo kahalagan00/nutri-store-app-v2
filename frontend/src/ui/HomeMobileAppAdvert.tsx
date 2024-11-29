@@ -1,8 +1,8 @@
 const HomeMobileAppAdvert: React.FC = () => {
   return (
     <div className="mx-auto my-16 flex h-[450px] w-[70%] overflow-hidden rounded-xl bg-blue-400">
-      <div className="flex w-[60%] flex-col justify-evenly pl-16">
-        <h1 className="leading-11 font-neuton w-full text-[40px] font-bold text-white">
+      <div className="flex w-full flex-col justify-evenly p-8 md:w-[60%]">
+        <h1 className="leading-11 font-neuton w-full text-[30px] font-bold text-white lg:text-[40px]">
           Download Jhuv Nutri Mobile App
         </h1>
 
@@ -11,7 +11,7 @@ const HomeMobileAppAdvert: React.FC = () => {
           personalized recommendations, and exclusive wellness tips—anytime,
           anywhere!
         </p>
-        <div className="grid w-[90%] grid-cols-2">
+        <div className="flex flex-col gap-2 lg:grid lg:grid-cols-2">
           <DownloadButton
             imageUrl="/images/mobile_advert/apple-logo.svg"
             name="App Store"
@@ -22,7 +22,7 @@ const HomeMobileAppAdvert: React.FC = () => {
           />
         </div>
       </div>
-      <div className="h-full w-[40%]">
+      <div className="hidden h-full w-[40%] md:block">
         <img
           className="h-full w-full object-cover"
           src="/images/mobile_advert/mobile-app.png"

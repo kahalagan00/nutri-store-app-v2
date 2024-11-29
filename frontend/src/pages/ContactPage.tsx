@@ -5,7 +5,7 @@ function ContactPage() {
     <div className={PAGE_BASE_BACKGROUND_STYLE}>
       <h1 className="font-neuton pb-8 pt-4 text-5xl tracking-wide">Contact</h1>
       <div className="font-lato mx-auto flex w-full pb-16">
-        <div className="flex w-[45%] flex-col items-start justify-center gap-8">
+        <div className="hidden w-[45%] flex-col items-start justify-center gap-8 md:flex">
           <img
             className="h-full w-4/5 object-contain drop-shadow-xl"
             src="/images/contact_page/0.jpg"
@@ -18,7 +18,7 @@ function ContactPage() {
           />
         </div>
 
-        <div className="flex w-[50%] flex-col justify-start">
+        <div className="flex w-full flex-col justify-start md:w-[50%]">
           <h1 className="font-neuton text-[20px] leading-9 tracking-wide lg:text-[40px]">
             Phone: &nbsp;
             <span className="text-blue-600">+1-702-GET-JHUV</span>

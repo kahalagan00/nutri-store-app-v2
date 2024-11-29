@@ -3,8 +3,8 @@ import { CapsuleButtonForward } from "./CapsuleButtonForward";
 
 const HomeAboutSummary: React.FC = () => {
   return (
-    <div className="font-lato mx-auto flex w-[90%] gap-x-8 py-16">
-      <div className="flex w-[50%] items-center justify-center">
+    <div className="font-lato mx-auto flex w-[90%] flex-col gap-x-8 py-16 md:flex-row">
+      <div className="mx-auto flex w-[50%] items-center justify-center">
         <img
           className="h-full w-full object-contain"
           src="/images/about_summary/0.png"
@@ -12,7 +12,7 @@ const HomeAboutSummary: React.FC = () => {
         />
       </div>
 
-      <div className="flex w-[50%] flex-col justify-end">
+      <div className="flex w-full flex-col justify-end md:w-[50%]">
         <p className="text-sm font-bold uppercase text-blue-500">about us</p>
         <h1 className="font-neuton text-[30px] leading-9 lg:text-[40px]">
           We are dedicated to collaborating with accredited pharmacists and

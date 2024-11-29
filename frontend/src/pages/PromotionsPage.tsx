@@ -7,7 +7,7 @@ function PromotionsPage() {
         Promotions
       </h1>
       <div className="font-lato mx-auto flex w-full pb-16">
-        <div className="flex w-[45%] flex-col items-start justify-center gap-8">
+        <div className="hidden w-[45%] flex-col items-start justify-center gap-8 md:flex">
           <img
             className="h-full w-4/5 object-contain drop-shadow-xl"
             src="/images/promotions_page/0.jpg"
@@ -15,7 +15,7 @@ function PromotionsPage() {
           />
         </div>
 
-        <div className="flex w-[50%] flex-col justify-start">
+        <div className="flex w-full flex-col justify-start md:w-[50%]">
           <h1 className="font-neuton text-[30px] leading-9 tracking-wide lg:text-[40px]">
             Enter any code at checkout and get a discount between{" "}
             <span className="font-bold text-blue-600">5% to 20%</span> of your

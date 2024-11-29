@@ -26,11 +26,11 @@ const blogsData = [
 
 const HomeBlogs: React.FC = () => {
   return (
-    <div className="relative mx-auto h-auto w-[90%] py-16">
+    <div className="mx-auto h-auto w-[90%] py-16">
       <h1 className="font-neuton mb-8 w-full text-center text-[40px] font-bold">
         Latest News & Blogs
       </h1>
-      <div className="mx-8 grid h-[500px] grid-cols-3 gap-4">
+      <div className="mx-8 grid gap-4 lg:grid-cols-3">
         {blogsData.map((data) => (
           <BlogCard
             key={data.title}

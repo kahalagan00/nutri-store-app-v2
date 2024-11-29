@@ -18,55 +18,55 @@ import React from "react";
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
   return (
-    <div className="mx-auto w-full pb-16 text-3xl">
+    <div className="mx-auto w-full pb-4 text-3xl">
       {/* Top Footer */}
-      <div className="grid h-[400px] w-full grid-cols-4 justify-items-center rounded-2xl bg-blue-100 p-16 text-black">
+      <div className="flex w-full flex-col justify-items-center rounded-2xl bg-blue-100 p-8 text-black lg:grid lg:h-[400px] lg:grid-cols-4 lg:p-16">
         <FooterSocialBlock />
-        <div className="flex flex-col p-2">
-          <h1 className="font-neuton text-2xl font-bold tracking-wide">
+        <div className="flex flex-row items-center justify-between p-2 lg:flex-col">
+          <h1 className="font-neuton hidden text-2xl font-bold tracking-wide lg:block">
             Categories
           </h1>
-          <p className="font-lato mt-4 text-sm font-bold text-gray-400">
-            Muscle Growth
+          <p className="font-lato mt-4 text-xs font-bold text-gray-400 sm:text-sm">
+            Muscle
           </p>
-          <p className="font-lato mt-4 text-sm font-bold text-gray-400">
-            Joint Health
+          <p className="font-lato mt-4 text-xs font-bold text-gray-400 sm:text-sm">
+            Joints
           </p>
-          <p className="font-lato mt-4 text-sm font-bold text-gray-400">
-            Sleep Improvement
+          <p className="font-lato mt-4 text-xs font-bold text-gray-400 sm:text-sm">
+            Sleep
           </p>
-          <p className="font-lato mt-4 text-sm font-bold text-gray-400">
-            Increase Energy
+          <p className="font-lato mt-4 text-xs font-bold text-gray-400 sm:text-sm">
+            Energy
           </p>
-          <p className="font-lato mt-4 text-sm font-bold text-gray-400">
-            Heart Health
+          <p className="font-lato mt-4 text-xs font-bold text-gray-400 sm:text-sm">
+            Heart
           </p>
         </div>
-        <div className="flex flex-col p-2">
-          <h1 className="font-neuton text-2xl font-bold tracking-wide">
+        <div className="flex flex-row items-center justify-between p-2 lg:flex-col">
+          <h1 className="font-neuton hidden text-2xl font-bold tracking-wide lg:block">
             Useful Links
           </h1>
-          <p className="font-lato mt-4 text-sm font-bold text-gray-400">
-            Payment & Tax
+          <p className="font-lato mt-4 text-xs font-bold text-gray-400 sm:text-sm">
+            Payment
           </p>
-          <p className="font-lato mt-4 text-sm font-bold text-gray-400">
+          <p className="font-lato mt-4 text-xs font-bold text-gray-400 sm:text-sm">
             Terms of Service
           </p>
-          <p className="font-lato mt-4 text-sm font-bold text-gray-400">
-            My Account
+          <p className="font-lato mt-4 text-xs font-bold text-gray-400 sm:text-sm">
+            Account
           </p>
-          <p className="font-lato mt-4 text-sm font-bold text-gray-400">
-            Return Policy
+          <p className="font-lato mt-4 text-xs font-bold text-gray-400 sm:text-sm">
+            Returns
           </p>
-          <p className="font-lato mt-4 text-sm font-bold text-gray-400">
+          <p className="font-lato mt-4 text-xs font-bold text-gray-400 sm:text-sm">
             Discounts
           </p>
         </div>
         <div className="flex flex-col p-2">
-          <h1 className="font-neuton text-2xl font-bold tracking-wide">
+          <h1 className="font-neuton hidden text-2xl font-bold tracking-wide lg:block">
             Newsletter
           </h1>
-          <p className="font-lato mt-4 text-sm font-bold text-gray-400">
+          <p className="font-lato mt-4 text-xs font-bold text-gray-400 sm:text-sm">
             Get now 25% discount for all products on your first order
           </p>
           <div className="mt-4 flex border-b-2 border-b-gray-400 pb-2">
@@ -78,19 +78,19 @@ const Footer: React.FC = () => {
             />
             <IoMdArrowForward className="h-5 text-blue-500" />
           </div>
-          <p className="font-lato mt-4 text-sm font-bold text-gray-400">
+          <p className="font-lato mt-4 text-xs font-bold text-gray-400 sm:text-sm">
             T: &nbsp; {STORE_PHONE_NUMBER}
           </p>
-          <p className="font-lato mt-4 text-sm font-bold text-gray-400">
+          <p className="font-lato mt-4 text-xs font-bold text-gray-400 sm:text-sm">
             E: &nbsp; {STORE_WEBSITE}
           </p>
         </div>
       </div>
 
       {/* Bottom footer */}
-      <div className="font-lato flex h-[50px] items-center justify-between bg-white px-6 text-xs font-semibold text-gray-400">
-        <p>&copy;&nbsp;{currentYear} Jhuv Nutrition</p>
-        <div className="flex w-[40%] justify-evenly">
+      <div className="font-lato flex h-[50px] flex-col items-center justify-evenly bg-white px-6 text-xs font-semibold text-gray-400 sm:gap-0 lg:flex-row lg:justify-between lg:gap-y-4">
+        <p className="mt-2 lg:mt-0">&copy;&nbsp;{currentYear} Jhuv Nutrition</p>
+        <div className="my-0 flex w-full flex-col items-center justify-between sm:w-[40%] sm:flex-row">
           <p>Privacy Policy</p>
           <p>Terms & Conditions</p>
           <p>Cookies/Ad Choices</p>
@@ -131,7 +131,7 @@ const FooterSocialBlock: React.FC = () => {
       <p className="font-lato mt-6 text-sm font-bold text-gray-500">
         {STORE_ADDRESS}
       </p>
-      <div className="mt-6 flex w-full justify-between">
+      <div className="mt-6 flex w-full justify-start gap-4 lg:justify-between lg:gap-0">
         <a
           href="https://facebook.com"
           target="_blank" // Opens link in new tab

@@ -33,7 +33,7 @@ const reviewSummaryData = [
 
 const HomeReviewsSummary: React.FC = () => {
   return (
-    <div className="relative mx-auto h-auto w-[90%] py-16">
+    <div className="relative mx-auto h-[1200px] w-[90%] py-16 lg:h-auto">
       <h1 className="font-neuton w-full text-center text-[40px] font-bold">
         Why Customers Love Us?
       </h1>
@@ -42,8 +42,8 @@ const HomeReviewsSummary: React.FC = () => {
         src="/images/reviews_summary/background.png"
         alt=""
       />
-      <div className="absolute left-1/2 top-[60%] w-[90%] -translate-x-1/2 -translate-y-[60%] transform">
-        <div className="grid h-[300px] w-full grid-cols-[repeat(3,_320px)] justify-center gap-2">
+      <div className="absolute left-1/2 top-0 w-[90%] -translate-x-1/2 translate-y-[167px] transform lg:top-1/2 lg:-translate-y-1/2">
+        <div className="grid h-[300px] w-full justify-center gap-8 lg:grid-cols-[repeat(3,_320px)] lg:gap-2">
           {reviewSummaryData.map((data) => (
             <ReviewCard
               key={data.name}
@@ -57,12 +57,14 @@ const HomeReviewsSummary: React.FC = () => {
           ))}
         </div>
       </div>
-      <div className="absolute left-0 top-1/2 -translate-y-1/2 transform">
+
+      {/* Use later when implementing carousel slide */}
+      {/* <div className="absolute left-0 top-1/2 -translate-y-1/2 transform">
         <ArrowButton direction="back" color="bg-slate-300" />
       </div>
       <div className="absolute right-0 top-1/2 -translate-y-1/2 transform">
         <ArrowButton direction="forward" color="bg-slate-300" />
-      </div>
+      </div> */}
     </div>
   );
 };

@@ -2,11 +2,11 @@ import { IoMdArrowForward } from "react-icons/io";
 
 export const CapsuleButtonForward = ({ message }: { message: string }) => {
   return (
-    <div className="grid h-[30px] w-[100px] grid-cols-[1fr_20px] items-center rounded-full bg-blue-600 px-1 md:h-[45px] md:w-[150px] md:px-4">
-      <p className="font-lato justify-self-center text-[10px] font-bold text-white md:text-sm">
+    <div className="grid h-[21px] w-[75px] grid-cols-[1fr_20px] items-center rounded-full bg-blue-600 px-1 sm:h-[30px] sm:w-[100px] md:h-[45px] md:w-[150px] md:px-4">
+      <p className="font-lato justify-self-center text-[8px] font-bold text-white sm:text-[10px] md:text-sm">
         {message}
       </p>
-      <button className="flex h-[20px] w-[20px] cursor-pointer items-center justify-center justify-self-center rounded-full bg-white md:h-[35px] md:w-[35px]">
+      <button className="flex h-[15px] w-[15px] cursor-pointer items-center justify-center justify-self-center rounded-full bg-white sm:h-[20px] sm:w-[20px] md:h-[35px] md:w-[35px]">
         <IoMdArrowForward className="h-[60px]" />
       </button>
     </div>

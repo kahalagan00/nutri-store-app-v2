@@ -5,7 +5,7 @@ function AboutPage() {
     <div className={PAGE_BASE_BACKGROUND_STYLE}>
       <h1 className="font-neuton pb-8 pt-4 text-5xl tracking-wide">About us</h1>
       <div className="font-lato mx-auto flex w-full pb-16">
-        <div className="flex w-[45%] flex-col items-start justify-center gap-8">
+        <div className="hidden w-[45%] flex-col items-start justify-center gap-8 md:flex">
           <img
             className="h-full w-4/5 object-contain drop-shadow-xl"
             src="/images/about_page/0.jpg"
@@ -18,7 +18,7 @@ function AboutPage() {
           />
         </div>
 
-        <div className="flex w-[50%] flex-col justify-start">
+        <div className="flex w-full flex-col justify-start md:w-[50%]">
           <p className="text-sm font-bold uppercase text-blue-500">about us</p>
           <h1 className="font-neuton text-[30px] leading-9 lg:text-[40px]">
             We are dedicated to collaborating with accredited pharmacists and

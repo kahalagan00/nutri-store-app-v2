@@ -12,17 +12,17 @@ import HomeReviewsSummary from "../ui/HomeReviewsSummary";
 
 function HomePage() {
   return (
-    <div className={`h-full`}>
+    <div className="h-full">
       <HomeCarousel />
       <HomeCompanyFeatures />
       <HomeHotCategories />
       <HomeCuratedCategories />
       <HomeBestSelling />
-      <HomeAboutSummary />
-      <HomeMostPopular />
-      <HomeAchievements />
-      <HomeReviewsSummary />
-      <HomeMobileAppAdvert />
+      {/* <HomeAboutSummary /> */}
+      {/* <HomeMostPopular /> */}
+      {/* <HomeAchievements /> */}
+      {/* <HomeReviewsSummary /> */}
+      {/* <HomeMobileAppAdvert /> */}
       <HomeBlogs />
     </div>
   );

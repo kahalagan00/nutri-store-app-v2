@@ -1,12 +1,12 @@
 const HomeAchievements: React.FC = () => {
   return (
-    <div className="relative mx-auto flex w-full gap-x-8">
+    <div className="relative mx-auto flex h-[400px] w-full gap-x-8 bg-black lg:h-auto">
       <img
-        className="w-full"
+        className="w-full object-contain"
         src="/images/achievements/background.png"
         alt="Background image of achievements"
       />
-      <div className="absolute inset-0 m-auto grid h-[40%] w-[70%] grid-cols-[repeat(4,_200px)] place-items-center gap-4">
+      <div className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 transform flex-col place-items-center gap-4 lg:grid lg:grid-cols-[repeat(4,_200px)]">
         <AchievementCard
           numberFigure="10"
           message="Supplement Categories"

@@ -11,7 +11,7 @@ const AppLayout = ({
 }) => {
   return (
     <div>
-      <div className="w-screen bg-white drop-shadow-lg">
+      <div className="w-screen overflow-hidden bg-white drop-shadow-lg">
         <Header
           isAuthenticated={isAuthenticated}
           setIsAuthenticated={setIsAuthenticated}
