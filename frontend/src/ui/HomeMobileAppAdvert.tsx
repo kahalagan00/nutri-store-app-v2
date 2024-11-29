@@ -2,11 +2,11 @@ const HomeMobileAppAdvert: React.FC = () => {
   return (
     <div className="mx-auto my-16 flex h-[450px] w-[70%] overflow-hidden rounded-xl bg-blue-400">
       <div className="flex w-full flex-col justify-evenly p-8 md:w-[60%]">
-        <h1 className="leading-11 font-neuton w-full text-[30px] font-bold text-white lg:text-[40px]">
+        <h1 className="leading-11 font-neuton w-full text-[25px] font-bold text-white sm:text-[30px] lg:text-[40px]">
           Download Jhuv Nutri Mobile App
         </h1>
 
-        <p className="font-lato text-white">
+        <p className="font-lato text-sm text-white sm:text-base">
           Download our mobile app for easy access to top-quality supplements,
           personalized recommendations, and exclusive wellness tips—anytime,
           anywhere!

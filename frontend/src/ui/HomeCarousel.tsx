@@ -1,5 +1,5 @@
 import { CapsuleButtonForward } from "./CapsuleButtonForward";
-import { ArrowButton } from "./ArrowButton";
+// import { ArrowButton } from "./ArrowButton";
 import { NavLink } from "react-router-dom";
 
 const carouselData = [

@@ -48,7 +48,7 @@ export const useSignUpUser = () => {
       navigate("/", { replace: true });
       toast.success("Successfully signed up");
     },
-    onError: (err: unknown) => {
+    onError: () => {
       // console.log("ERROR 💩", err);
       toast.error("Fill out all fields correctly to sign up");
     },

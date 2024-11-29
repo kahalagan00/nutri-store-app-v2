@@ -1,4 +1,4 @@
-import { ArrowButton } from "./ArrowButton";
+// import { ArrowButton } from "./ArrowButton";
 import { ReviewCard } from "./ReviewCard";
 
 const reviewSummaryData = [
@@ -42,7 +42,7 @@ const HomeReviewsSummary: React.FC = () => {
         src="/images/reviews_summary/background.png"
         alt=""
       />
-      <div className="absolute left-1/2 top-0 w-[90%] -translate-x-1/2 translate-y-[167px] transform lg:top-1/2 lg:-translate-y-1/2">
+      <div className="absolute left-1/2 top-0 w-[90%] -translate-x-1/2 translate-y-[200px] transform lg:top-1/2 lg:-translate-y-1/2">
         <div className="grid h-[300px] w-full justify-center gap-8 lg:grid-cols-[repeat(3,_320px)] lg:gap-2">
           {reviewSummaryData.map((data) => (
             <ReviewCard

@@ -13,7 +13,7 @@ const CartMenu: React.FC = () => {
   };
 
   return (
-    <div className="flex w-[180px] items-center justify-evenly">
+    <div className="flex items-center justify-evenly lg:w-[180px]">
       <NavLink
         to="/cart"
         className="relative rounded-full p-2 hover:bg-slate-300"
@@ -23,7 +23,7 @@ const CartMenu: React.FC = () => {
           {cartNumber}
         </div>
       </NavLink>
-      <div>
+      <div className="hidden lg:block">
         <p className="font-lato text-xs font-bold tracking-wide text-gray-600">
           My Cart
         </p>
@@ -31,7 +31,7 @@ const CartMenu: React.FC = () => {
           ${cartTotal.toFixed(2)}
         </p>
       </div>
-      <button onClick={handleClick}>
+      <button onClick={handleClick} className="hidden lg:block">
         <IoMdArrowDropdown />
       </button>
     </div>

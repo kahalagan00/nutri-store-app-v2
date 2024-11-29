@@ -124,7 +124,7 @@ const LoginPage = ({
         <div className="flex justify-center">
           <NavLink
             to="/forgotPassword"
-            className="font-lato self-center border-b-2 border-b-white text-sm tracking-wide text-gray-600 hover:border-b-slate-400"
+            className="font-lato self-center border-b-2 border-b-transparent text-sm tracking-wide text-gray-600 hover:border-b-slate-400"
           >
             Forgot your password? &nbsp;
           </NavLink>

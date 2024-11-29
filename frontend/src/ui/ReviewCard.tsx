@@ -12,14 +12,14 @@ export const ReviewCard = ({
   return (
     <div className="flex h-[300px] w-full flex-col justify-start rounded-lg border-b-8 border-b-blue-400 bg-blue-50 px-8 pt-6">
       <div>
-        <IoMdPaper className="h-[50px] w-[50px]" />
+        <IoMdPaper className="h-[40px] w-[40px] sm:h-[50px] sm:w-[50px]" />
       </div>
       <div className="mt-2 flex gap-2">
         {Array.from({ length: rating }).map((_, i) => (
           <IoMdStar key={i} className="h-[25px] w-[25px]" />
         ))}
       </div>
-      <p className="font-lato mt-4 text-sm font-bold tracking-wide text-gray-500">
+      <p className="font-lato mt-4 text-xs font-bold tracking-wide text-gray-500 sm:text-sm">
         "{review}"
       </p>
       <div className="mt-6 flex">

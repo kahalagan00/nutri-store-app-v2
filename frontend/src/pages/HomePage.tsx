@@ -18,11 +18,11 @@ function HomePage() {
       <HomeHotCategories />
       <HomeCuratedCategories />
       <HomeBestSelling />
-      {/* <HomeAboutSummary /> */}
-      {/* <HomeMostPopular /> */}
-      {/* <HomeAchievements /> */}
-      {/* <HomeReviewsSummary /> */}
-      {/* <HomeMobileAppAdvert /> */}
+      <HomeAboutSummary />
+      <HomeMostPopular />
+      <HomeAchievements />
+      <HomeReviewsSummary />
+      <HomeMobileAppAdvert />
       <HomeBlogs />
     </div>
   );

@@ -112,7 +112,7 @@ const HomeMostPopular: React.FC = () => {
         Most Popular Products
       </h1>
 
-      <div className="my-16 grid h-[40px] grid-cols-[repeat(4,_100px)] place-items-center justify-items-center gap-1">
+      <div className="my-16 flex h-[40px] grid-cols-[repeat(4,_100px)] flex-col place-items-center justify-items-center gap-1 md:grid">
         <MenuCapsule message="Bone" />
         <MenuCapsule message="Muscle" />
         <MenuCapsule message="Sleep" />

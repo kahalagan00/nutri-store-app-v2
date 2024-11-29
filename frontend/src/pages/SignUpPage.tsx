@@ -74,7 +74,7 @@ const SignUpPage = ({
 
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="mt-8 grid h-[32rem] grid-cols-2 grid-rows-5 gap-x-6 gap-y-1"
+          className="mt-8 grid grid-rows-5 gap-x-6 gap-y-1 md:h-[32rem] md:grid-cols-2"
         >
           <div>
             <p>

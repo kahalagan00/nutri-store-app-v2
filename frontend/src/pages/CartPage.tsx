@@ -92,13 +92,21 @@ const CartPage = ({ isAuthenticated }: { isAuthenticated: boolean | null }) => {
         bag
       </p>
 
-      <div className="grid w-full grid-cols-[800px_300px] justify-items-center gap-12">
+      <div className="flex w-full grid-cols-[800px_300px] flex-col justify-items-center gap-12 lg:grid">
         <div className="scrollbar-hidden flex w-full flex-col justify-start gap-y-1 overflow-scroll rounded-xl bg-slate-200 p-8 drop-shadow-xl">
-          <div className="mb-4 grid grid-cols-[400px_100px_100px_100px] gap-x-4">
-            <p className="text-lg font-bold">Product</p>
-            <p className="text-md justify-self-center font-bold">Price</p>
-            <p className="text-md justify-self-center font-bold">Quantity</p>
-            <p className="text-md justify-self-center font-bold">Total Price</p>
+          <div className="mb-4 grid gap-x-4 sm:grid-cols-[200px_100px_100px_100px] lg:grid-cols-[400px_100px_100px_100px]">
+            <p className="mx-auto text-lg font-bold sm:ml-14 lg:ml-0">
+              Product
+            </p>
+            <p className="text-md hidden justify-self-center font-bold sm:block">
+              Price
+            </p>
+            <p className="text-md hidden justify-self-center font-bold sm:block">
+              Quantity
+            </p>
+            <p className="text-md hidden justify-self-center font-bold sm:block">
+              Total Price
+            </p>
           </div>
 
           {isLoadingCart && <Spinner />}
@@ -113,13 +121,22 @@ const CartPage = ({ isAuthenticated }: { isAuthenticated: boolean | null }) => {
                     purpose={item.purpose}
                   />
                   <p className="text-md justify-self-center font-bold">
-                    {item.price}
+                    <span className="inline-block sm:hidden">
+                      Price =&nbsp;
+                    </span>
+                    ${item.price}
                   </p>
                   <p className="text-md justify-self-center font-bold">
+                    <span className="inline-block sm:hidden">
+                      Quantity =&nbsp;
+                    </span>
                     {item.quantity}
                   </p>
                   <p className="justify-self-center text-lg font-light text-blue-600">
-                    {(item.price * item.quantity).toFixed(2)}
+                    <span className="inline-block sm:hidden">
+                      Total =&nbsp;
+                    </span>
+                    ${(item.price * item.quantity).toFixed(2)}
                   </p>
                 </CartProductRow>
               ))
@@ -131,6 +148,7 @@ const CartPage = ({ isAuthenticated }: { isAuthenticated: boolean | null }) => {
                     purpose={item.purpose}
                   />
                   <p className="text-md justify-self-center font-bold">
+                    <span className="inline-block sm:hidden">Price = </span>
                     {item.price}
                   </p>
                   <p className="text-md justify-self-center font-bold">

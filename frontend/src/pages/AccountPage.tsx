@@ -69,7 +69,7 @@ function AccountPage() {
       return;
     }
     updatePasswordUserApi(currentPassword, newPassword, newPassword);
-    console.log(currentPassword, newPassword);
+    // console.log(currentPassword, newPassword);
   };
 
   return (
