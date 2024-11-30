@@ -58,6 +58,7 @@ const fullReviewsData = [
   },
 ];
 
+// Shows a list of reviews by users in a card format
 function ReviewsPage() {
   return (
     <div className={PAGE_BASE_BACKGROUND_STYLE}>

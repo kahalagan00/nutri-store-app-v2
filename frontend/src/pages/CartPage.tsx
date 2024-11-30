@@ -18,6 +18,7 @@ type CartItem = {
   quantity: number;
 };
 
+// Functions as a checkout page where the user can check a summary of their orders and can proceed to pay/checkout
 const CartPage = ({ isAuthenticated }: { isAuthenticated: boolean | null }) => {
   const { get, isPending: isLoadingCart } = useGetCart();
   const { cartNumber, cartTotal } = useCart();

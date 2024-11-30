@@ -21,6 +21,7 @@ interface SignUpVariables {
   passwordConfirm: string;
 }
 
+// Enables the user to sign in
 const SignUpPage = ({
   setIsAuthenticated,
 }: {

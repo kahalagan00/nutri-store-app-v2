@@ -20,6 +20,7 @@ interface ForgotPasswordVariables {
   email: string;
 }
 
+// Enables the user the send a token to their email to reset their password
 const ForgotPasswordPage: React.FC = () => {
   const [isSentToken, setIsSentToken] = useState(false);
   const { resetPassword, isPending: isResetting } = useResetPassword();

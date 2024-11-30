@@ -1,5 +1,6 @@
 import { PAGE_BASE_BACKGROUND_STYLE } from "../utils/constants";
 
+// Shows store promotions and offers
 function PromotionsPage() {
   return (
     <div className={PAGE_BASE_BACKGROUND_STYLE}>

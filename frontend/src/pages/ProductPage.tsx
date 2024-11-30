@@ -19,6 +19,7 @@ type Product = {
   availability: boolean;
 };
 
+// Shows a list of all the items in the store/database.
 const ProductPage: React.FC = () => {
   const { isLoading, products, error } = useGetProducts();
 

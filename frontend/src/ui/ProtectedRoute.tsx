@@ -14,7 +14,7 @@ const ProtectedRoute = ({
     return <Navigate to={redirectPath} replace />;
   }
 
-  return children ? <>{children}</> : <Outlet />;
+  return children ? <div>{children}</div> : <Outlet />;
 };
 
 export default ProtectedRoute;

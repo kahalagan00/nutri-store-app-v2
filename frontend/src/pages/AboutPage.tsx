@@ -1,5 +1,6 @@
 import { PAGE_BASE_BACKGROUND_STYLE } from "../utils/constants";
 
+// About page that shows what the company is about in great detail.
 function AboutPage() {
   return (
     <div className={PAGE_BASE_BACKGROUND_STYLE}>

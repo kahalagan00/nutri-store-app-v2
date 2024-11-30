@@ -10,6 +10,7 @@ import HomeMobileAppAdvert from "../ui/HomeMobileAppAdvert";
 import HomeMostPopular from "../ui/HomeMostPopular";
 import HomeReviewsSummary from "../ui/HomeReviewsSummary";
 
+// All main information about the store summarized in the front page
 function HomePage() {
   return (
     <div className="h-full">

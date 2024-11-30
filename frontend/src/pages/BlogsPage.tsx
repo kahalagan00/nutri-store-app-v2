@@ -81,6 +81,7 @@ const fullBlogsData = [
   },
 ];
 
+// Shows a list of Blog statistics in cards
 function BlogsPage() {
   return (
     <div className={PAGE_BASE_BACKGROUND_STYLE}>

@@ -1,5 +1,6 @@
 import { PAGE_BASE_BACKGROUND_STYLE } from "../utils/constants";
 
+// Shows telephone and email information about the company
 function ContactPage() {
   return (
     <div className={PAGE_BASE_BACKGROUND_STYLE}>

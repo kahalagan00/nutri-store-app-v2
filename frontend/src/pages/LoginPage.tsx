@@ -13,6 +13,7 @@ interface LoginVariables {
   password: string;
 }
 
+// Enables the user to log in
 const LoginPage = ({
   setIsAuthenticated,
 }: {

@@ -3,6 +3,7 @@ import { BACKEND_URL, PAGE_BASE_BACKGROUND_STYLE } from "../utils/constants";
 import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
 import { updatePasswordUserApi } from "../services/apiUsers";
+import { useNavigate } from "react-router-dom";
 
 type User = {
   _id: string;
@@ -15,10 +16,12 @@ type User = {
   symptoms: string[];
 };
 
+// Shows the summary of the user information and gives the option to change user password
 function AccountPage() {
   const [newPassword, setNewPassword] = useState("");
   const [currentPassword, setCurrentPassword] = useState("");
   const [user, setCurrentUser] = useState<User>();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getUser = async () => {
@@ -60,12 +63,13 @@ function AccountPage() {
     formattedBirthday = "Not specified";
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (newPassword.length < 8 || currentPassword.length < 8) {
       toast.error("Please enter at least 8 characters for the passwords");
       return;
     }
-    updatePasswordUserApi(currentPassword, newPassword, newPassword);
+    await updatePasswordUserApi(currentPassword, newPassword, newPassword);
+    navigate("/");
     // console.log(currentPassword, newPassword);
   };
 
@@ -131,13 +135,13 @@ function AccountPage() {
               <div className="flex h-[100px] w-full items-center justify-between rounded-lg border-2 bg-blue-50 p-6">
                 <div className="flex flex-col">
                   <input
-                    type="text"
+                    type="password"
                     className="font-lato mb-2 border-b-2 border-b-gray-600 bg-transparent outline-none"
                     placeholder="Enter current password"
                     onChange={(e) => setCurrentPassword(e.target.value)}
                   />
                   <input
-                    type="text"
+                    type="password"
                     className="font-lato border-b-2 border-b-gray-600 bg-transparent outline-none"
                     placeholder="Enter new password"
                     onChange={(e) => setNewPassword(e.target.value)}
