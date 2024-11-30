@@ -8,8 +8,8 @@ export const STORE_PHONE_NUMBER: string = "+1-702-GET-JHUV";
 export const STORE_WEBSITE: string = "jhuvNutri@vegas.com.us";
 
 // URLs
-// export const LOCAL_BACKEND_API: string = "http://localhost:3000/api/v1";
-export const LOCAL_BACKEND_API: string =
+// export const BACKEND_URL: string = "http://localhost:3000/api/v1";
+export const BACKEND_URL: string =
   "https://nutri-store-app-v2-production.up.railway.app/api/v1";
 
 export const PAYMENT_METHODS_SRC: string = "/images/footer/payment_methods";

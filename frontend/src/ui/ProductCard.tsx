@@ -96,7 +96,7 @@ const ProductCard: React.FC<ProductCard> = ({
         <button
           onClick={handleAddToCart}
           disabled={isAddingToCart || stockQuantity === 0}
-          className={`flex h-11 items-center justify-center rounded-full bg-blue-600 p-2.5 hover:bg-blue-500 ${isAddingToCart || stockQuantity === 0 ? "opacity-50" : ""}`}
+          className={`flex h-11 w-11 items-center justify-center rounded-full bg-blue-600 p-2.5 hover:bg-blue-500 ${isAddingToCart || stockQuantity === 0 ? "opacity-50" : ""}`}
         >
           <IoMdCart className="h-full w-full text-white" />
         </button>

@@ -8,9 +8,7 @@ export const CapsuleButtonRegular = ({
   text: string;
 }) => {
   return (
-    <button
-      className={`rem h-10 w-28 rounded-full ${buttonColor} bg-white p-2`}
-    >
+    <button className={`rem h-10 w-28 rounded-full ${buttonColor} p-2`}>
       <span className={`${textColor}`}>{text}</span>
     </button>
   );

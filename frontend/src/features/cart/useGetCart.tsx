@@ -1,10 +1,10 @@
 import toast from "react-hot-toast";
-import { LOCAL_BACKEND_API } from "../../utils/constants";
+import { BACKEND_URL } from "../../utils/constants";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export const getCart = async () => {
   try {
-    const res = await fetch(`${LOCAL_BACKEND_API}/carts/cart`, {
+    const res = await fetch(`${BACKEND_URL}/carts/cart`, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
       credentials: "include",

@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import { CapsuleButtonRegular } from "./CapsuleButtonRegular";
 
 const curatedCategoryData = [
@@ -65,15 +66,17 @@ const CuratedCategoryCard = ({
       <div className="flex w-[50%] flex-col items-start justify-evenly pl-8">
         <p className={`${textColor} text-sm uppercase`}>{title}</p>
         <p className={`${textColor} text-2xl font-bold`}>{message}</p>
-        <CapsuleButtonRegular
-          buttonColor="bg-white"
-          textColor="text-black"
-          text="See All"
-        />
+        <NavLink to="/products">
+          <CapsuleButtonRegular
+            buttonColor="bg-white"
+            textColor="text-black"
+            text="See All"
+          />
+        </NavLink>
       </div>
       <div className="flex w-[50%] items-center justify-center p-2">
         <img
-          className="w-full object-contain"
+          className="h-full w-full object-contain"
           src={imageUrl}
           alt={`Image of (${message})`}
         />

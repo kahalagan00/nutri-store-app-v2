@@ -14,7 +14,7 @@ import SignUpPage from "./pages/SignUpPage";
 import ProductPage from "./pages/ProductPage";
 import CartPage from "./pages/CartPage";
 import { useEffect, useState } from "react";
-import { LOCAL_BACKEND_API } from "./utils/constants";
+import { BACKEND_URL } from "./utils/constants";
 import { CartProvider } from "./context/CartContext";
 import ProtectedRoute from "./ui/ProtectedRoute";
 import BlogsPage from "./pages/BlogsPage";
@@ -37,7 +37,7 @@ const App: React.FC = () => {
   useEffect(() => {
     const validateToken = async () => {
       try {
-        const res = await fetch(`${LOCAL_BACKEND_API}/users/user`, {
+        const res = await fetch(`${BACKEND_URL}/users/user`, {
           method: "GET",
           credentials: "include",
         });

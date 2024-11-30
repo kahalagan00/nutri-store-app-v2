@@ -36,10 +36,10 @@ app.options('*', cors());
 
 // Development logging
 if (process.env.NODE_ENV === 'development') {
-  app.use(morgan('dev')); // JMARDEBUG: What does this do? : Morgan logs HTTP request details
+  app.use(morgan('dev')); // Morgan logs HTTP request details
 }
 
-// JMARDEBUG: What does this do? Does it limit the amount of requests in the "/api" route? : Limits the number of requests a user can make to the API
+// Limits the number of requests a user can make to the API
 // Uncomment during production mode so that there is a limit to the requests
 // const limiter = rateLimit({
 //   max: 100,
@@ -66,7 +66,7 @@ app.use(ExpressMongoSanitize());
 // Data sanitization against XSS
 app.use(xss());
 
-app.use(compression()); // JMARDEUBG: Does this compress the overall code or just the app.js?
+app.use(compression()); // Compresses the overall code or just the app.js
 
 // <------------------------------------------------------------------------------------------>
 
@@ -75,7 +75,6 @@ app.use('/api/v1/products', productRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/carts', cartRouter);
 
-// JMARDEBUG: What does this do overall?
 // Handling unhandled routes (NEEDS TO BE AT THE BOTTOM, ORDER MATTERS!)
 app.all('*', (req, res, next) => {
   // const err = new Error(`Can't find ${req.originalUrl} on this server!`);

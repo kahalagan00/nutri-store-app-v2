@@ -1,9 +1,9 @@
-import { LOCAL_BACKEND_API } from "../../utils/constants";
+import { BACKEND_URL } from "../../utils/constants";
 import { useQuery } from "@tanstack/react-query";
 
 const getProducts = async () => {
   try {
-    const res = await fetch(`${LOCAL_BACKEND_API}/products`);
+    const res = await fetch(`${BACKEND_URL}/products`);
     if (!res.ok) {
       throw new Error(`HTTP error! status: ${res.status}`);
     }

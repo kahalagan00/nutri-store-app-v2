@@ -1,5 +1,5 @@
 import toast from "react-hot-toast";
-import { LOCAL_BACKEND_API } from "../utils/constants";
+import { BACKEND_URL } from "../utils/constants";
 
 type User = {
   _id: string;
@@ -22,7 +22,7 @@ export const loginUserApi = async (
   email: string,
   password: string,
 ): Promise<LoginResponse> => {
-  const res = await fetch(`${LOCAL_BACKEND_API}/users/login`, {
+  const res = await fetch(`${BACKEND_URL}/users/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     credentials: "include",
@@ -46,7 +46,7 @@ export const loginUserApi = async (
 
   // Create the cart
   if (user) {
-    const res2 = await fetch(`${LOCAL_BACKEND_API}/carts/createCart`, {
+    const res2 = await fetch(`${BACKEND_URL}/carts/createCart`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
@@ -88,7 +88,7 @@ export const signUpUserApi = async (
   height: number,
   weight: number,
 ): Promise<LoginResponse> => {
-  const res = await fetch(`${LOCAL_BACKEND_API}/users/signup`, {
+  const res = await fetch(`${BACKEND_URL}/users/signup`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     credentials: "include",
@@ -120,7 +120,7 @@ export const signUpUserApi = async (
 
   // Create the cart
   if (user) {
-    const res2 = await fetch(`${LOCAL_BACKEND_API}/carts/createCart`, {
+    const res2 = await fetch(`${BACKEND_URL}/carts/createCart`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
@@ -154,7 +154,7 @@ export const signUpUserApi = async (
 
 export const forgotPasswordApi = async (email: string) => {
   try {
-    const res = await fetch(`${LOCAL_BACKEND_API}/users/forgotPassword`, {
+    const res = await fetch(`${BACKEND_URL}/users/forgotPassword`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
@@ -181,15 +181,12 @@ export const resetPasswordUserApi = async (
   token: string,
 ): Promise<User> => {
   try {
-    const res = await fetch(
-      `${LOCAL_BACKEND_API}/users/resetPassword/${token}`,
-      {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({ password, passwordConfirm }),
-      },
-    );
+    const res = await fetch(`${BACKEND_URL}/users/resetPassword/${token}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({ password, passwordConfirm }),
+    });
 
     if (!res.ok) {
       const errorData = await res.json();
@@ -214,7 +211,7 @@ export const updatePasswordUserApi = async (
   newPasswordConfirm: string,
 ) => {
   try {
-    const res = await fetch(`${LOCAL_BACKEND_API}/users/updateMyPassword`, {
+    const res = await fetch(`${BACKEND_URL}/users/updateMyPassword`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       credentials: "include",

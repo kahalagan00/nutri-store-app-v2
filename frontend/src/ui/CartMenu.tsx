@@ -16,7 +16,7 @@ const CartMenu: React.FC = () => {
     <div className="flex items-center justify-evenly lg:w-[180px]">
       <NavLink
         to="/cart"
-        className="relative rounded-full p-2 hover:bg-slate-300"
+        className="relative rounded-full p-2 transition hover:bg-slate-300 active:translate-y-1"
       >
         <IoMdCart className="h-7 w-7" />
         <div className="absolute flex h-5 w-5 -translate-y-9 translate-x-5 items-center justify-center rounded-full bg-rose-600 text-xs font-bold text-white">

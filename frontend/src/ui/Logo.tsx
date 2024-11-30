@@ -1,7 +1,7 @@
 function Logo() {
   return (
-    <div className="flex w-full items-center justify-evenly md:w-1/5">
-      <div className="flex w-16 items-center justify-center md:w-36">
+    <div className="flex w-full items-center justify-start">
+      <div className="flex w-16 items-center justify-center">
         <img
           className="max-h-16 max-w-16"
           src="/images/company-logo-2.svg"

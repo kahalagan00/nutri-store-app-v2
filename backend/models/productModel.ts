@@ -48,7 +48,7 @@ const productSchema = new mongoose.Schema<IProduct>({
   },
   matterType: {
     type: String,
-    trim: true, // JMARDEBUG: What does this do? : Removes whitespaces from right and left
+    trim: true, //  Removes whitespaces from right and left
     required: [true, 'The product must specify their matter state'],
   },
   price: {

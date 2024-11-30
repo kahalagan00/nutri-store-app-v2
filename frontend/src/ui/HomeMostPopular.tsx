@@ -111,15 +111,15 @@ const HomeMostPopular: React.FC = () => {
       <h1 className="font-neuton text-[30px] font-bold lg:text-[40px]">
         Most Popular Products
       </h1>
-
+      {/* 
       <div className="my-16 flex h-[40px] grid-cols-[repeat(4,_100px)] flex-col place-items-center justify-items-center gap-1 md:grid">
         <MenuCapsule message="Bone" />
         <MenuCapsule message="Muscle" />
         <MenuCapsule message="Sleep" />
         <MenuCapsule message="Bone" />
-      </div>
+      </div> */}
 
-      <div className="grid w-full grid-cols-[repeat(auto-fit,minmax(288px,300px))] justify-center gap-4">
+      <div className="mt-16 grid w-full grid-cols-[repeat(auto-fit,minmax(288px,300px))] justify-center gap-4">
         {bestSellingData.map((data) => (
           <ProductCard
             key={data._id}
@@ -141,10 +141,10 @@ const HomeMostPopular: React.FC = () => {
 
 export default HomeMostPopular;
 
-const MenuCapsule = ({ message }: { message: string }) => {
-  return (
-    <button className="font-lato flex h-full w-full cursor-pointer items-center justify-center rounded-full text-sm font-bold text-gray-700 transition-all focus:bg-slate-600 focus:text-white">
-      {message}
-    </button>
-  );
-};
+// const MenuCapsule = ({ message }: { message: string }) => {
+//   return (
+//     <button className="font-lato flex h-full w-full cursor-pointer items-center justify-center rounded-full text-sm font-bold text-gray-700 transition-all focus:bg-slate-600 focus:text-white">
+//       {message}
+//     </button>
+//   );
+// };

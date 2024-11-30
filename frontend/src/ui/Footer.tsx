@@ -20,7 +20,7 @@ const Footer: React.FC = () => {
   return (
     <div className="mx-auto w-full pb-4 text-3xl">
       {/* Top Footer */}
-      <div className="flex w-full flex-col justify-items-center rounded-2xl bg-blue-100 p-8 text-black lg:grid lg:h-[400px] lg:grid-cols-4 lg:p-16">
+      <div className="mx-auto flex w-[90%] flex-col justify-items-center rounded-2xl bg-blue-100 p-8 text-black lg:grid lg:h-[400px] lg:grid-cols-4 lg:p-16">
         <FooterSocialBlock />
         <div className="flex flex-row items-center justify-between p-2 lg:flex-col">
           <h1 className="font-neuton hidden text-2xl font-bold tracking-wide lg:block">
@@ -88,7 +88,7 @@ const Footer: React.FC = () => {
       </div>
 
       {/* Bottom footer */}
-      <div className="font-lato flex h-[50px] flex-col items-center justify-evenly bg-white px-6 text-xs font-semibold text-gray-400 sm:gap-0 lg:flex-row lg:justify-between lg:gap-y-4">
+      <div className="font-lato my-6 flex h-[50px] flex-col items-center justify-evenly bg-white px-6 text-xs font-semibold text-gray-400 sm:gap-0 lg:flex-row lg:justify-between lg:gap-y-4">
         <p className="mt-2 lg:mt-0">&copy;&nbsp;{currentYear} Jhuv Nutrition</p>
         <div className="my-0 flex w-full flex-col items-center justify-between sm:w-[40%] sm:flex-row">
           <p>Privacy Policy</p>
@@ -131,7 +131,7 @@ const FooterSocialBlock: React.FC = () => {
       <p className="font-lato mt-6 text-sm font-bold text-gray-500">
         {STORE_ADDRESS}
       </p>
-      <div className="mt-6 flex w-full justify-start gap-4 lg:justify-between lg:gap-0">
+      <div className="mt-6 flex w-full justify-start gap-4 lg:justify-between lg:gap-2">
         <a
           href="https://facebook.com"
           target="_blank" // Opens link in new tab

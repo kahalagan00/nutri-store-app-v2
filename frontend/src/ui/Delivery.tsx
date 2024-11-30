@@ -7,15 +7,32 @@ const Delivery: React.FC = () => {
       icon: "🛠️ 📦",
     });
   };
+
+  // Joshmar Debug: For Ico responsiveness
+  // return (
+  //   <div className="flex items-center justify-center gap-2 hover:brightness-125">
+  //     <p className="font-lato hidden text-xs font-bold tracking-wide text-gray-600 lg:block">
+  //       Delivery to
+  //     </p>
+  //     <button onClick={handleClick}>
+  //       <RiMapPinLine className="h-7 w-7" />
+  //     </button>
+  //     <p className="font-lato hidden text-xs font-bold tracking-wide text-gray-600 lg:block">
+  //       City, State
+  //     </p>
+  //   </div>
+  // );
+
+  // Joshmar Debug: For Dropdown responsiveness
   return (
     <div className="flex items-center justify-center gap-2 hover:brightness-125">
-      <p className="font-lato hidden text-xs font-bold tracking-wide text-gray-600 lg:block">
+      <p className="font-lato text-center text-xs font-bold tracking-wide text-gray-600">
         Delivery to
       </p>
       <button onClick={handleClick}>
         <RiMapPinLine className="h-7 w-7" />
       </button>
-      <p className="font-lato hidden text-xs font-bold tracking-wide text-gray-600 lg:block">
+      <p className="font-lato text-center text-xs font-bold tracking-wide text-gray-600">
         City, State
       </p>
     </div>

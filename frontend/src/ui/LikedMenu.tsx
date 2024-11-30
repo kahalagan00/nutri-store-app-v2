@@ -9,7 +9,7 @@ const LikedMenu: React.FC = () => {
   };
   return (
     <button onClick={handleClick}>
-      <IoMdHeartEmpty className="h-6 w-6" />
+      <IoMdHeartEmpty className="h-6 w-6 active:text-red-500" />
     </button>
   );
 };

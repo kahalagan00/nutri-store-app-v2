@@ -13,6 +13,8 @@ import { RiContactsBookLine } from "react-icons/ri";
 import { HiOutlineHome, HiPencil, HiUserCircle } from "react-icons/hi2";
 import { RiBloggerLine } from "react-icons/ri";
 import { IoLogInOutline, IoLogOutOutline } from "react-icons/io5";
+import { RxCross1, RxHamburgerMenu } from "react-icons/rx";
+import { useState } from "react";
 
 const Header = ({
   isAuthenticated,
@@ -37,6 +39,10 @@ const Header = ({
 
   const { setCartNumber, setCartTotal } = useCart();
   const { logout, isPending: isLoggingOut } = useLogoutUser();
+  const [isShowDropdown, setIsShowDropDown] = useState(false);
+
+  const bottomHeaderIconStyle =
+    "h-10 w-10 rounded-full p-2 transition hover:bg-slate-300 active:translate-y-1";
 
   const handleLogOut = () => {
     logout(undefined, {
@@ -52,8 +58,128 @@ const Header = ({
 
   return (
     <header className="mx-auto w-full max-w-screen-xl bg-white px-8 sm:pl-16">
-      <nav className="grid h-24 grid-cols-[160px_1fr_1fr_1fr_1fr_1fr_1fr] items-center justify-items-center gap-x-4 overflow-hidden md:justify-items-start lg:grid-cols-[160px_200px_1fr_1fr_1fr_1fr_1fr] lg:gap-0">
-        <NavLink to="/home">
+      {/* Joshmar Debug: For DropDown Responsiveness */}
+      <nav className="flex h-24 items-center justify-between">
+        <NavLink to="/home" className="justify-self-end">
+          <Logo />
+        </NavLink>
+        <div className="hidden lg:block">
+          <Delivery />
+        </div>
+        <div className="hidden lg:block">
+          <SearchBar />
+        </div>
+        <div className="hidden lg:block">
+          <CartMenu />
+        </div>
+        <div className="hidden lg:block">
+          <LikedMenu />
+        </div>
+        {!isAuthenticated ? (
+          <div className="hidden lg:block">
+            <NavLink
+              className="font-lato justify-self-center border-b-white text-sm font-bold tracking-wide text-gray-600 hover:border-slate-800 lg:border-b-2"
+              to="/signup"
+            >
+              <span className="hidden text-center lg:inline-block">
+                Sign Up
+              </span>
+              <span className="lg:hidden">
+                <HiPencil className="h-10 w-10 rounded-full p-2 transition hover:bg-slate-300 active:translate-y-1" />
+              </span>
+            </NavLink>
+          </div>
+        ) : (
+          <div className="hidden lg:block">
+            <NavLink
+              className="font-lato justify-self-center border-b-white text-sm font-bold tracking-wide text-gray-600 hover:border-slate-800 lg:border-b-2"
+              to="/account"
+            >
+              <span className="hidden lg:inline-block">Account</span>
+              <span className="lg:hidden">
+                <HiUserCircle className="h-10 w-10 rounded-full p-2 transition hover:bg-slate-300 active:translate-y-1" />
+              </span>
+            </NavLink>
+          </div>
+        )}
+        {!isAuthenticated ? (
+          <div className="hidden lg:block">
+            <NavLink
+              className="font-lato justify-self-center border-b-white text-sm font-bold tracking-wide text-gray-600 hover:border-slate-800 lg:border-b-2"
+              to="/login"
+            >
+              <span className="hidden lg:inline-block">Login</span>
+              <span className="lg:hidden">
+                <IoLogInOutline className="h-10 w-10 rounded-full p-2 transition hover:bg-slate-300 active:translate-y-1" />
+              </span>
+            </NavLink>
+          </div>
+        ) : (
+          <div className="hidden lg:block">
+            <button
+              disabled={isLoggingOut}
+              onClick={handleLogOut}
+              className="font-lato justify-self-center border-b-white text-sm font-bold tracking-wide text-gray-600 hover:border-slate-800 lg:border-b-2"
+            >
+              <span className="hidden lg:inline-block">Logout</span>
+              <span className="lg:hidden">
+                <IoLogOutOutline className="h-10 w-10 rounded-full p-2 transition hover:bg-slate-300 active:translate-y-1" />
+              </span>
+            </button>
+          </div>
+        )}
+        <button
+          type="button"
+          onClick={() => setIsShowDropDown((value) => !value)}
+          className="flex h-10 w-10 items-center justify-center rounded-full bg-rose-500 px-2 text-white lg:hidden"
+        >
+          {isShowDropdown ? <RxCross1 /> : <RxHamburgerMenu />}
+        </button>
+      </nav>
+
+      {isShowDropdown && (
+        <div className="mt-4 flex w-full flex-col items-center justify-between gap-y-4 rounded-xl bg-slate-300 py-4 drop-shadow-md lg:hidden">
+          <Delivery />
+          <SearchBar />
+          <CartMenu />
+          <LikedMenu />
+          {!isAuthenticated ? (
+            <NavLink
+              className="font-lato justify-self-center border-b-white text-sm font-bold tracking-wide text-gray-600 hover:border-slate-800 lg:border-b-2"
+              to="/signup"
+            >
+              Sign Up
+            </NavLink>
+          ) : (
+            <NavLink
+              className="font-lato justify-self-center border-b-white text-sm font-bold tracking-wide text-gray-600 hover:border-slate-800 lg:border-b-2"
+              to="/account"
+            >
+              <span>Account</span>
+            </NavLink>
+          )}
+          {!isAuthenticated ? (
+            <NavLink
+              className="font-lato justify-self-center border-b-white text-sm font-bold tracking-wide text-gray-600 hover:border-slate-800 lg:border-b-2"
+              to="/login"
+            >
+              Login
+            </NavLink>
+          ) : (
+            <button
+              disabled={isLoggingOut}
+              onClick={handleLogOut}
+              className="font-lato justify-self-center border-b-white text-sm font-bold tracking-wide text-gray-600 hover:border-slate-800 lg:border-b-2"
+            >
+              Logout
+            </button>
+          )}
+        </div>
+      )}
+
+      {/* Joshmar Debug: For Icon Responsiveness */}
+      {/* <nav className="grid h-24 grid-cols-[160px_1fr_1fr_1fr_1fr_1fr_1fr] items-center justify-items-center gap-x-4 overflow-hidden lg:gap-2 lg:[grid-template-columns:160px_max-content_max-content_max-content_max-content_max-content_max-content]">
+        <NavLink to="/home" className="justify-self-start">
           <Logo />
         </NavLink>
         <Delivery />
@@ -62,49 +188,48 @@ const Header = ({
         <LikedMenu />
         {!isAuthenticated ? (
           <NavLink
-            className="font-lato justify-self-center border-b-2 border-b-white text-sm font-bold tracking-wide text-gray-600 hover:border-slate-800"
+            className="font-lato justify-self-center border-b-white text-sm font-bold tracking-wide text-gray-600 hover:border-slate-800 lg:border-b-2"
             to="/signup"
           >
-            <span className="hidden lg:inline-block">Sign Up</span>
+            <span className="hidden text-center lg:inline-block">Sign Up</span>
             <span className="lg:hidden">
-              <HiPencil className="h-7 w-7" />
+              <HiPencil className="h-10 w-10 rounded-full p-2 transition hover:bg-slate-300 active:translate-y-1" />
             </span>
           </NavLink>
         ) : (
           <NavLink
-            className="font-lato justify-self-center border-b-2 border-b-white text-sm font-bold tracking-wide text-gray-600 hover:border-slate-800"
+            className="font-lato justify-self-center border-b-white text-sm font-bold tracking-wide text-gray-600 hover:border-slate-800 lg:border-b-2"
             to="/account"
           >
             <span className="hidden lg:inline-block">Account</span>
             <span className="lg:hidden">
-              <HiUserCircle className="h-7 w-7" />
+              <HiUserCircle className="h-10 w-10 rounded-full p-2 transition hover:bg-slate-300 active:translate-y-1" />
             </span>
           </NavLink>
         )}
         {!isAuthenticated ? (
           <NavLink
-            className="font-lato justify-self-center border-b-2 border-b-white text-sm font-bold tracking-wide text-gray-600 hover:border-slate-800"
+            className="font-lato justify-self-center border-b-white text-sm font-bold tracking-wide text-gray-600 hover:border-slate-800 lg:border-b-2"
             to="/login"
           >
             <span className="hidden lg:inline-block">Login</span>
             <span className="lg:hidden">
-              <IoLogInOutline className="h-7 w-7" />
+              <IoLogInOutline className="h-10 w-10 rounded-full p-2 transition hover:bg-slate-300 active:translate-y-1" />
             </span>
           </NavLink>
         ) : (
           <button
             disabled={isLoggingOut}
             onClick={handleLogOut}
-            className="font-lato justify-self-center border-b-2 border-b-white text-sm font-bold tracking-wide text-gray-600 hover:border-slate-800"
+            className="font-lato justify-self-center border-b-white text-sm font-bold tracking-wide text-gray-600 hover:border-slate-800 lg:border-b-2"
           >
-            {/* {isLoggingOut ? "Logging out..." : "Logout"} */}
             <span className="hidden lg:inline-block">Logout</span>
             <span className="lg:hidden">
-              <IoLogOutOutline className="h-7 w-7" />
+              <IoLogOutOutline className="h-10 w-10 rounded-full p-2 transition hover:bg-slate-300 active:translate-y-1" />
             </span>
           </button>
         )}
-      </nav>
+      </nav> */}
       <nav className="hidden w-3/4 justify-between pb-4 pt-6 sm:flex lg:w-2/4">
         {bottomNavLinks.map((link) => (
           <NavLink
@@ -118,25 +243,25 @@ const Header = ({
       </nav>
       <nav className="flex w-full justify-between px-4 pb-4 pt-6 sm:hidden">
         <NavLink to="/">
-          <HiOutlineHome className="h-7 w-7" />
+          <HiOutlineHome className={bottomHeaderIconStyle} />
         </NavLink>
         <NavLink to="/products">
-          <CiPillsBottle1 className="h-7 w-7" />
+          <CiPillsBottle1 className={bottomHeaderIconStyle} />
         </NavLink>
         <NavLink to="/about">
-          <CiCircleQuestion className="h-7 w-7" />
+          <CiCircleQuestion className={bottomHeaderIconStyle} />
         </NavLink>
         <NavLink to="/promotions">
-          <MdOutlineDiscount className="h-7 w-7" />
+          <MdOutlineDiscount className={bottomHeaderIconStyle} />
         </NavLink>
         <NavLink to="/reviews">
-          <IoMdPaper className="h-7 w-7" />
+          <IoMdPaper className={bottomHeaderIconStyle} />
         </NavLink>
         <NavLink to="/blogs">
-          <RiBloggerLine className="h-7 w-7" />
+          <RiBloggerLine className={bottomHeaderIconStyle} />
         </NavLink>
         <NavLink to="/contact">
-          <RiContactsBookLine className="h-7 w-7" />
+          <RiContactsBookLine className={bottomHeaderIconStyle} />
         </NavLink>
       </nav>
     </header>

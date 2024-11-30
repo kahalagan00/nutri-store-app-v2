@@ -1,5 +1,5 @@
 import toast from "react-hot-toast";
-import { LOCAL_BACKEND_API } from "../../utils/constants";
+import { BACKEND_URL } from "../../utils/constants";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 type UpdateVariables = {
@@ -14,7 +14,7 @@ type UpdateVariables = {
 export const updateCart = async (updateData: UpdateVariables) => {
   try {
     const { productId, name, price, quantity, purpose, image } = updateData;
-    const res = await fetch(`${LOCAL_BACKEND_API}/carts/updateCart`, {
+    const res = await fetch(`${BACKEND_URL}/carts/updateCart`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       credentials: "include",

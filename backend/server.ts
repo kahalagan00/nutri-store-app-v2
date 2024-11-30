@@ -14,11 +14,6 @@ process.on('uncaughtException', (err) => {
 
 dotenv.config({ path: './config.env' });
 
-// const DB = process.env.DATABASE.replace(
-//   '<db_password>',
-//   process.env.DATABASE_PASSWORD
-// );
-
 const database: any = process.env.DATABASE?.replace(
   '<db_password>',
   process.env.DATABASE_PASSWORD as string
@@ -27,10 +22,6 @@ if (!database) {
   throw new Error('DATABASE environment variable does not exist');
 }
 
-// mongoose.connect(DB).then((conn) => {
-//   // console.log('conn', conn.connections);
-//   console.log('DB connected successfully 👍');
-// });
 mongoose
   .connect(database)
   .then(() => console.log('Database connected successfully 👍'))
@@ -41,7 +32,6 @@ const server = app.listen(port, () => {
   console.log(`Application running on port ${port}...`);
 });
 
-// JMARDEBUG: What does this do? : Handles error handling for Promise errors that were not catched
 process.on('unhandledRejection', (err: any) => {
   console.log('Unhandled Rejection Detected! 💥 Shuting down...');
   console.log(err.name, err.message);
@@ -50,7 +40,7 @@ process.on('unhandledRejection', (err: any) => {
   });
 });
 
-// JMARDEBUG: What does this do? : Processes the SIGTERM signal which is a signal used for program termination
+// Processes the SIGTERM signal which is a signal used for program termination
 // process.on('SIGTERM', () => {
 //   console.log('👋 SIGTERM RECEIVED. Shutting down gracefully');
 //   server.close(() => {

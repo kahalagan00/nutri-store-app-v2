@@ -1,8 +1,5 @@
 import { IoMdCalendar, IoMdLock, IoMdMail, IoMdPerson } from "react-icons/io";
-import {
-  LOCAL_BACKEND_API,
-  PAGE_BASE_BACKGROUND_STYLE,
-} from "../utils/constants";
+import { BACKEND_URL, PAGE_BASE_BACKGROUND_STYLE } from "../utils/constants";
 import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
 import { updatePasswordUserApi } from "../services/apiUsers";
@@ -26,7 +23,7 @@ function AccountPage() {
   useEffect(() => {
     const getUser = async () => {
       try {
-        const res = await fetch(`${LOCAL_BACKEND_API}/users/user`, {
+        const res = await fetch(`${BACKEND_URL}/users/user`, {
           method: "GET",
           headers: { "Content-Type": "application/json" },
           credentials: "include",
@@ -132,7 +129,7 @@ function AccountPage() {
             </div>
             <div>
               <div className="flex h-[100px] w-full items-center justify-between rounded-lg border-2 bg-blue-50 p-6">
-                <div>
+                <div className="flex flex-col">
                   <input
                     type="text"
                     className="font-lato mb-2 border-b-2 border-b-gray-600 bg-transparent outline-none"

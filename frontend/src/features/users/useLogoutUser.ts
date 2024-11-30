@@ -1,11 +1,11 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { LOCAL_BACKEND_API } from "../../utils/constants";
+import { BACKEND_URL } from "../../utils/constants";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 export const logoutUser = async () => {
   try {
-    const res = await fetch(`${LOCAL_BACKEND_API}/users/logout`, {
+    const res = await fetch(`${BACKEND_URL}/users/logout`, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
