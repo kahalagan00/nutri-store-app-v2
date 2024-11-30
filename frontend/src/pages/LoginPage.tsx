@@ -49,7 +49,7 @@ const LoginPage = ({
           src="/images/company-logo-2.svg"
           alt="Company logo"
         />
-        <h1 className="font-lato self-center text-5xl tracking-wide">
+        <h1 className="font-lato self-center text-center text-5xl tracking-wide">
           Welcome Back
         </h1>
         <p className="font-lato mt-4 self-center text-sm tracking-wide text-gray-600">
