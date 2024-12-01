@@ -3,6 +3,7 @@ import {
   getAllProducts,
   getProduct,
   createProduct,
+  deleteProduct,
 } from '../controllers/productController';
 import { protect, restrictTo } from '../controllers/authController';
 
@@ -17,5 +18,6 @@ router.use(protect);
 // Only admins can modify products
 router.use(restrictTo('admin'));
 router.route('/').post(createProduct);
+router.route('/:id').delete(deleteProduct);
 
 export default router;

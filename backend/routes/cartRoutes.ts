@@ -4,6 +4,7 @@ import {
   getCart,
   createCart,
   updateCart,
+  deleteCart,
 } from '../controllers/cartController';
 import { protect, restrictTo } from '../controllers/authController';
 
@@ -19,5 +20,6 @@ router.route('/updateCart').patch(updateCart);
 // Only admins can get information about the users' carts
 router.use(restrictTo('admin'));
 router.route('/').get(getAllCarts);
+router.route('/:id').delete(deleteCart);
 
 export default router;

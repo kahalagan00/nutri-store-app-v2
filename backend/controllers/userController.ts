@@ -54,4 +54,24 @@ const getUser: RequestHandler = async (req, res) => {
   return;
 };
 
-export { getAllUsers, getUser };
+const deleteUser: RequestHandler = async (req, res) => {
+  try {
+    const doc = await User.findByIdAndDelete(req.params.id);
+
+    console.log('Warning (deleteUser) got Requested 🗑️');
+
+    res.status(204).json({
+      status: 'success',
+      data: doc,
+      message: 'Resource deleted successfully',
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: 'error',
+      message: err instanceof Error ? err.message : 'Resource not found',
+    });
+  }
+  return;
+};
+
+export { getAllUsers, getUser, deleteUser };

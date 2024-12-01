@@ -1,5 +1,9 @@
 import express from 'express';
-import { getAllUsers, getUser } from '../controllers/userController';
+import {
+  deleteUser,
+  getAllUsers,
+  getUser,
+} from '../controllers/userController';
 import {
   forgotPassword,
   login,
@@ -29,5 +33,6 @@ router.route('/user').get(getUser);
 
 router.use(restrictTo('admin'));
 router.route('/').get(getAllUsers);
+router.route('/:id').delete(deleteUser);
 
 export default router;

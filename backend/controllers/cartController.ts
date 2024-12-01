@@ -142,4 +142,24 @@ const updateCart: RequestHandler = async (req, res, next) => {
   }
 };
 
-export { getAllCarts, getCart, createCart, updateCart };
+const deleteCart: RequestHandler = async (req, res) => {
+  try {
+    const doc = await Cart.findByIdAndDelete(req.params.id);
+
+    console.log('Warning (deleteCart) got Requested 🗑️');
+
+    res.status(204).json({
+      status: 'success',
+      data: doc,
+    });
+    return;
+  } catch (err: unknown) {
+    res.status(404).json({
+      status: 'error',
+      message: err instanceof Error ? err.message : 'Resource not found',
+    });
+    return;
+  }
+};
+
+export { getAllCarts, getCart, createCart, updateCart, deleteCart };
