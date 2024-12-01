@@ -20,7 +20,7 @@ const Footer: React.FC = () => {
   return (
     <div className="mx-auto w-full pb-4 text-3xl">
       {/* Top Footer */}
-      <div className="mx-auto flex w-[90%] flex-col justify-items-center rounded-2xl bg-blue-100 p-8 text-black lg:grid lg:h-[400px] lg:grid-cols-4 lg:p-16">
+      <div className="mx-auto flex w-[90%] flex-col justify-items-center rounded-2xl bg-blue-100 p-4 text-black lg:grid lg:h-[400px] lg:grid-cols-4 lg:p-16">
         <FooterSocialBlock />
         <div className="flex flex-row items-center justify-between p-2 lg:flex-col">
           <h1 className="font-neuton hidden text-2xl font-bold tracking-wide lg:block">
@@ -49,7 +49,7 @@ const Footer: React.FC = () => {
           <p className="font-lato mt-4 text-xs font-bold text-gray-400 sm:text-sm">
             Payment
           </p>
-          <p className="font-lato mt-4 text-xs font-bold text-gray-400 sm:text-sm">
+          <p className="font-lato mt-4 text-center text-xs font-bold text-gray-400 sm:text-sm">
             Terms of Service
           </p>
           <p className="font-lato mt-4 text-xs font-bold text-gray-400 sm:text-sm">

@@ -3,7 +3,7 @@ import Product from '../models/productModel';
 
 const getAllProducts: RequestHandler = async (req, res) => {
   try {
-    console.log(req.cookies);
+    // console.log(req.cookies);
     const doc = await Product.find();
     if (!doc) {
       res.status(404).json({

@@ -35,7 +35,7 @@ const importData = async () => {
     // await Cart.create(carts);
     console.log('Data successfully loaded!');
   } catch (err) {
-    console.log("Doesn't work 🤣");
+    console.log('Data failed to be loaded 💔');
     console.error(err);
   }
   process.exit();

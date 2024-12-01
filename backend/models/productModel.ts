@@ -1,11 +1,5 @@
-// const mongoose = require('mongoose');
 import mongoose from 'mongoose';
-
-// const slugify = require('slugify');
 import slugify from 'slugify';
-
-// const { trim } = require('validator');
-import { trim } from 'validator';
 
 // Define the interface for the product
 interface IProduct extends mongoose.Document {

@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 import slugify from 'slugify';
-import { trim } from 'validator';
 import bcrypt from 'bcryptjs';
 const crypto = require('crypto');
 
@@ -172,7 +171,7 @@ userSchema.methods.changedPasswordAfter = function (JWTTimestamp: number) {
       this.passwordChangedAt.getTime() / 1000
     );
 
-    console.log(JWTTimestamp, changedTimestamp);
+    // console.log(JWTTimestamp, changedTimestamp);
 
     return JWTTimestamp < changedTimestamp; // 100 < 200
   }
@@ -190,7 +189,7 @@ userSchema.methods.createPasswordResetToken = function () {
     .update(resetToken)
     .digest('hex');
 
-  console.log({ resetToken }, this.passwordResetToken);
+  // console.log({ resetToken }, this.passwordResetToken);
 
   this.passwordResetExpires = Date.now() + 10 * 60 * 1000;
 

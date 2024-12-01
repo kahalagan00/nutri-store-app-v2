@@ -93,7 +93,7 @@ const CartPage = ({ isAuthenticated }: { isAuthenticated: boolean | null }) => {
         bag
       </p>
 
-      <div className="flex w-full grid-cols-[800px_300px] flex-col justify-items-center gap-12 lg:grid">
+      <div className="flex w-full grid-cols-[800px_300px] flex-col justify-items-center gap-12 min-[1200px]:grid">
         <div className="scrollbar-hidden flex w-full flex-col justify-start gap-y-1 overflow-scroll rounded-xl bg-slate-200 p-8 drop-shadow-xl">
           <div className="mb-4 grid gap-x-4 sm:grid-cols-[200px_100px_100px_100px] lg:grid-cols-[400px_100px_100px_100px]">
             <p className="mx-auto hidden text-lg font-bold sm:ml-14 sm:block lg:ml-0">

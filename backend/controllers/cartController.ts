@@ -1,6 +1,5 @@
 import { RequestHandler } from 'express';
 import Cart from '../models/cartModel';
-import Product from '../models/productModel';
 
 const getAllCarts: RequestHandler = async (req, res) => {
   try {
@@ -63,7 +62,7 @@ const createCart: RequestHandler = async (req, res, next) => {
     let doc: any = await Cart.find({ userId: req.user?._id });
 
     let statusCode = 200;
-    console.log(doc.length);
+    // console.log(doc.length);
 
     if (doc.length > 0) {
       console.log('This user already has a cart. No modification done');
@@ -118,7 +117,7 @@ const updateCart: RequestHandler = async (req, res, next) => {
           : item
       );
     } else {
-      console.log('It just pushes...');
+      // console.log('It just pushes...');
       doc.cartItems.push(req.body);
     }
 

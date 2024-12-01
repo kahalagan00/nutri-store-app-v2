@@ -2,7 +2,6 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import app from './app';
 
-// JMARDEBUG: Does this basically just handle error checking for the overall server.js?
 // Catch all possible uncaught exceptions anywhere in the codebase
 process.on('uncaughtException', (err) => {
   console.log('UNCAUGHT EXCEPTION! 💥 Shuting down...');

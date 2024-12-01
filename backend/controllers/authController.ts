@@ -1,4 +1,3 @@
-import CryptoJS from 'crypto-js';
 const { promisify } = require('util');
 const crypto = require('crypto');
 import jwt from 'jsonwebtoken';
@@ -25,6 +24,7 @@ const signToken = (id: string) => {
   );
 };
 
+// Creates JWT token used for authentication
 const createSendToken = (
   user: any,
   statusCode: number,
@@ -151,7 +151,7 @@ const logout: RequestHandler = (req, res) => {
 const protect: RequestHandler = async (req, res, next) => {
   try {
     // 1) Getting token and check if it's there
-    console.log(req.cookies);
+    console.log('Cookies: ', req.cookies);
     let token;
     if (
       req.headers.authorization &&
@@ -204,7 +204,7 @@ const protect: RequestHandler = async (req, res, next) => {
   }
 };
 
-// // Only for rendered pages, no errors
+//  Only for rendered pages (SSR), no errors
 // exports.isLoggedIn = async (req, res, next) => {
 //   // 1) Getting token and check if it's there
 //   if (req.cookies.jwt) {
