@@ -14,6 +14,7 @@ import {
 } from "../utils/constants";
 import Logo from "./Logo";
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
@@ -47,19 +48,19 @@ const Footer: React.FC = () => {
             Useful Links
           </h1>
           <p className="font-lato mt-4 text-xs font-bold text-gray-400 sm:text-sm">
-            Payment
+            <NavLink to="/cart">Payment</NavLink>
           </p>
           <p className="font-lato mt-4 text-center text-xs font-bold text-gray-400 sm:text-sm">
             Terms of Service
           </p>
           <p className="font-lato mt-4 text-xs font-bold text-gray-400 sm:text-sm">
-            Account
+            <NavLink to="/account">Account</NavLink>
           </p>
           <p className="font-lato mt-4 text-xs font-bold text-gray-400 sm:text-sm">
             Returns
           </p>
           <p className="font-lato mt-4 text-xs font-bold text-gray-400 sm:text-sm">
-            Discounts
+            <NavLink to="/promotions">Discounts</NavLink>
           </p>
         </div>
         <div className="flex flex-col p-2">

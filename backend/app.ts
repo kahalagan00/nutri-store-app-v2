@@ -12,6 +12,7 @@ const xss = require('xss-clean');
 import productRouter from './routes/productRoutes';
 import userRouter from './routes/userRoutes';
 import cartRouter from './routes/cartRoutes';
+import paymentRouter from './routes/paymentRoutes';
 
 // Start express app
 const app = express();
@@ -72,6 +73,7 @@ app.use(compression());
 app.use('/api/v1/products', productRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/carts', cartRouter);
+app.use('/api/v1/payment', paymentRouter);
 
 // Handling unhandled routes (NEEDS TO BE AT THE BOTTOM, ORDER MATTERS!)
 app.all('*', (req, res, next) => {

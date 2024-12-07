@@ -113,6 +113,8 @@ const HomeBestSelling: React.FC = () => {
         <h1 className="font-neuton text-[30px] font-bold lg:text-[40px]">
           Best Selling Products
         </h1>
+
+        {/* Sliding Window Carousel Buttons */}
         <div className="flex gap-2">
           <ArrowButton direction="back" color="bg-slate-200" />
           <ArrowButton direction="forward" color="bg-slate-400" />
@@ -136,6 +138,7 @@ const HomeBestSelling: React.FC = () => {
         ))}
       </div>
 
+      {/* Sliding Carousel Window Indicator*/}
       {/* Implement functionality later */}
       <div className="mx-auto mt-8 flex w-[100px] justify-evenly">
         <div className="h-3 w-3 scale-125 rounded-full bg-sky-500"></div>

@@ -135,7 +135,7 @@ const logout: RequestHandler = (req, res) => {
     httpOnly: true, // Match the original cookie
     secure: req.secure || req.headers['x-forwarded-proto'] === 'https',
     sameSite: 'none', // Match the original cookie (if using cross-origin)
-    // path: '/', // Match the original cookie (if set)
+    path: '/', // Match the original cookie (if set)
   });
 
   console.log('Cookie removed and user logged out 🐼');

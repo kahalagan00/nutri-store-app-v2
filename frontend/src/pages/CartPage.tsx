@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useGetCart } from "../features/cart/useGetCart";
 import { useCart } from "../context/CartContext";
-import { PAGE_BASE_BACKGROUND_STYLE } from "../utils/constants";
+import { BACKEND_URL, PAGE_BASE_BACKGROUND_STYLE } from "../utils/constants";
 import CartProductCard from "../ui/CartProductCard";
 import CartProductRow from "../ui/CartProductRow";
 import { useForm } from "react-hook-form";
@@ -17,6 +17,8 @@ type CartItem = {
   purpose: string;
   quantity: number;
 };
+
+// ***NOTE: Payment integration needs to be implemented!!!
 
 // Functions as a checkout page where the user can check a summary of their orders and can proceed to pay/checkout
 const CartPage = ({ isAuthenticated }: { isAuthenticated: boolean | null }) => {
@@ -50,10 +52,31 @@ const CartPage = ({ isAuthenticated }: { isAuthenticated: boolean | null }) => {
     setCheckout(!checkout);
   };
 
+  // For the Checkout warning
   // Generic Modal buttons
-  const handleAccept = () => {
-    // console.log("Accepted in Modal");
+  const handlePayment = async () => {
+    try {
+      // console.log("Accepted in Modal");
+      console.log("Implement page redirect to Stripe here");
+      const res = await fetch(
+        `${BACKEND_URL}/payment/create-checkout-session`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+          body: JSON.stringify({
+            items: cartItems ? cartItems : parsedCartItems,
+          }),
+        },
+      );
+
+      const { url } = await res.json();
+      window.location.href = url; // Redirect to Stripe Checkout
+    } catch (err) {
+      console.error(err);
+    }
   };
+
   // const handleDecline = () => {
   //   console.log("Declined in Modal");
   // };
@@ -76,6 +99,7 @@ const CartPage = ({ isAuthenticated }: { isAuthenticated: boolean | null }) => {
         onSuccess: (cart) => {
           // console.log(cart);
           setCartItems(cart.cartItems);
+          localStorage.setItem("cartItems", JSON.stringify(cart.cartItems));
         },
       });
     }
@@ -84,6 +108,9 @@ const CartPage = ({ isAuthenticated }: { isAuthenticated: boolean | null }) => {
   // Grabs from local storage whenever the page reloads
   const savedCartItems = localStorage.getItem("cartItems");
   const parsedCartItems = savedCartItems ? JSON.parse(savedCartItems) : null;
+
+  console.log(cartItems);
+  console.log(parsedCartItems);
 
   return (
     <div className={`${PAGE_BASE_BACKGROUND_STYLE} mb-12`}>
@@ -149,14 +176,14 @@ const CartPage = ({ isAuthenticated }: { isAuthenticated: boolean | null }) => {
                     purpose={item.purpose}
                   />
                   <p className="text-md justify-self-center font-bold">
-                    <span className="inline-block sm:hidden">Price = </span>
+                    <span className="inline-block sm:hidden">Price = </span>$
                     {item.price}
                   </p>
                   <p className="text-md justify-self-center font-bold">
                     {item.quantity}
                   </p>
                   <p className="justify-self-center text-lg font-light text-blue-600">
-                    {(item.price * item.quantity).toFixed(2)}
+                    ${(item.price * item.quantity).toFixed(2)}
                   </p>
                 </CartProductRow>
               ))}
@@ -177,9 +204,11 @@ const CartPage = ({ isAuthenticated }: { isAuthenticated: boolean | null }) => {
       {checkout && (
         <div className="p-4">
           <Modal
-            title="Payment Integration Still In Development..."
-            content="We’re excited to let you know that payment integration is currently in development to make your shopping experience even smoother. In the meantime, we appreciate your patience and invite you to explore our products and stay tuned for updates!"
-            onAccept={handleAccept}
+            // title="Payment Integration Still In Development..."
+            // content="We’re excited to let you know that payment integration is currently in development to make your shopping experience even smoother. In the meantime, we appreciate your patience and invite you to explore our products and stay tuned for updates!"
+            title="Payment"
+            content="You'll now be redirected to a secure external payment page to complete your transaction."
+            onAccept={handlePayment}
             // onDecline={handleDecline}
             checkout={checkout}
             onCheckout={handleCheckout}
@@ -277,6 +306,7 @@ const CouponCodeBox = ({
     reset,
   } = useForm<{ coupon: string }>();
 
+  const [isDiscountApplied, setIsDiscountApplied] = useState(false);
   const onSubmit = (data: { coupon: string }) => {
     // console.log(data);
 
@@ -286,6 +316,7 @@ const CouponCodeBox = ({
       `Applied "${data.coupon}" and received ${randomDiscount}% discount`,
     );
     onApplyCouponDiscount(randomDiscount);
+    setIsDiscountApplied(true);
     reset();
   };
 
@@ -301,22 +332,27 @@ const CouponCodeBox = ({
       </p>
 
       <input
+        disabled={isDiscountApplied}
         className={`mt-4 h-10 w-full rounded-xl p-4 ${errors.coupon && "bg-red-300"} font-lato`}
         type="text"
         placeholder="XXXX"
         minLength={4}
         maxLength={4}
         {...register("coupon", {
+          required: "This field is required",
           pattern: {
             value: /^[a-zA-Z0-9]+$/,
             message: "Only alphanumeric characters are allowed",
           },
+          validate: (value) =>
+            value.length === 4 || "Input must be exactly 4 characters long",
         })}
       />
 
       <button
+        disabled={isDiscountApplied}
         type="submit"
-        className="font-lato mt-4 flex h-10 w-full items-center justify-center rounded-xl bg-slate-800 p-4 text-gray-200 hover:bg-slate-700"
+        className={`font-lato mt-4 flex h-10 w-full items-center justify-center rounded-xl bg-slate-800 p-4 text-gray-200 ${!isDiscountApplied ? "hover:bg-slate-700" : "opacity-40"}`}
       >
         Apply
       </button>
