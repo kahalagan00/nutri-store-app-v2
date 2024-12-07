@@ -161,4 +161,34 @@ const deleteCart: RequestHandler = async (req, res) => {
   }
 };
 
-export { getAllCarts, getCart, createCart, updateCart, deleteCart };
+const clearCart: RequestHandler = async (req, res) => {
+  try {
+    const doc = await Cart.findOne({ userId: req.user?._id });
+
+    if (!doc) {
+      throw new Error('Cart not found');
+    }
+
+    console.log('Warning (clearCart) got Requested 🛒❌');
+
+    doc.cartItems = [];
+    doc.totalPrice = 0;
+
+    // Save the updated document
+    await doc.save();
+
+    res.status(200).json({
+      status: 'success',
+      data: doc,
+    });
+    return;
+  } catch (err: unknown) {
+    res.status(404).json({
+      status: 'error',
+      message: err instanceof Error ? err.message : 'Resource not found',
+    });
+    return;
+  }
+};
+
+export { getAllCarts, getCart, createCart, updateCart, deleteCart, clearCart };

@@ -38,8 +38,10 @@ const createCheckoutSession: RequestHandler = async (req, res) => {
         quantity: item.quantity,
       })),
       mode: 'payment',
-      success_url: `${FRONTEND_LINK}/home`, // --> Go to homepage upon successful payment transaction
-      cancel_url: `${FRONTEND_LINK}/cart`, // --> Should go back to cart if transaction failed
+      success_url: `http://localhost:5173/home`, // For development
+      cancel_url: `http://localhost:5173/account`, // For development
+      // success_url: `${FRONTEND_LINK}/home`, // --> Go to homepage upon successful payment transaction
+      // cancel_url: `${FRONTEND_LINK}/account`, // --> Should go back to cart if transaction failed/canceled
     });
 
     res.status(200).send({ url: session.url });

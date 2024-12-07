@@ -18,9 +18,7 @@ type CartItem = {
   quantity: number;
 };
 
-// ***NOTE: Payment integration needs to be implemented!!!
-
-// Functions as a checkout page where the user can check a summary of their orders and can proceed to pay/checkout
+// Functions as a checkout page where the user can check a summary of their orders and can proceed to pay
 const CartPage = ({ isAuthenticated }: { isAuthenticated: boolean | null }) => {
   const { get, isPending: isLoadingCart } = useGetCart();
   const { cartNumber, cartTotal } = useCart();
@@ -57,7 +55,7 @@ const CartPage = ({ isAuthenticated }: { isAuthenticated: boolean | null }) => {
   const handlePayment = async () => {
     try {
       // console.log("Accepted in Modal");
-      console.log("Implement page redirect to Stripe here");
+      // console.log("Implement page redirect to Stripe here");
       const res = await fetch(
         `${BACKEND_URL}/payment/create-checkout-session`,
         {
@@ -81,7 +79,7 @@ const CartPage = ({ isAuthenticated }: { isAuthenticated: boolean | null }) => {
   //   console.log("Declined in Modal");
   // };
 
-  // Use only for QuantityModifier
+  // Use only for QuantityModifier (Will implement later on)
   // const handleAddOrderQuantity = () => {
   //   setOrderQuantity((orderQuantity) => orderQuantity + 1);
   // };
@@ -109,8 +107,8 @@ const CartPage = ({ isAuthenticated }: { isAuthenticated: boolean | null }) => {
   const savedCartItems = localStorage.getItem("cartItems");
   const parsedCartItems = savedCartItems ? JSON.parse(savedCartItems) : null;
 
-  console.log(cartItems);
-  console.log(parsedCartItems);
+  // console.log(cartItems);
+  // console.log(parsedCartItems);
 
   return (
     <div className={`${PAGE_BASE_BACKGROUND_STYLE} mb-12`}>
