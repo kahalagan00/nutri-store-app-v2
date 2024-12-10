@@ -104,6 +104,7 @@ Your app will be available at `http://localhost:3000` by default.
 - **NodeJS** 
 - **Express** 
 - **MongoDB** 
+- **Stripe**
 - **Vite** 
 - **ESLint and Prettier** 
 

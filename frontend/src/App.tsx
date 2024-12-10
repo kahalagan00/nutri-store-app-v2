@@ -20,6 +20,7 @@ import ProtectedRoute from "./ui/ProtectedRoute";
 import BlogsPage from "./pages/BlogsPage";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import AccountPage from "./pages/AccountPage";
+import PaymentSuccessPage from "./pages/PaymentSuccessPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -99,6 +100,7 @@ const App: React.FC = () => {
               <Route path="reviews" element={<ReviewsPage />} />
               <Route path="blogs" element={<BlogsPage />} />
               <Route path="contact" element={<ContactPage />} />
+              <Route path="payment-success" element={<PaymentSuccessPage />} />
             </Route>
             {/* Redirect authenticated users away from login and signup */}
             <Route

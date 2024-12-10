@@ -35,7 +35,7 @@ const bestSellingData = [
     grams: 1.5,
     matterType: "solid",
     price: 19.99,
-    stockQuantity: 0,
+    stockQuantity: 1000,
     warnings: ["Consult a doctor if pregnant or nursing"],
     ingredients: [
       "Glucosamine sulfate",

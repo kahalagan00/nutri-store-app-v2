@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
+import { loadStripe } from "@stripe/stripe-js";
 import { useGetCart } from "../features/cart/useGetCart";
 import { useCart } from "../context/CartContext";
-import { BACKEND_URL, PAGE_BASE_BACKGROUND_STYLE } from "../utils/constants";
+import {
+  BACKEND_URL,
+  PAGE_BASE_BACKGROUND_STYLE,
+  STRIPE_PUBLISHABLE_KEY,
+} from "../utils/constants";
 import CartProductCard from "../ui/CartProductCard";
 import CartProductRow from "../ui/CartProductRow";
 import { useForm } from "react-hook-form";
@@ -51,7 +56,7 @@ const CartPage = ({ isAuthenticated }: { isAuthenticated: boolean | null }) => {
   };
 
   // For the Checkout warning
-  // Generic Modal buttons
+  const stripePromise = loadStripe(STRIPE_PUBLISHABLE_KEY);
   const handlePayment = async () => {
     try {
       // console.log("Accepted in Modal");
@@ -68,8 +73,14 @@ const CartPage = ({ isAuthenticated }: { isAuthenticated: boolean | null }) => {
         },
       );
 
-      const { url } = await res.json();
-      window.location.href = url; // Redirect to Stripe Checkout
+      const { sessionId } = await res.json();
+      const stripe = await stripePromise;
+
+      if (stripe && sessionId) {
+        await stripe.redirectToCheckout({ sessionId }); // Use sessionId here
+      } else {
+        console.error("Stripe or sessionId is missing");
+      }
     } catch (err) {
       console.error(err);
     }

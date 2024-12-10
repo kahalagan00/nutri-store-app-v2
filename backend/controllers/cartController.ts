@@ -1,5 +1,6 @@
 import { RequestHandler } from 'express';
 import Cart from '../models/cartModel';
+import Product from '../models/productModel';
 
 const getAllCarts: RequestHandler = async (req, res) => {
   try {
@@ -170,6 +171,23 @@ const clearCart: RequestHandler = async (req, res) => {
     }
 
     console.log('Warning (clearCart) got Requested 🛒❌');
+
+    for (const item of doc.cartItems) {
+      const productDoc = await Product.findByIdAndUpdate(item.productId);
+
+      if (!productDoc) {
+        throw new Error('Product not found');
+      }
+
+      const updatedStockQuantity = productDoc.stockQuantity - item.quantity;
+      productDoc.stockQuantity = updatedStockQuantity;
+
+      if (updatedStockQuantity <= 0) {
+        productDoc.availability = false;
+      }
+
+      await productDoc.save();
+    }
 
     doc.cartItems = [];
     doc.totalPrice = 0;

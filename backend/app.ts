@@ -13,9 +13,18 @@ import productRouter from './routes/productRoutes';
 import userRouter from './routes/userRoutes';
 import cartRouter from './routes/cartRoutes';
 import paymentRouter from './routes/paymentRoutes';
+import Stripe from 'stripe';
+// import { handleWebhook } from './controllers/paymentController';
 
 // Start express app
 const app = express();
+
+// Stripe management
+// const stripe = new Stripe((process.env.STRIPE_SECRET_KEY as string) || '', {
+//   apiVersion: '2023-08-16' as any,
+// });
+
+// app.post('/webhook', express.raw({ type: 'application/json' }), handleWebhook);
 
 // <------------------------------------------------------------------------------------------>
 // Middlewares -->
