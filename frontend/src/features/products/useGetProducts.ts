@@ -1,20 +1,5 @@
-import { BACKEND_URL } from "../../utils/constants";
 import { useQuery } from "@tanstack/react-query";
-
-const getProducts = async () => {
-  try {
-    const res = await fetch(`${BACKEND_URL}/products`);
-    if (!res.ok) {
-      throw new Error(`HTTP error! status: ${res.status}`);
-    }
-    const { data } = await res.json();
-
-    return data;
-  } catch (err) {
-    console.error(err);
-  }
-  return [];
-};
+import { getProductsApi } from "../../services/apiProducts";
 
 export const useGetProducts = () => {
   const {
@@ -23,7 +8,7 @@ export const useGetProducts = () => {
     error,
   } = useQuery({
     queryKey: ["products"],
-    queryFn: getProducts,
+    queryFn: getProductsApi,
   });
 
   return { isLoading, error, products };

@@ -1,6 +1,6 @@
 import toast from "react-hot-toast";
-import { BACKEND_URL } from "../../utils/constants";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { updateCartApi } from "../../services/apiCarts";
 
 type UpdateVariables = {
   productId: string;
@@ -11,40 +11,10 @@ type UpdateVariables = {
   image: string;
 };
 
-export const updateCart = async (updateData: UpdateVariables) => {
-  try {
-    const { productId, name, price, quantity, purpose, image } = updateData;
-    const res = await fetch(`${BACKEND_URL}/carts/updateCart`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
-      body: JSON.stringify({
-        productId,
-        name,
-        price,
-        quantity,
-        purpose,
-        image,
-      }),
-    });
-
-    if (!res.ok) {
-      throw new Error("Adding to cart failed. Make sure you are logged in");
-    }
-
-    const { data } = await res.json();
-
-    return data;
-  } catch (err: any) {
-    console.error(err);
-    throw err;
-  }
-};
-
 export const useUpdateCart = () => {
   const queryClient = useQueryClient();
 
-  const { mutate: update, isPending } = useMutation({
+  const { mutate: updateCart, isPending } = useMutation({
     mutationFn: ({
       productId,
       name,
@@ -53,7 +23,7 @@ export const useUpdateCart = () => {
       purpose,
       image,
     }: UpdateVariables) =>
-      updateCart({ productId, name, price, quantity, purpose, image }),
+      updateCartApi({ productId, name, price, quantity, purpose, image }),
     onSuccess: (cart) => {
       queryClient.setQueryData(["cart"], cart);
       toast.success("Successfully updated user cart");
@@ -63,5 +33,5 @@ export const useUpdateCart = () => {
     },
   });
 
-  return { update, isPending };
+  return { updateCart, isPending };
 };

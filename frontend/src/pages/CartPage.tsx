@@ -1,18 +1,15 @@
 import { useEffect, useState } from "react";
-import { loadStripe } from "@stripe/stripe-js";
 import { useGetCart } from "../features/cart/useGetCart";
 import { useCart } from "../context/CartContext";
-import {
-  BACKEND_URL,
-  PAGE_BASE_BACKGROUND_STYLE,
-  STRIPE_PUBLISHABLE_KEY,
-} from "../utils/constants";
+import { PAGE_BASE_BACKGROUND_STYLE } from "../utils/constants";
 import CartProductCard from "../ui/CartProductCard";
 import CartProductRow from "../ui/CartProductRow";
 import { useForm } from "react-hook-form";
 import Modal from "../ui/Modal";
 import toast from "react-hot-toast";
 import Spinner from "../ui/Spinner";
+import { removeItemFromCartApi } from "../services/apiCarts";
+import { cartPaymentApi } from "../services/apiPayment";
 
 type CartItem = {
   name: string;
@@ -26,12 +23,17 @@ type CartItem = {
 // Functions as a checkout page where the user can check a summary of their orders and can proceed to pay
 const CartPage = ({ isAuthenticated }: { isAuthenticated: boolean | null }) => {
   const { get, isPending: isLoadingCart } = useGetCart();
-  const { cartNumber, cartTotal } = useCart();
+  const { cartNumber, cartTotal, setCartNumber, setCartTotal } = useCart();
   // const [orderQuantity, setOrderQuantity] = useState(1);
   const [cartItems, setCartItems] = useState([]);
   const [checkout, setCheckout] = useState(false);
   const [shippingFee, setShippingFee] = useState(0);
   const [couponDiscount, setCouponDiscount] = useState(0);
+
+  const updateCartMenu = (totalAmount: number, totalPrice: number) => {
+    setCartNumber(totalAmount);
+    setCartTotal(totalPrice);
+  };
 
   const handleApplyCouponDiscount = (value: number) => {
     // console.log(value);
@@ -55,51 +57,23 @@ const CartPage = ({ isAuthenticated }: { isAuthenticated: boolean | null }) => {
     setCheckout(!checkout);
   };
 
-  // For the Checkout warning
-  const stripePromise = loadStripe(STRIPE_PUBLISHABLE_KEY);
   const handlePayment = async () => {
-    try {
-      // console.log("Accepted in Modal");
-      // console.log("Implement page redirect to Stripe here");
-      const res = await fetch(
-        `${BACKEND_URL}/payment/create-checkout-session`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
-          body: JSON.stringify({
-            items: cartItems ? cartItems : parsedCartItems,
-          }),
-        },
-      );
-
-      const { sessionId } = await res.json();
-      const stripe = await stripePromise;
-
-      if (stripe && sessionId) {
-        await stripe.redirectToCheckout({ sessionId }); // Use sessionId here
-      } else {
-        console.error("Stripe or sessionId is missing");
-      }
-    } catch (err) {
-      console.error(err);
-    }
+    await cartPaymentApi(cartItems, parsedCartItems);
   };
 
-  // const handleDecline = () => {
-  //   console.log("Declined in Modal");
-  // };
+  const handleRemoveFromCart = async (value: string) => {
+    // console.log(`Remove from cart clicked for ${value}`);
+    await removeItemFromCartApi(value);
 
-  // Use only for QuantityModifier (Will implement later on)
-  // const handleAddOrderQuantity = () => {
-  //   setOrderQuantity((orderQuantity) => orderQuantity + 1);
-  // };
-  // const handleRemoveOrderQuantity = () => {
-  //   if (orderQuantity === 1) {
-  //     return;
-  //   }
-  //   setOrderQuantity((orderQuantity) => orderQuantity - 1);
-  // };
+    get(undefined, {
+      onSuccess: (cart) => {
+        // console.log(cart);
+        setCartItems(cart.cartItems);
+        localStorage.setItem("cartItems", JSON.stringify(cart.cartItems));
+        updateCartMenu(cart.cartItems.length, cart.totalPrice);
+      },
+    });
+  };
 
   useEffect(() => {
     // Only fetch cart data if there is a user currently logged in
@@ -109,6 +83,7 @@ const CartPage = ({ isAuthenticated }: { isAuthenticated: boolean | null }) => {
           // console.log(cart);
           setCartItems(cart.cartItems);
           localStorage.setItem("cartItems", JSON.stringify(cart.cartItems));
+          updateCartMenu(cart.cartItems.length, cart.totalPrice);
         },
       });
     }
@@ -156,20 +131,22 @@ const CartPage = ({ isAuthenticated }: { isAuthenticated: boolean | null }) => {
                     image={item.image}
                     name={item.name}
                     purpose={item.purpose}
+                    productId={item.productId}
+                    handleRemoveFromCart={handleRemoveFromCart}
                   />
-                  <p className="text-md justify-self-center font-bold">
+                  <p className="font-lato justify-self-center text-sm md:text-lg">
                     <span className="inline-block sm:hidden">
                       Price =&nbsp;
                     </span>
                     ${item.price}
                   </p>
-                  <p className="text-md justify-self-center font-bold">
+                  <p className="font-lato justify-self-center text-sm md:text-lg">
                     <span className="inline-block sm:hidden">
                       Quantity =&nbsp;
                     </span>
                     {item.quantity}
                   </p>
-                  <p className="justify-self-center text-lg font-light text-blue-600">
+                  <p className="font-lato justify-self-center text-sm font-bold text-blue-600 md:text-lg">
                     <span className="inline-block sm:hidden">
                       Total =&nbsp;
                     </span>
@@ -183,15 +160,25 @@ const CartPage = ({ isAuthenticated }: { isAuthenticated: boolean | null }) => {
                     image={item.image}
                     name={item.name}
                     purpose={item.purpose}
+                    productId={item.productId}
+                    handleRemoveFromCart={handleRemoveFromCart}
                   />
-                  <p className="text-md justify-self-center font-bold">
-                    <span className="inline-block sm:hidden">Price = </span>$
-                    {item.price}
+                  <p className="font-lato justify-self-center text-xs font-bold md:text-sm">
+                    <span className="inline-block sm:hidden">
+                      Price =&nbsp;
+                    </span>
+                    ${item.price}
                   </p>
-                  <p className="text-md justify-self-center font-bold">
+                  <p className="font-lato justify-self-center text-xs font-bold md:text-sm">
+                    <span className="inline-block sm:hidden">
+                      Quantity =&nbsp;
+                    </span>
                     {item.quantity}
                   </p>
-                  <p className="justify-self-center text-lg font-light text-blue-600">
+                  <p className="font-lato justify-self-center text-sm text-blue-600 md:text-lg">
+                    <span className="inline-block sm:hidden">
+                      Total =&nbsp;
+                    </span>
                     ${(item.price * item.quantity).toFixed(2)}
                   </p>
                 </CartProductRow>

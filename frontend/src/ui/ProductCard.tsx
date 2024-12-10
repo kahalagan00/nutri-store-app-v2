@@ -33,7 +33,7 @@ const ProductCard: React.FC<ProductCard> = ({
   const [bagAmount, setBagAmount] = useState(1);
   const [isAddingToCart, setIsAddingToCart] = useState(false);
   const { setCartNumber, setCartTotal } = useCart();
-  const { update } = useUpdateCart();
+  const { updateCart } = useUpdateCart();
 
   const handleAddBagAmount = () => {
     // Prevent user from increasing items to add in the bag if it's already equals to the stockQuantity
@@ -53,13 +53,14 @@ const ProductCard: React.FC<ProductCard> = ({
   const handleAddToCart = () => {
     setIsAddingToCart(true);
 
-    update(
+    updateCart(
       { productId: _id, name, price, quantity: bagAmount, image, purpose },
       {
         onSuccess: (cart) => {
           setCartNumber(cart.cartItems.length);
           setCartTotal(cart.totalPrice);
           localStorage.setItem("cartItems", JSON.stringify(cart.cartItems));
+          setBagAmount(1);
         },
       },
     );

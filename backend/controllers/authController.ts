@@ -40,9 +40,12 @@ const createSendToken = (
   res.cookie('jwt', token, {
     expires: new Date(Date.now() + cookieExpirationOffset),
     httpOnly: true,
-    // secure: false, // For development
-    secure: req.secure || req.headers['x-forwarded-proto'] === 'https', // For production
-    sameSite: 'none', // REQURIED for cross-site cookies (very important to keep it here for authentication testing) // For production
+    // # For development
+    // secure: false,
+
+    // # For production
+    secure: req.secure || req.headers['x-forwarded-proto'] === 'https',
+    sameSite: 'none', // REQURIED for cross-site cookies (very important to keep it here for authentication testing)
   });
 
   // console.log(res.getHeaders());

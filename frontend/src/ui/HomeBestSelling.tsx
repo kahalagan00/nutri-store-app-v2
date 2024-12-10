@@ -1,54 +1,8 @@
-import { ArrowButton } from "./ArrowButton";
+// import { ArrowButton } from "./ArrowButton";
 import ProductCard from "./ProductCard";
 
 // Only for testing, an API should be implemented for this
 const bestSellingData = [
-  {
-    _id: "673fadeb9157c0b806d888d5",
-    purpose: "Increase muscle mass",
-    name: "Whey Protein",
-    image: "jhuv-whey-protein.png",
-    grams: 30,
-    matterType: "solid",
-    price: 29.99,
-    stockQuantity: 1,
-    warnings: [
-      "Contains dairy",
-      "Not suitable for lactose-intolerant individuals",
-    ],
-    ingredients: [
-      "Whey protein concentrate",
-      "Cocoa powder",
-      "Natural flavors",
-      "Sucralose",
-    ],
-    nutritionalFacts: {
-      calories: 120,
-      carbohydrates: 3,
-      protein: 24,
-    },
-  },
-  {
-    _id: "673fadeb9157c0b806d888d6",
-    purpose: "Joint support",
-    name: "Glucosamine Chondroitin",
-    image: "jhuv-glucosamine.png",
-    grams: 1.5,
-    matterType: "solid",
-    price: 19.99,
-    stockQuantity: 1000,
-    warnings: ["Consult a doctor if pregnant or nursing"],
-    ingredients: [
-      "Glucosamine sulfate",
-      "Chondroitin sulfate",
-      "Gelatin capsule",
-    ],
-    nutritionalFacts: {
-      calories: 0,
-      carbohydrates: 0,
-      protein: 0,
-    },
-  },
   {
     _id: "673fadeb9157c0b806d888d7",
     purpose: "Immune support",
@@ -104,6 +58,52 @@ const bestSellingData = [
       protein: 0,
     },
   },
+  {
+    _id: "673fadeb9157c0b806d888d5",
+    purpose: "Increase muscle mass",
+    name: "Whey Protein",
+    image: "jhuv-whey-protein.png",
+    grams: 30,
+    matterType: "solid",
+    price: 29.99,
+    stockQuantity: 1,
+    warnings: [
+      "Contains dairy",
+      "Not suitable for lactose-intolerant individuals",
+    ],
+    ingredients: [
+      "Whey protein concentrate",
+      "Cocoa powder",
+      "Natural flavors",
+      "Sucralose",
+    ],
+    nutritionalFacts: {
+      calories: 120,
+      carbohydrates: 3,
+      protein: 24,
+    },
+  },
+  {
+    _id: "673fadeb9157c0b806d888d6",
+    purpose: "Joint support",
+    name: "Glucosamine Chondroitin",
+    image: "jhuv-glucosamine.png",
+    grams: 1.5,
+    matterType: "solid",
+    price: 19.99,
+    stockQuantity: 1000,
+    warnings: ["Consult a doctor if pregnant or nursing"],
+    ingredients: [
+      "Glucosamine sulfate",
+      "Chondroitin sulfate",
+      "Gelatin capsule",
+    ],
+    nutritionalFacts: {
+      calories: 0,
+      carbohydrates: 0,
+      protein: 0,
+    },
+  },
 ];
 
 const HomeBestSelling: React.FC = () => {
@@ -115,10 +115,10 @@ const HomeBestSelling: React.FC = () => {
         </h1>
 
         {/* Sliding Window Carousel Buttons */}
-        <div className="flex gap-2">
+        {/* <div className="flex gap-2">
           <ArrowButton direction="back" color="bg-slate-200" />
           <ArrowButton direction="forward" color="bg-slate-400" />
-        </div>
+        </div> */}
       </div>
 
       <div className="grid grid-cols-[repeat(auto-fit,minmax(288px,300px))] justify-center gap-4 md:justify-normal">
@@ -140,12 +140,12 @@ const HomeBestSelling: React.FC = () => {
 
       {/* Sliding Carousel Window Indicator*/}
       {/* Implement functionality later */}
-      <div className="mx-auto mt-8 flex w-[100px] justify-evenly">
+      {/* <div className="mx-auto mt-8 flex w-[100px] justify-evenly">
         <div className="h-3 w-3 scale-125 rounded-full bg-sky-500"></div>
         <div className="h-3 w-3 rounded-full bg-gray-600"></div>
         <div className="h-3 w-3 rounded-full bg-gray-600"></div>
         <div className="h-3 w-3 rounded-full bg-gray-600"></div>
-      </div>
+      </div> */}
     </div>
   );
 };

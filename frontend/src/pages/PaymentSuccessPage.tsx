@@ -32,20 +32,20 @@ const PaymentSuccessPage = () => {
             credentials: "include",
           });
 
-          const data = await res2.json();
+          // const data = await res2.json();
 
           if (!res2.ok) {
             throw new Error("Error when clearing the cart after payment");
           }
 
-          console.log("Cleared Cart: ", data);
+          // console.log("Cleared Cart: ", data);
 
           setCartNumber(0);
           setCartTotal(0);
           localStorage.setItem("cartItems", JSON.stringify([]));
         }
 
-        console.log(result);
+        // console.log(result);
       } catch (error) {
         console.error("Error fetching payment status:", error);
       }
