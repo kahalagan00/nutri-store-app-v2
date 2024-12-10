@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { IoMdCart, IoMdHeart, IoMdHeartEmpty } from "react-icons/io";
+import { IoMdCart, IoMdHeart } from "react-icons/io";
 import { useUpdateCart } from "../features/cart/useUpdateCart";
 import { ADD_TO_CART_DELAY } from "../utils/constants";
 import { useCart } from "../context/CartContext";
