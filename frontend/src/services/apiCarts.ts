@@ -56,11 +56,11 @@ export const removeItemFromCartApi = async (productId: string) => {
       );
     }
 
-    const data = await res.json();
+    // const data = await res.json();
 
-    console.log(data);
+    // console.log(data);
 
-    toast.success("Successfully removed item from cart");
+    // toast.success("Successfully removed item from cart");
   } catch (err) {
     console.error(err);
     toast.error("Removing item from cart failed");

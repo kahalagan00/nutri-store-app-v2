@@ -58,6 +58,10 @@ const CartPage = ({ isAuthenticated }: { isAuthenticated: boolean | null }) => {
   };
 
   const handlePayment = async () => {
+    if (cartItems.length === 0 && cartNumber === 0) {
+      toast.error("Your cart is empty 🛒 ❌");
+      return;
+    }
     await cartPaymentApi(cartItems, parsedCartItems);
   };
 

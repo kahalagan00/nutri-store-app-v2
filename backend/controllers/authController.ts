@@ -44,9 +44,14 @@ const createSendToken = (
     // secure: false,
 
     // # For production
-    secure: req.secure || req.headers['x-forwarded-proto'] === 'https',
+    secure: true,
     sameSite: 'none', // REQURIED for cross-site cookies (very important to keep it here for authentication testing)
   });
+
+  // console.log(
+  //   "req.secure || req.headers['x-forwarded-proto'] === 'https' -> ",
+  //   req.secure || req.headers['x-forwarded-proto'] === 'https'
+  // );
 
   // console.log(res.getHeaders());
 
