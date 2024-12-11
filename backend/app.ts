@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import morgan from 'morgan';
 const rateLimit = require('express-rate-limit');
 // import rateLimit from 'express-rate-limit'; // Does not work even though ES modules are supported. Why?
@@ -34,6 +34,25 @@ app.use(
 );
 
 app.options('*', cors());
+app.use(((req: Request, res: Response, next: NextFunction): void => {
+  const origin = req.headers.origin;
+  if (origin && allowedOrigins.includes(origin)) {
+    res.header('Access-Control-Allow-Origin', origin);
+    res.header('Access-Control-Allow-Credentials', 'true');
+    res.header(
+      'Access-Control-Allow-Methods',
+      'GET, POST, PUT, DELETE, OPTIONS'
+    );
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  }
+
+  if (req.method === 'OPTIONS') {
+    res.status(200).end(); // Respond to preflight requests
+    return; // Explicitly end the middleware chain
+  }
+
+  next();
+}) as express.RequestHandler); // Explicitly type as RequestHandler
 
 // Development logging
 if (process.env.NODE_ENV === 'development') {
