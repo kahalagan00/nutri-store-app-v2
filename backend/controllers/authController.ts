@@ -146,7 +146,7 @@ const logout: RequestHandler = (req, res) => {
     path: '/', // Match the original cookie (if set)
   });
 
-  console.log('Cookie removed and user logged out 🐼');
+  console.log('User logged out and cookie removed 🐼');
 
   res.status(200).json({
     status: 'success',
@@ -159,7 +159,7 @@ const logout: RequestHandler = (req, res) => {
 const protect: RequestHandler = async (req, res, next) => {
   try {
     // 1) Getting token and check if it's there
-    console.log('Cookies: ', req.cookies);
+    // console.log('Cookies: ', req.cookies);
     let token;
     if (
       req.headers.authorization &&

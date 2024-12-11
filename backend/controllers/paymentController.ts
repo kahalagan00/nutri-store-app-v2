@@ -2,7 +2,7 @@ import { RequestHandler } from 'express';
 import Stripe from 'stripe';
 import dotenv from 'dotenv';
 
-const FRONTEND_LINK = 'https://jhuv-nutrition-v2.netlify.app';
+const FRONTEND_LINK = 'https://jhuvnutrition.fit';
 
 type CartItem = {
   name: string;
@@ -21,7 +21,7 @@ const stripe = new Stripe((process.env.STRIPE_SECRET_KEY as string) || '', {
 
 const createCheckoutSession: RequestHandler = async (req, res) => {
   try {
-    console.log('CREATE CHECKOUT SESSION HIT 📋');
+    console.log('Create checkout session hit 📋');
     // console.log(req.body);
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],

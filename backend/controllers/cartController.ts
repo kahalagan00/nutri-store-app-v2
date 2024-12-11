@@ -232,7 +232,7 @@ const removeItemFromCart: RequestHandler = async (req, res) => {
       item.productId.equals(new mongoose.Types.ObjectId(req.params.id))
     );
 
-    console.log('productInCart: ', productInCart);
+    // console.log('productInCart: ', productInCart);
 
     if (!productInCart) {
       throw new Error('Product is not inside the cart');

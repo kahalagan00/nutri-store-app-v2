@@ -26,7 +26,7 @@ export const useUpdateCart = () => {
       updateCartApi({ productId, name, price, quantity, purpose, image }),
     onSuccess: (cart) => {
       queryClient.setQueryData(["cart"], cart);
-      toast.success("Successfully updated user cart");
+      toast.success("Successfully added item to cart");
     },
     onError: (err: Error) => {
       toast.error(err.message);
