@@ -20,10 +20,11 @@ const app = express();
 // <------------------------------------------------------------------------------------------>
 // Middlewares -->
 const allowedOrigins = [
-  'https://jhuv-nutrition-v2.netlify.app',
-  'https://jhuv-nutrition-v2.netlify.app/home',
-  'https://jhuv-nutrition-v2.netlify.app/login',
-  'http://localhost:5173',
+  // 'https://jhuv-nutrition-v2.netlify.app',
+  'https://jhuvnutrition.fit',
+  // 'https://jhuv-nutrition-v2.netlify.app/home',
+  // 'https://jhuv-nutrition-v2.netlify.app/login',
+  // 'http://localhost:5173',
 ];
 
 app.use(
