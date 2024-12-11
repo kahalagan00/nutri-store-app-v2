@@ -2,7 +2,7 @@ import { RequestHandler } from 'express';
 import Stripe from 'stripe';
 import dotenv from 'dotenv';
 
-const FRONTEND_LINK = 'https://jhuvnutrition.fit';
+const FRONTEND_URL = 'https://jhuvnutrition.fit';
 
 type CartItem = {
   name: string;
@@ -30,7 +30,7 @@ const createCheckoutSession: RequestHandler = async (req, res) => {
           currency: 'usd',
           product_data: {
             name: item.name,
-            images: [`${FRONTEND_LINK}/images/products/${item.image}`], // Stripe supports only a single image per product
+            images: [`${FRONTEND_URL}/images/products/${item.image}`], // Stripe supports only a single image per product
             description: item.purpose, // Additional description
           },
           unit_amount: Math.round(item.price * 100), // Amount in cents * 100
@@ -40,8 +40,8 @@ const createCheckoutSession: RequestHandler = async (req, res) => {
       mode: 'payment',
       // success_url: `http://localhost:5173/payment-success?session_id={CHECKOUT_SESSION_ID}`, // For development
       // cancel_url: `http://localhost:5173/cart`, // For development
-      success_url: `${FRONTEND_LINK}/payment-success?session_id={CHECKOUT_SESSION_ID}`, // --> Go to homepage upon successful payment transaction
-      cancel_url: `${FRONTEND_LINK}/cart`, // --> Should go back to cart if transaction failed/canceled
+      success_url: `${FRONTEND_URL}/payment-success?session_id={CHECKOUT_SESSION_ID}`, // --> Go to homepage upon successful payment transaction
+      cancel_url: `${FRONTEND_URL}/cart`, // --> Should go back to cart if transaction failed/canceled
     });
 
     res.json({ sessionId: session.id }); // Return session ID to frontend

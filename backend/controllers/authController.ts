@@ -110,9 +110,6 @@ const login: RequestHandler = async (req, res) => {
     // 2) Check if user exists && password is correct
     const user = await User.findOne({ email }).select('+password');
 
-    // console.log(`🔑: ${password}`);
-    // console.log(`🔐: ${user.password}`);
-
     // "await" here is very important to make sure the checking returns the correct value
     if (!user || !(await user.checkPassword(password, user.password))) {
       throw new Error('Incorrect email or password detected');
@@ -121,7 +118,7 @@ const login: RequestHandler = async (req, res) => {
     // 3) If everything is ok, send token (JWT) to the client
     createSendToken(user, 200, req, res);
 
-    // console.log('Logged in', Math.floor(Date.now() / 1000));
+    console.log('User logged in ✅');
   } catch (err) {
     res.status(401).json({
       status: 'error',
