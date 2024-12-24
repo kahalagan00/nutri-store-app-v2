@@ -85,7 +85,9 @@ const fullBlogsData = [
 function BlogsPage() {
   return (
     <div className={PAGE_BASE_BACKGROUND_STYLE}>
-      <h1 className="font-neuton pb-8 pt-4 text-5xl tracking-wide">Blogs</h1>
+      <h1 className="font-neuton pb-8 pt-4 text-5xl tracking-wide dark:text-gray-50">
+        Blogs
+      </h1>
       <div className="grid gap-8 lg:grid-cols-2">
         {fullBlogsData.map((data) => (
           <BlogCard

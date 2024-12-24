@@ -4,7 +4,7 @@ import { PAGE_BASE_BACKGROUND_STYLE } from "../utils/constants";
 function PromotionsPage() {
   return (
     <div className={PAGE_BASE_BACKGROUND_STYLE}>
-      <h1 className="font-neuton pb-8 pt-4 text-5xl tracking-wide">
+      <h1 className="font-neuton pb-8 pt-4 text-5xl tracking-wide dark:text-gray-50">
         Promotions
       </h1>
       <div className="font-lato mx-auto flex w-full pb-16">
@@ -17,12 +17,14 @@ function PromotionsPage() {
         </div>
 
         <div className="flex w-full flex-col justify-start md:w-[50%]">
-          <h1 className="font-neuton text-[30px] leading-9 tracking-wide lg:text-[40px]">
+          <h1 className="font-neuton text-[30px] leading-9 tracking-wide lg:text-[40px] dark:text-gray-50">
             Enter any code at checkout and get a discount between{" "}
-            <span className="font-bold text-blue-600">5% to 20%</span> of your
-            cart subtotal 🥳
+            <span className="font-bold text-blue-600 dark:text-cyan-400">
+              5% to 20%
+            </span>{" "}
+            of your cart subtotal 🥳
           </h1>
-          <p className="line mt-6 text-sm leading-5 tracking-normal text-gray-400">
+          <p className="line mt-6 text-sm leading-5 tracking-normal text-gray-400 dark:text-gray-100">
             Please note that our discounts and promotions are subject to
             specific terms and conditions to ensure fairness and clarity.
             Discounts are valid only during the promotional period and may apply

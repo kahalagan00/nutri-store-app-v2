@@ -102,15 +102,17 @@ const CartPage = ({ isAuthenticated }: { isAuthenticated: boolean | null }) => {
 
   return (
     <div className={`${PAGE_BASE_BACKGROUND_STYLE} mb-12`}>
-      <h1 className="font-neuton pb-2 pt-4 text-5xl tracking-wide">Cart</h1>
-      <p className="font-neuton pb-6 text-lg">
+      <h1 className="font-neuton pb-2 pt-4 text-5xl tracking-wide dark:text-gray-50">
+        Cart
+      </h1>
+      <p className="font-neuton pb-6 text-lg dark:text-gray-200">
         <span className="text-xl font-bold">{cartNumber} items</span> in your
         bag
       </p>
 
       <div className="flex w-full grid-cols-[800px_300px] flex-col justify-items-center gap-12 min-[1200px]:grid">
-        <div className="scrollbar-hidden flex w-full flex-col justify-start gap-y-1 overflow-scroll rounded-xl bg-slate-200 p-8 drop-shadow-xl">
-          <div className="mb-4 grid gap-x-4 sm:grid-cols-[200px_100px_100px_100px] lg:grid-cols-[400px_100px_100px_100px]">
+        <div className="scrollbar-hidden flex w-full flex-col justify-start gap-y-1 overflow-scroll rounded-xl bg-slate-200 p-8 drop-shadow-xl dark:bg-slate-800">
+          <div className="mb-4 grid gap-x-4 sm:grid-cols-[200px_100px_100px_100px] lg:grid-cols-[400px_100px_100px_100px] dark:text-gray-100">
             <p className="mx-auto hidden text-lg font-bold sm:ml-14 sm:block lg:ml-0">
               Product
             </p>
@@ -138,19 +140,19 @@ const CartPage = ({ isAuthenticated }: { isAuthenticated: boolean | null }) => {
                     productId={item.productId}
                     handleRemoveFromCart={handleRemoveFromCart}
                   />
-                  <p className="font-lato justify-self-center text-sm md:text-lg">
+                  <p className="font-lato justify-self-center text-sm md:text-lg dark:text-gray-50">
                     <span className="inline-block sm:hidden">
                       Price =&nbsp;
                     </span>
                     ${item.price}
                   </p>
-                  <p className="font-lato justify-self-center text-sm md:text-lg">
+                  <p className="font-lato justify-self-center text-sm md:text-lg dark:text-gray-50">
                     <span className="inline-block sm:hidden">
                       Quantity =&nbsp;
                     </span>
                     {item.quantity}
                   </p>
-                  <p className="font-lato justify-self-center text-sm font-bold text-blue-600 md:text-lg">
+                  <p className="font-lato justify-self-center text-sm font-bold text-blue-600 md:text-lg dark:text-cyan-400">
                     <span className="inline-block sm:hidden">
                       Total =&nbsp;
                     </span>
@@ -167,19 +169,19 @@ const CartPage = ({ isAuthenticated }: { isAuthenticated: boolean | null }) => {
                     productId={item.productId}
                     handleRemoveFromCart={handleRemoveFromCart}
                   />
-                  <p className="font-lato justify-self-center text-xs font-bold md:text-sm">
+                  <p className="font-lato justify-self-center text-xs font-bold md:text-sm dark:text-gray-50">
                     <span className="inline-block sm:hidden">
                       Price =&nbsp;
                     </span>
                     ${item.price}
                   </p>
-                  <p className="font-lato justify-self-center text-xs font-bold md:text-sm">
+                  <p className="font-lato justify-self-center text-xs font-bold md:text-sm dark:text-gray-50">
                     <span className="inline-block sm:hidden">
                       Quantity =&nbsp;
                     </span>
                     {item.quantity}
                   </p>
-                  <p className="font-lato justify-self-center text-sm text-blue-600 md:text-lg">
+                  <p className="font-lato justify-self-center text-sm text-blue-600 md:text-lg dark:text-cyan-400">
                     <span className="inline-block sm:hidden">
                       Total =&nbsp;
                     </span>
@@ -189,7 +191,7 @@ const CartPage = ({ isAuthenticated }: { isAuthenticated: boolean | null }) => {
               ))}
         </div>
 
-        <div className="h-full w-full rounded-xl bg-slate-200 drop-shadow-xl">
+        <div className="h-full w-full rounded-xl bg-slate-200 drop-shadow-xl dark:bg-slate-800">
           <CalculateShippingBox onUpdateShippingFee={handleUpdateShippingFee} />
           <CouponCodeBox onApplyCouponDiscount={handleApplyCouponDiscount} />
           <CartTotalBox
@@ -232,9 +234,11 @@ const CalculateShippingBox = ({
     handleSubmit,
     reset,
   } = useForm<{ country: string; city: string; zip: string }>();
+  const [isShippingApplied, setIsShippingApplied] = useState(false);
 
   const onSubmit = (data: { country: string }) => {
     onUpdateShippingFee(data);
+    setIsShippingApplied(true);
     reset();
   };
 
@@ -243,12 +247,15 @@ const CalculateShippingBox = ({
       className="m-6 flex h-[250px] flex-col border-b-2 border-b-slate-700"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <h1 className="font-neuton text-2xl font-bold">Calculated Shipping</h1>
+      <h1 className="font-neuton text-2xl font-bold dark:text-gray-50">
+        Calculated Shipping
+      </h1>
       <select
         id="country"
         {...register("country")}
         defaultValue="United States"
         className="font-lato mt-4 h-12 w-full rounded-xl p-2"
+        disabled={isShippingApplied}
       >
         <optgroup label="North America">
           <option value="United States">United States</option>
@@ -266,6 +273,7 @@ const CalculateShippingBox = ({
 
       <div className="font-lato mt-2 flex gap-2">
         <input
+          disabled={isShippingApplied}
           className={`mt-4 h-10 w-1/2 rounded-xl p-4 ${errors.city && "bg-red-300"}`}
           type="text"
           placeholder="City"
@@ -274,6 +282,7 @@ const CalculateShippingBox = ({
           })}
         />
         <input
+          disabled={isShippingApplied}
           className={`mt-4 h-10 w-1/2 rounded-xl p-4 ${errors.zip && "bg-red-300"}`}
           type="text"
           maxLength={5}
@@ -285,8 +294,9 @@ const CalculateShippingBox = ({
       </div>
 
       <button
+        disabled={isShippingApplied}
         type="submit"
-        className="font-lato mt-4 flex h-10 w-full items-center justify-center rounded-xl bg-slate-800 p-4 text-gray-200 hover:bg-slate-700"
+        className={`font-lato mt-4 flex h-10 w-full items-center justify-center rounded-xl bg-slate-800 p-4 text-gray-200 hover:bg-slate-700 dark:bg-slate-200 dark:text-slate-800 hover:dark:bg-slate-300 ${!isShippingApplied ? "hover:bg-slate-700" : "opacity-40"}`}
       >
         Update
       </button>
@@ -325,8 +335,10 @@ const CouponCodeBox = ({
       className="m-6 flex h-[250px] flex-col border-b-2 border-b-slate-700"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <h1 className="font-neuton text-2xl font-bold">Coupon Code</h1>
-      <p className="font-lato mt-4 text-xs tracking-wide text-gray-500">
+      <h1 className="font-neuton text-2xl font-bold dark:text-gray-50">
+        Coupon Code
+      </h1>
+      <p className="font-lato mt-4 text-xs tracking-wide text-gray-500 dark:text-gray-100">
         Don’t miss out on great savings for your health journey! Use promo code
         HEALTH10 at checkout to enjoy 10% off your next order.
       </p>
@@ -352,7 +364,7 @@ const CouponCodeBox = ({
       <button
         disabled={isDiscountApplied}
         type="submit"
-        className={`font-lato mt-4 flex h-10 w-full items-center justify-center rounded-xl bg-slate-800 p-4 text-gray-200 ${!isDiscountApplied ? "hover:bg-slate-700" : "opacity-40"}`}
+        className={`font-lato mt-4 flex h-10 w-full items-center justify-center rounded-xl bg-slate-800 p-4 text-gray-200 dark:bg-slate-200 dark:text-slate-800 hover:dark:bg-slate-300 ${!isDiscountApplied ? "hover:bg-slate-700" : "opacity-40"}`}
       >
         Apply
       </button>
@@ -379,28 +391,28 @@ const CartTotalBox = ({
   );
 
   return (
-    <div className="m-4 flex h-[280px] flex-col rounded-xl bg-blue-600 p-4 text-gray-100">
+    <div className="m-4 flex h-[280px] flex-col rounded-xl bg-blue-600 p-4 text-gray-100 dark:bg-cyan-400 dark:text-slate-800">
       <h1 className="font-neuton text-2xl font-bold">Cart Total</h1>
-      <div className="font-lato mt-4 flex justify-between text-sm tracking-wide text-gray-100">
+      <div className="font-lato mt-4 flex justify-between text-sm tracking-wide text-gray-100 dark:text-slate-800">
         <p>Shipping Fee</p>
         <p className="font-bold">${shippingFee}</p>
       </div>
-      <div className="font-lato mt-4 flex justify-between text-sm tracking-wide text-gray-100">
+      <div className="font-lato mt-4 flex justify-between text-sm tracking-wide text-gray-100 dark:text-slate-800">
         <p>Cart Subtotal</p>
         <p className="font-bold">${cartSubTotal}</p>
       </div>
-      <div className="font-lato mt-4 flex justify-between text-sm tracking-wide text-gray-100">
+      <div className="font-lato mt-4 flex justify-between text-sm tracking-wide text-gray-100 dark:text-slate-800">
         <p>Discount</p>
         <p className="font-bold italic">-${finalDiscount}</p>
       </div>
-      <div className="font-lato mt-4 flex justify-between text-sm tracking-wide text-gray-100">
+      <div className="font-lato mt-4 flex justify-between text-sm tracking-wide text-gray-100 dark:text-slate-800">
         <p>Total</p>
         <p className="text-lg font-bold">${total}</p>
       </div>
 
       <button
         type="button"
-        className="font-lato mt-6 flex h-10 w-full items-center justify-center rounded-xl bg-slate-200 p-4 text-gray-800 hover:bg-slate-100"
+        className="font-lato mt-6 flex h-10 w-full items-center justify-center rounded-xl bg-slate-200 p-4 text-gray-800 hover:bg-slate-100 dark:bg-slate-800 dark:text-gray-50 hover:dark:bg-slate-700"
         onClick={onCheckout}
       >
         Checkout

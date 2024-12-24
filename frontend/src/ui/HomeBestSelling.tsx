@@ -110,7 +110,7 @@ const HomeBestSelling: React.FC = () => {
   return (
     <div className="mx-auto w-[90%] py-16">
       <div className="mb-16 flex items-center justify-between">
-        <h1 className="font-neuton text-[30px] font-bold lg:text-[40px]">
+        <h1 className="font-neuton text-[30px] font-bold lg:text-[40px] dark:text-gray-50">
           Best Selling Products
         </h1>
 

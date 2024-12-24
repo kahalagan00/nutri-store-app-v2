@@ -34,11 +34,11 @@ const reviewSummaryData = [
 const HomeReviewsSummary: React.FC = () => {
   return (
     <div className="relative mx-auto h-[1200px] w-[90%] py-16 lg:h-auto">
-      <h1 className="font-neuton w-full text-center text-[40px] font-bold">
+      <h1 className="font-neuton w-full text-center text-[40px] font-bold dark:text-gray-50">
         Why Customers Love Us?
       </h1>
       <img
-        className="w-full object-contain"
+        className="w-full object-contain dark:invisible"
         src="/images/reviews_summary/background.png"
         alt=""
       />

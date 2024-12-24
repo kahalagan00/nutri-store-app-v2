@@ -27,7 +27,7 @@ const blogsData = [
 const HomeBlogs: React.FC = () => {
   return (
     <div className="mx-auto h-auto w-[90%] py-16">
-      <h1 className="font-neuton mb-8 w-full text-center text-[40px] font-bold">
+      <h1 className="font-neuton mb-8 w-full text-center text-[40px] font-bold dark:text-gray-50">
         Latest News & Blogs
       </h1>
       <div className="mx-8 grid gap-4 lg:grid-cols-3">

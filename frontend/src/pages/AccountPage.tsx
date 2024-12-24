@@ -75,7 +75,9 @@ function AccountPage() {
 
   return (
     <div className={PAGE_BASE_BACKGROUND_STYLE}>
-      <h1 className="font-neuton pb-8 pt-4 text-5xl tracking-wide">Account</h1>
+      <h1 className="font-neuton pb-8 pt-4 text-5xl tracking-wide dark:text-gray-50">
+        Account
+      </h1>
       <div className="my-12 grid gap-10 lg:grid-cols-[300px_1fr]">
         <div className="hidden lg:flex lg:flex-col">
           <div className="flex h-28 w-28 items-center justify-center rounded-full bg-rose-400">
@@ -85,9 +87,13 @@ function AccountPage() {
               alt="Image of default user"
             />
           </div>
-          <h1 className="font-lato mt-4 text-3xl font-bold">{user?.name}</h1>
-          <p className="font-lato mt-2 text-gray-500">{user?.email}</p>
-          <h1 className="font-lato mt-8 text-2xl text-gray-600">
+          <h1 className="font-lato mt-4 text-3xl font-bold dark:text-gray-50">
+            {user?.name}
+          </h1>
+          <p className="font-lato mt-2 text-gray-500 dark:text-gray-200">
+            {user?.email}
+          </p>
+          <h1 className="font-lato mt-8 text-2xl text-gray-600 dark:text-gray-100">
             Personal Information
           </h1>
 
@@ -100,49 +106,59 @@ function AccountPage() {
         </div>
 
         <div className="">
-          <h1 className="font-lato mt-2 text-4xl font-bold">
+          <h1 className="font-lato mt-2 text-4xl font-bold dark:text-gray-100">
             Personal Information
           </h1>
-          <p className="font-lato mb-12 mt-2 text-gray-500">
+          <p className="font-lato mb-12 mt-2 text-gray-500 dark:text-gray-200">
             Manage your personal information, including phone numbers, email
             address, and password.
           </p>
           <div className="mt-4 grid gap-8 md:grid-cols-2">
-            <div className="flex h-[100px] w-full items-center justify-between rounded-lg border-2 bg-blue-50 p-6">
+            <div className="flex h-[100px] w-full items-center justify-between rounded-lg border-2 bg-blue-50 p-6 dark:border-none dark:bg-slate-800">
               <div>
-                <p className="font-lato mb-1 mt-2 text-xl font-bold">Name</p>
-                <p className="font-lato text-gray-500">{user?.name}</p>
+                <p className="font-lato mb-1 mt-2 text-xl font-bold dark:text-gray-50">
+                  Name
+                </p>
+                <p className="font-lato text-gray-500 dark:text-gray-200">
+                  {user?.name}
+                </p>
               </div>
               <IoMdPerson className="h-7 w-7 text-rose-400" />
             </div>
-            <div className="flex h-[100px] w-full items-center justify-between rounded-lg border-2 bg-blue-50 p-6">
+            <div className="flex h-[100px] w-full items-center justify-between rounded-lg border-2 bg-blue-50 p-6 dark:border-none dark:bg-slate-800">
               <div>
-                <p className="font-lato mb-1 mt-2 text-xl font-bold">
+                <p className="font-lato mb-1 mt-2 text-xl font-bold dark:text-gray-50">
                   Date of Birth
                 </p>
-                <p className="font-lato text-gray-500">{formattedBirthday}</p>
+                <p className="font-lato text-gray-500 dark:text-gray-200">
+                  {formattedBirthday}
+                </p>
               </div>
               <IoMdCalendar className="h-7 w-7 text-rose-400" />
             </div>
-            <div className="flex h-[100px] w-full items-center justify-between rounded-lg border-2 bg-blue-50 p-6">
+            <div className="flex h-[100px] w-full items-center justify-between rounded-lg border-2 bg-blue-50 p-6 dark:border-none dark:bg-slate-800">
               <div>
-                <p className="font-lato mb-1 mt-2 text-xl font-bold">Email</p>
-                <p className="font-lato text-gray-500">{user?.email}</p>
+                <p className="font-lato mb-1 mt-2 text-xl font-bold dark:text-gray-50">
+                  Email
+                </p>
+                <p className="font-lato text-gray-500 dark:text-gray-200">
+                  {user?.email}
+                </p>
               </div>
               <IoMdMail className="h-7 w-7 text-rose-400" />
             </div>
             <div>
-              <div className="flex h-[100px] w-full items-center justify-between rounded-lg border-2 bg-blue-50 p-6">
+              <div className="flex h-[100px] w-full items-center justify-between rounded-lg border-2 bg-blue-50 p-6 dark:border-none dark:bg-slate-800">
                 <div className="flex flex-col">
                   <input
                     type="password"
-                    className="font-lato mb-2 border-b-2 border-b-gray-600 bg-transparent outline-none"
+                    className="font-lato mb-2 border-b-2 border-b-gray-600 bg-transparent outline-none dark:text-gray-200"
                     placeholder="Enter current password"
                     onChange={(e) => setCurrentPassword(e.target.value)}
                   />
                   <input
                     type="password"
-                    className="font-lato border-b-2 border-b-gray-600 bg-transparent outline-none"
+                    className="font-lato border-b-2 border-b-gray-600 bg-transparent outline-none dark:text-gray-200"
                     placeholder="Enter new password"
                     onChange={(e) => setNewPassword(e.target.value)}
                   />
@@ -152,7 +168,7 @@ function AccountPage() {
               <button
                 type="button"
                 onClick={handleSubmit}
-                className="font-lato mt-2 rounded-xl bg-blue-500 p-2 text-white"
+                className="font-lato mt-2 rounded-xl bg-blue-500 p-2 text-white dark:bg-cyan-400 dark:text-slate-900 hover:dark:bg-cyan-300"
               >
                 Change password
               </button>

@@ -34,10 +34,10 @@ const HomeHotCategories: React.FC = () => {
     <div className="mx-auto grid w-[90%] grid-rows-[300px_auto] pb-16">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="font-neuton text-[30px] font-bold lg:text-[40px]">
+          <h1 className="font-neuton text-[30px] font-bold lg:text-[40px] dark:text-gray-50">
             Browse our Hottest
           </h1>
-          <h1 className="font-neuton text-[30px] font-bold text-blue-600 lg:text-[40px]">
+          <h1 className="font-neuton text-[30px] font-bold text-blue-600 lg:text-[40px] dark:text-cyan-400">
             Categories
           </h1>
         </div>
@@ -76,7 +76,7 @@ const HotCategoryCard = ({
 }) => {
   return (
     <div
-      className={`flex w-[200px] flex-col items-center justify-evenly rounded-xl ${color} p-4 transition-all hover:scale-110`}
+      className={`flex w-[200px] flex-col items-center justify-evenly rounded-xl ${color} p-4 transition-all hover:scale-110 dark:brightness-90`}
     >
       <img
         className="w-3/4"

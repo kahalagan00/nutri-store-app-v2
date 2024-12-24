@@ -62,7 +62,9 @@ const fullReviewsData = [
 function ReviewsPage() {
   return (
     <div className={PAGE_BASE_BACKGROUND_STYLE}>
-      <h1 className="font-neuton pb-8 pt-4 text-5xl tracking-wide">Reviews</h1>
+      <h1 className="font-neuton pb-8 pt-4 text-5xl tracking-wide dark:text-gray-50">
+        Reviews
+      </h1>
       <div className="grid gap-8 lg:grid-cols-2">
         {fullReviewsData.map((data) => (
           <ReviewCard

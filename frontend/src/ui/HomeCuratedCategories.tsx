@@ -61,7 +61,7 @@ const CuratedCategoryCard = ({
 }) => {
   return (
     <div
-      className={`font-lato h-[250px] w-full ${bgColor} flex gap-4 rounded-xl`}
+      className={`font-lato h-[250px] w-full ${bgColor} flex gap-4 rounded-xl dark:brightness-90`}
     >
       <div className="flex w-[50%] flex-col items-start justify-evenly pl-8">
         <p className={`${textColor} text-sm uppercase`}>{title}</p>

@@ -27,7 +27,7 @@ export const BlogCard = ({
   });
 
   return (
-    <div className="relative w-full drop-shadow-xl">
+    <div className="relative w-full drop-shadow-xl dark:brightness-95">
       <img
         className="h-[300px] w-full rounded-lg object-cover"
         src={imageUrl}

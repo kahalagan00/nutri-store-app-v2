@@ -4,7 +4,9 @@ import { PAGE_BASE_BACKGROUND_STYLE } from "../utils/constants";
 function ContactPage() {
   return (
     <div className={PAGE_BASE_BACKGROUND_STYLE}>
-      <h1 className="font-neuton pb-8 pt-4 text-5xl tracking-wide">Contact</h1>
+      <h1 className="font-neuton pb-8 pt-4 text-5xl tracking-wide dark:text-gray-50">
+        Contact
+      </h1>
       <div className="font-lato mx-auto flex w-full pb-16">
         <div className="hidden w-[45%] flex-col items-start justify-center gap-8 md:flex">
           <img
@@ -20,15 +22,19 @@ function ContactPage() {
         </div>
 
         <div className="flex w-full flex-col justify-start md:w-[50%]">
-          <h1 className="font-neuton text-[20px] leading-9 tracking-wide lg:text-[40px]">
+          <h1 className="font-neuton text-[20px] leading-9 tracking-wide lg:text-[40px] dark:text-gray-50">
             Phone: &nbsp;
-            <span className="text-blue-600">+1-702-GET-JHUV</span>
+            <span className="text-blue-600 dark:text-cyan-400">
+              +1-702-GET-JHUV
+            </span>
           </h1>
-          <h1 className="font-neuton mt-4 text-[20px] leading-9 tracking-wide lg:text-[40px]">
+          <h1 className="font-neuton mt-4 text-[20px] leading-9 tracking-wide lg:text-[40px] dark:text-gray-50">
             Email: &nbsp;
-            <span className="text-blue-600">jhuvNutri@vegas.com.us</span>
+            <span className="text-blue-600 dark:text-cyan-400">
+              jhuvNutri@vegas.com.us
+            </span>
           </h1>
-          <p className="line mt-6 text-sm leading-5 tracking-normal text-gray-400">
+          <p className="line mt-6 text-sm leading-5 tracking-normal text-gray-400 dark:text-gray-100">
             In addition to assisting with product inquiries or order tracking,
             our support team is happy to help with personalized recommendations,
             supplement usage guidance, or clarifying our policies and

@@ -57,7 +57,7 @@ const Header = ({
   };
 
   return (
-    <header className="mx-auto w-full max-w-screen-xl bg-white px-8 sm:pl-16">
+    <header className="mx-auto w-full max-w-screen-xl bg-white px-8 sm:pl-16 dark:bg-slate-800 dark:text-white">
       {/* Joshmar Debug: For DropDown Responsiveness */}
       <nav className="flex h-24 items-center justify-between">
         <NavLink to="/home" className="justify-self-end">
@@ -78,7 +78,7 @@ const Header = ({
         {!isAuthenticated ? (
           <div className="hidden lg:block">
             <NavLink
-              className="font-lato justify-self-center border-b-white text-sm font-bold tracking-wide text-gray-600 hover:border-slate-800 lg:border-b-2"
+              className="font-lato justify-self-center border-b-white text-sm font-bold tracking-wide text-gray-600 hover:border-slate-800 lg:border-b-2 dark:border-b-slate-800 dark:text-white dark:hover:border-b-white"
               to="/signup"
             >
               <span className="hidden text-center lg:inline-block">
@@ -92,7 +92,7 @@ const Header = ({
         ) : (
           <div className="hidden lg:block">
             <NavLink
-              className="font-lato justify-self-center border-b-white text-sm font-bold tracking-wide text-gray-600 hover:border-slate-800 lg:border-b-2"
+              className="font-lato justify-self-center border-b-white text-sm font-bold tracking-wide text-gray-600 hover:border-slate-800 lg:border-b-2 dark:border-b-slate-800 dark:text-white dark:hover:border-b-white"
               to="/account"
             >
               <span className="hidden lg:inline-block">Account</span>
@@ -105,7 +105,7 @@ const Header = ({
         {!isAuthenticated ? (
           <div className="hidden lg:block">
             <NavLink
-              className="font-lato justify-self-center border-b-white text-sm font-bold tracking-wide text-gray-600 hover:border-slate-800 lg:border-b-2"
+              className="font-lato justify-self-center border-b-white text-sm font-bold tracking-wide text-gray-600 hover:border-slate-800 lg:border-b-2 dark:border-b-slate-800 dark:text-white dark:hover:border-b-white"
               to="/login"
             >
               <span className="hidden lg:inline-block">Login</span>
@@ -119,7 +119,7 @@ const Header = ({
             <button
               disabled={isLoggingOut}
               onClick={handleLogOut}
-              className="font-lato justify-self-center border-b-white text-sm font-bold tracking-wide text-gray-600 hover:border-slate-800 lg:border-b-2"
+              className="font-lato justify-self-center border-b-white text-sm font-bold tracking-wide text-gray-600 hover:border-slate-800 lg:border-b-2 dark:border-b-slate-800 dark:text-white dark:hover:border-b-white"
             >
               <span className="hidden lg:inline-block">Logout</span>
               <span className="lg:hidden">
@@ -138,21 +138,21 @@ const Header = ({
       </nav>
 
       {isShowDropdown && (
-        <div className="mt-4 flex w-full flex-col items-center justify-between gap-y-4 rounded-xl bg-slate-300 py-4 drop-shadow-md lg:hidden">
+        <div className="mt-4 flex w-full flex-col items-center justify-between gap-y-4 rounded-xl bg-slate-300 py-4 drop-shadow-md lg:hidden dark:bg-slate-700">
           <Delivery />
           <SearchBar />
           <CartMenu />
           <LikedMenu />
           {!isAuthenticated ? (
             <NavLink
-              className="font-lato justify-self-center border-b-white text-sm font-bold tracking-wide text-gray-600 hover:border-slate-800 lg:border-b-2"
+              className="font-lato justify-self-center border-b-white text-sm font-bold tracking-wide text-gray-600 hover:border-slate-800 lg:border-b-2 dark:text-gray-100"
               to="/signup"
             >
               Sign Up
             </NavLink>
           ) : (
             <NavLink
-              className="font-lato justify-self-center border-b-white text-sm font-bold tracking-wide text-gray-600 hover:border-slate-800 lg:border-b-2"
+              className="font-lato justify-self-center border-b-white text-sm font-bold tracking-wide text-gray-600 hover:border-slate-800 lg:border-b-2 dark:text-gray-100"
               to="/account"
             >
               <span>Account</span>
@@ -160,7 +160,7 @@ const Header = ({
           )}
           {!isAuthenticated ? (
             <NavLink
-              className="font-lato justify-self-center border-b-white text-sm font-bold tracking-wide text-gray-600 hover:border-slate-800 lg:border-b-2"
+              className="font-lato justify-self-center border-b-white text-sm font-bold tracking-wide text-gray-600 hover:border-slate-800 lg:border-b-2 dark:text-gray-100"
               to="/login"
             >
               Login
@@ -169,7 +169,7 @@ const Header = ({
             <button
               disabled={isLoggingOut}
               onClick={handleLogOut}
-              className="font-lato justify-self-center border-b-white text-sm font-bold tracking-wide text-gray-600 hover:border-slate-800 lg:border-b-2"
+              className="font-lato justify-self-center border-b-white text-sm font-bold tracking-wide text-gray-600 hover:border-slate-800 lg:border-b-2 dark:text-gray-100"
             >
               Logout
             </button>
@@ -235,7 +235,7 @@ const Header = ({
           <NavLink
             to={link.route}
             key={link.route}
-            className={`font-lato border-b-2 border-b-white text-sm font-bold tracking-wide hover:border-b-gray-500`}
+            className={`font-lato border-b-2 border-b-white text-sm font-bold tracking-wide hover:border-b-gray-500 dark:border-b-slate-800 dark:hover:border-b-white`}
           >
             {link.label}
           </NavLink>

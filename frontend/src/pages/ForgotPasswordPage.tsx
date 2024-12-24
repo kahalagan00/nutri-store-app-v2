@@ -69,12 +69,12 @@ const ForgotPasswordPage: React.FC = () => {
         <Spinner />
       ) : (
         <div className={LOG_IN_BOX_STYLE}>
-          <h1 className="font-lato self-center text-2xl tracking-wide">
+          <h1 className="font-lato self-center text-2xl tracking-wide dark:text-gray-50">
             Reset Password
           </h1>
           {!isSentToken ? (
             <form onSubmit={handleSubmitForgotPassword(onSubmitForgotPassword)}>
-              <p className="font-lato mb-1 mt-8">
+              <p className="font-lato mb-1 mt-8 dark:text-gray-200">
                 Email <span className="font-bold text-red-500">*</span> &nbsp;
                 {forgotPasswordErrors.email && (
                   <span className={FORM_ERROR_STYLE}>
@@ -98,14 +98,14 @@ const ForgotPasswordPage: React.FC = () => {
               />
               <button
                 type="submit"
-                className="mt-6 h-12 w-full rounded-lg bg-blue-800 text-white hover:bg-blue-700"
+                className="mt-6 h-12 w-full rounded-lg bg-blue-800 text-white hover:bg-blue-700 dark:bg-cyan-400 dark:text-slate-900 hover:dark:bg-cyan-300"
               >
                 Send token
               </button>
             </form>
           ) : (
             <form onSubmit={handleSubmitResetPassword(onSubmitResetPassword)}>
-              <p className="font-lato mb-1 mt-6">
+              <p className="font-lato mb-1 mt-6 text-gray-200">
                 Token <span className="font-bold text-red-500">*</span> &nbsp;
                 {resetPasswordErrors.token && (
                   <span className={FORM_ERROR_STYLE}>
@@ -124,7 +124,7 @@ const ForgotPasswordPage: React.FC = () => {
                 })}
               />
 
-              <p className="font-lato mb-1 mt-6">
+              <p className="font-lato mb-1 mt-6 text-gray-200">
                 Password <span className="font-bold text-red-500">*</span>{" "}
                 &nbsp;
                 {resetPasswordErrors.password && (
@@ -148,7 +148,7 @@ const ForgotPasswordPage: React.FC = () => {
                 })}
               />
 
-              <p className="font-lato mb-1 mt-6">
+              <p className="font-lato mb-1 mt-6 text-gray-200">
                 Confirm Password &nbsp;
                 {resetPasswordErrors.passwordConfirm && (
                   <span className={FORM_ERROR_STYLE}>
@@ -171,7 +171,7 @@ const ForgotPasswordPage: React.FC = () => {
 
               <button
                 type="submit"
-                className="mt-6 h-12 w-full rounded-lg bg-blue-800 text-white hover:bg-blue-700"
+                className="mt-6 h-12 w-full rounded-lg bg-blue-800 text-white hover:bg-blue-700 dark:bg-cyan-400 dark:text-slate-900 hover:dark:bg-cyan-300"
               >
                 Change password
               </button>

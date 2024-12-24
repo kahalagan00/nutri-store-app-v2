@@ -49,7 +49,7 @@ const SearchBar: React.FC = () => {
         className="-translate-x-8"
         onClick={handleSearchClick}
       >
-        <FiSearch className="h-7 w-7" />
+        <FiSearch className="h-7 w-7 text-black" />
       </button>
     </div>
   );

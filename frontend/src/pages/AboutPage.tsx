@@ -4,7 +4,9 @@ import { PAGE_BASE_BACKGROUND_STYLE } from "../utils/constants";
 function AboutPage() {
   return (
     <div className={PAGE_BASE_BACKGROUND_STYLE}>
-      <h1 className="font-neuton pb-8 pt-4 text-5xl tracking-wide">About us</h1>
+      <h1 className="font-neuton pb-8 pt-4 text-5xl tracking-wide dark:text-gray-50">
+        About us
+      </h1>
       <div className="font-lato mx-auto flex w-full pb-16">
         <div className="hidden w-[45%] flex-col items-start justify-center gap-8 md:flex">
           <img
@@ -20,12 +22,14 @@ function AboutPage() {
         </div>
 
         <div className="flex w-full flex-col justify-start md:w-[50%]">
-          <p className="text-sm font-bold uppercase text-blue-500">about us</p>
-          <h1 className="font-neuton text-[30px] leading-9 lg:text-[40px]">
+          <p className="text-sm font-bold uppercase text-blue-500 dark:text-cyan-400">
+            about us
+          </p>
+          <h1 className="font-neuton text-[30px] leading-9 lg:text-[40px] dark:text-gray-50">
             We are dedicated to collaborating with accredited pharmacists and
             trusted farmers.
           </h1>
-          <p className="line mt-6 text-sm leading-5 tracking-normal text-gray-400">
+          <p className="line mt-6 text-sm leading-5 tracking-normal text-gray-400 dark:text-gray-100">
             At Jhuv Nutrition, we believe that good health starts with
             trust—trust in the quality of our products and the integrity of our
             process. That’s why we are dedicated to collaborating with
@@ -35,7 +39,7 @@ function AboutPage() {
             formulated to meet the highest standards of safety and
             effectiveness.
           </p>
-          <p className="line mt-6 text-sm leading-5 tracking-normal text-gray-400">
+          <p className="line mt-6 text-sm leading-5 tracking-normal text-gray-400 dark:text-gray-100">
             Our partnership with accredited pharmacists ensures that the science
             behind every supplement is sound and thoroughly vetted. From
             selecting the right ingredients to optimizing formulations, we work
@@ -45,7 +49,7 @@ function AboutPage() {
             sourced, natural, and of the highest quality, reflecting our respect
             for both people and the planet.
           </p>
-          <p className="line mt-6 text-sm leading-5 tracking-normal text-gray-400">
+          <p className="line mt-6 text-sm leading-5 tracking-normal text-gray-400 dark:text-gray-100">
             At Jhuv Nutrition, our mission goes beyond providing
             supplements—it’s about empowering healthier, happier lifestyles.
             Whether you’re seeking to improve your energy, boost immunity, or

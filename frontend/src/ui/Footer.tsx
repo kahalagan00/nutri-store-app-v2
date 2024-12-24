@@ -21,75 +21,75 @@ const Footer: React.FC = () => {
   return (
     <div className="mx-auto w-full pb-4 text-3xl">
       {/* Top Footer */}
-      <div className="mx-auto flex w-[90%] flex-col justify-items-center rounded-2xl bg-blue-100 p-4 text-black lg:grid lg:h-[400px] lg:grid-cols-4 lg:p-16">
+      <div className="mx-auto flex w-[90%] flex-col justify-items-center rounded-2xl bg-blue-100 p-4 text-black lg:grid lg:h-[400px] lg:grid-cols-4 lg:p-16 dark:bg-slate-800">
         <FooterSocialBlock />
         <div className="flex flex-row items-center justify-between p-2 lg:flex-col">
-          <h1 className="font-neuton hidden text-2xl font-bold tracking-wide lg:block">
+          <h1 className="font-neuton hidden text-2xl font-bold tracking-wide lg:block dark:text-gray-50">
             Categories
           </h1>
-          <p className="font-lato mt-4 text-xs font-bold text-gray-400 sm:text-sm">
+          <p className="font-lato mt-4 text-xs font-bold text-gray-400 sm:text-sm dark:text-gray-200">
             Muscle
           </p>
-          <p className="font-lato mt-4 text-xs font-bold text-gray-400 sm:text-sm">
+          <p className="font-lato mt-4 text-xs font-bold text-gray-400 sm:text-sm dark:text-gray-200">
             Joints
           </p>
-          <p className="font-lato mt-4 text-xs font-bold text-gray-400 sm:text-sm">
+          <p className="font-lato mt-4 text-xs font-bold text-gray-400 sm:text-sm dark:text-gray-200">
             Sleep
           </p>
-          <p className="font-lato mt-4 text-xs font-bold text-gray-400 sm:text-sm">
+          <p className="font-lato mt-4 text-xs font-bold text-gray-400 sm:text-sm dark:text-gray-200">
             Energy
           </p>
-          <p className="font-lato mt-4 text-xs font-bold text-gray-400 sm:text-sm">
+          <p className="font-lato mt-4 text-xs font-bold text-gray-400 sm:text-sm dark:text-gray-200">
             Heart
           </p>
         </div>
         <div className="flex flex-row items-center justify-between p-2 lg:flex-col">
-          <h1 className="font-neuton hidden text-2xl font-bold tracking-wide lg:block">
+          <h1 className="font-neuton hidden text-2xl font-bold tracking-wide lg:block dark:text-gray-50">
             Useful Links
           </h1>
-          <p className="font-lato mt-4 text-xs font-bold text-gray-400 sm:text-sm">
+          <p className="font-lato mt-4 text-xs font-bold text-gray-400 sm:text-sm dark:text-gray-200">
             <NavLink to="/cart">Payment</NavLink>
           </p>
-          <p className="font-lato mt-4 text-center text-xs font-bold text-gray-400 sm:text-sm">
+          <p className="font-lato mt-4 text-center text-xs font-bold text-gray-400 sm:text-sm dark:text-gray-200">
             Terms of Service
           </p>
-          <p className="font-lato mt-4 text-xs font-bold text-gray-400 sm:text-sm">
+          <p className="font-lato mt-4 text-xs font-bold text-gray-400 sm:text-sm dark:text-gray-200">
             <NavLink to="/account">Account</NavLink>
           </p>
-          <p className="font-lato mt-4 text-xs font-bold text-gray-400 sm:text-sm">
+          <p className="font-lato mt-4 text-xs font-bold text-gray-400 sm:text-sm dark:text-gray-200">
             Returns
           </p>
-          <p className="font-lato mt-4 text-xs font-bold text-gray-400 sm:text-sm">
+          <p className="font-lato mt-4 text-xs font-bold text-gray-400 sm:text-sm dark:text-gray-200">
             <NavLink to="/promotions">Discounts</NavLink>
           </p>
         </div>
         <div className="flex flex-col p-2">
-          <h1 className="font-neuton hidden text-2xl font-bold tracking-wide lg:block">
+          <h1 className="font-neuton hidden text-2xl font-bold tracking-wide lg:block dark:text-gray-50">
             Newsletter
           </h1>
-          <p className="font-lato mt-4 text-xs font-bold text-gray-400 sm:text-sm">
+          <p className="font-lato mt-4 text-xs font-bold text-gray-400 sm:text-sm dark:text-gray-200">
             Get now 25% discount for all products on your first order
           </p>
           <div className="mt-4 flex border-b-2 border-b-gray-400 pb-2">
             <IoMdMail className="h-5 text-rose-600" />
             <input
-              className="font-lato w-[150px] bg-blue-100 text-xs outline-none"
+              className="font-lato w-[150px] bg-blue-100 text-xs outline-none dark:bg-slate-800"
               type="text"
               placeholder="Your email address..."
             />
             <IoMdArrowForward className="h-5 text-blue-500" />
           </div>
-          <p className="font-lato mt-4 text-xs font-bold text-gray-400 sm:text-sm">
+          <p className="font-lato mt-4 text-xs font-bold text-gray-400 sm:text-sm dark:text-gray-200">
             T: &nbsp; {STORE_PHONE_NUMBER}
           </p>
-          <p className="font-lato mt-4 text-xs font-bold text-gray-400 sm:text-sm">
+          <p className="font-lato mt-4 text-xs font-bold text-gray-400 sm:text-sm dark:text-gray-200">
             E: &nbsp; {STORE_WEBSITE}
           </p>
         </div>
       </div>
 
       {/* Bottom footer */}
-      <div className="font-lato my-6 flex h-[50px] flex-col items-center justify-evenly bg-white px-6 text-xs font-semibold text-gray-400 sm:gap-0 lg:flex-row lg:justify-between lg:gap-y-4">
+      <div className="font-lato my-6 flex h-[50px] flex-col items-center justify-evenly bg-white px-6 text-xs font-semibold text-gray-400 sm:gap-0 lg:flex-row lg:justify-between lg:gap-y-4 dark:bg-slate-700 dark:text-gray-50">
         <p className="mt-2 lg:mt-0">&copy;&nbsp;{currentYear} Jhuv Nutrition</p>
         <div className="my-0 flex w-full flex-col items-center justify-between sm:w-[40%] sm:flex-row">
           <p>Privacy Policy</p>
@@ -115,7 +115,7 @@ export default Footer;
 
 const PaymentMethodCard = ({ name }: { name: string }) => {
   return (
-    <div className="h-[30px] max-w-[60px]">
+    <div className="h-[30px] max-w-[60px] rounded-lg p-1 dark:bg-gray-200">
       <img
         className="h-full object-contain"
         src={`${PAYMENT_METHODS_SRC}/${name}.png`}
@@ -129,7 +129,7 @@ const FooterSocialBlock: React.FC = () => {
   return (
     <div className="flex flex-col p-2">
       <Logo />
-      <p className="font-lato mt-6 text-sm font-bold text-gray-500">
+      <p className="font-lato mt-6 text-sm font-bold text-gray-500 dark:text-gray-200">
         {STORE_ADDRESS}
       </p>
       <div className="mt-6 flex w-full justify-start gap-4 lg:justify-between lg:gap-2">

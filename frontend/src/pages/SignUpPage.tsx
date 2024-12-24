@@ -68,14 +68,16 @@ const SignUpPage = ({
           src="/images/company-logo-2.svg"
           alt="Company logo"
         />
-        <h1 className="mt-4 self-start text-5xl tracking-wide">Sign Up</h1>
-        <p className="mt-3 self-start text-sm tracking-wide text-gray-600">
+        <h1 className="mt-4 self-start text-5xl tracking-wide dark:text-gray-50">
+          Sign Up
+        </h1>
+        <p className="mt-3 self-start text-sm tracking-wide text-gray-600 dark:text-gray-100">
           Enter your details below to create your account and get started.
         </p>
 
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="mt-8 grid grid-rows-5 gap-x-6 gap-y-1 md:h-[32rem] md:grid-cols-2"
+          className="mt-8 grid grid-rows-5 gap-x-6 gap-y-1 md:h-[32rem] md:grid-cols-2 dark:text-gray-50"
         >
           <div>
             <p>
@@ -264,7 +266,7 @@ const SignUpPage = ({
           <button
             disabled={isSigningUp}
             type="submit"
-            className="mt-6 h-12 w-full rounded-lg border-2 border-slate-200 bg-white"
+            className="mt-6 h-12 w-full rounded-lg border-2 border-slate-200 bg-white dark:text-black"
           >
             Cancel
           </button>
@@ -272,18 +274,18 @@ const SignUpPage = ({
           <button
             disabled={isSigningUp}
             type="submit"
-            className="mt-6 h-12 w-full rounded-lg bg-blue-800 text-white hover:bg-blue-700"
+            className="mt-6 h-12 w-full rounded-lg bg-blue-800 text-white hover:bg-blue-700 dark:bg-cyan-400 dark:text-slate-900 hover:dark:bg-cyan-300"
           >
             Confirm
           </button>
         </form>
 
         <div className="mt- flex justify-center">
-          <p className="self-center text-sm tracking-wide text-gray-600">
+          <p className="self-center text-sm tracking-wide text-gray-600 dark:text-gray-200">
             Already have an account? &nbsp;
           </p>
           <NavLink
-            className="text-md self-center tracking-wide text-blue-800 hover:text-blue-600"
+            className="text-md self-center tracking-wide text-blue-800 hover:text-blue-600 dark:text-cyan-400 dark:hover:text-cyan-300"
             to="/login"
           >
             Login

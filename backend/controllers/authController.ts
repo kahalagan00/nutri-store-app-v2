@@ -41,11 +41,11 @@ const createSendToken = (
     expires: new Date(Date.now() + cookieExpirationOffset),
     httpOnly: true,
     // # For development
-    // secure: false,
+    secure: false,
 
     // # For production
-    secure: true,
-    sameSite: 'none', // REQURIED for cross-site cookies (very important to keep it here for authentication testing)
+    // secure: true,
+    // sameSite: 'none', // REQURIED for cross-site cookies (very important to keep it here for authentication testing)
   });
 
   // console.log(

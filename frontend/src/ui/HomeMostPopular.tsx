@@ -108,7 +108,7 @@ const bestSellingData = [
 const HomeMostPopular: React.FC = () => {
   return (
     <div className="mx-auto flex w-[90%] flex-col items-center justify-evenly py-16">
-      <h1 className="font-neuton text-[30px] font-bold lg:text-[40px]">
+      <h1 className="font-neuton text-[30px] font-bold lg:text-[40px] dark:text-gray-50">
         Most Popular Products
       </h1>
       {/* 

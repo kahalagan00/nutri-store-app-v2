@@ -2,7 +2,8 @@ import { RequestHandler } from 'express';
 import Stripe from 'stripe';
 import dotenv from 'dotenv';
 
-const FRONTEND_URL = 'https://jhuvnutrition.fit';
+const FRONTEND_URL = 'https://jhuvnutrition.fit'; // for production
+// const FRONTEND_URL = 'http://localhost:5173'; // for development
 
 type CartItem = {
   name: string;

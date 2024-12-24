@@ -13,12 +13,14 @@ const HomeAboutSummary: React.FC = () => {
       </div>
 
       <div className="flex w-full flex-col justify-end md:w-[50%]">
-        <p className="text-sm font-bold uppercase text-blue-500">about us</p>
-        <h1 className="font-neuton text-[30px] leading-9 lg:text-[40px]">
+        <p className="text-sm font-bold uppercase text-blue-500 dark:text-cyan-400">
+          about us
+        </p>
+        <h1 className="font-neuton text-[30px] leading-9 lg:text-[40px] dark:text-gray-50">
           We are dedicated to collaborating with accredited pharmacists and
           trusted farmers.
         </h1>
-        <p className="line my-6 text-xs leading-6 tracking-wide text-gray-400">
+        <p className="line my-6 text-xs leading-6 tracking-wide text-gray-400 dark:text-gray-200">
           At Jhuv Nutrition, we are committed to providing high-quality,
           trustworthy nutrition solutions by partnering with accredited
           pharmacists and farmers. This collaboration ensures that our products

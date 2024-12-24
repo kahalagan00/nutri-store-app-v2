@@ -17,10 +17,10 @@ const CartProductCard = ({
         <img src={`/images/products/${image}`} alt={`Image of ${name}`} />
       </div>
       <div className="flex flex-col items-center justify-start lg:items-start">
-        <p className="font-lato text-xs font-semibold uppercase tracking-wide text-gray-500">
+        <p className="font-lato text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-200">
           {purpose}
         </p>
-        <p className="font-neuton text-lg font-semibold lg:mb-4 lg:text-xl">
+        <p className="font-neuton text-lg font-semibold lg:mb-4 lg:text-xl dark:text-gray-50">
           {name}
         </p>
         <button
