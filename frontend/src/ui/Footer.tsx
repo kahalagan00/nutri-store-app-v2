@@ -89,14 +89,14 @@ const Footer: React.FC = () => {
       </div>
 
       {/* Bottom footer */}
-      <div className="font-lato my-6 flex h-[50px] flex-col items-center justify-evenly bg-white px-6 text-xs font-semibold text-gray-400 sm:gap-0 lg:flex-row lg:justify-between lg:gap-y-4 dark:bg-slate-700 dark:text-gray-50">
-        <p className="mt-2 lg:mt-0">&copy;&nbsp;{currentYear} Jhuv Nutrition</p>
+      <div className="font-lato mt-2 flex flex-col items-center justify-evenly bg-white px-6 text-xs font-semibold text-gray-400 sm:gap-0 lg:flex-row lg:justify-between lg:gap-y-4 dark:bg-slate-700 dark:text-gray-50">
+        <p className="mb-2 lg:mt-0">&copy;&nbsp;{currentYear} Jhuv Nutrition</p>
         <div className="my-0 flex w-full flex-col items-center justify-between gap-y-2 sm:w-[40%] sm:flex-row">
           <p>Privacy Policy</p>
           <p>Terms & Conditions</p>
           <p>Cookies/Ad Choices</p>
         </div>
-        <div className="my-1 flex items-center justify-center gap-1">
+        <div className="my-2 flex items-center justify-center gap-1 lg:my-0 lg:mt-0">
           <PaymentMethodCard name="mastercard" />
           <PaymentMethodCard name="visa" />
           <PaymentMethodCard name="amex" />
