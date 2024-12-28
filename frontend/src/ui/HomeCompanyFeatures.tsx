@@ -43,8 +43,10 @@ const FeatureBlock = ({
   message: string;
 }) => {
   return (
-    <div className="grid h-full grid-cols-[50px_120px] items-center">
-      <img className="w-full dark:brightness-110" src={imageUrl} alt="" />
+    <div className="grid h-full grid-cols-[50px_120px] items-center dark:grid-cols-[60px_120px]">
+      <div className="rounded-lg dark:bg-slate-400 dark:p-2">
+        <img className="w-full" src={imageUrl} alt="" />
+      </div>
       <p className="font-neuton ml-6 text-wrap text-sm font-bold leading-6 text-gray-600 dark:text-gray-100">
         {message}
       </p>

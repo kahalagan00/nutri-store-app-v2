@@ -6,7 +6,7 @@ export const CapsuleButtonForward = ({ message }: { message: string }) => {
       <p className="font-lato justify-self-center text-[8px] font-bold text-white sm:text-[10px] md:text-sm">
         {message}
       </p>
-      <button className="flex h-[15px] w-[15px] cursor-pointer items-center justify-center justify-self-center rounded-full bg-white sm:h-[20px] sm:w-[20px] md:h-[35px] md:w-[35px]">
+      <button className="flex h-[15px] w-[15px] cursor-pointer items-center justify-center justify-self-center rounded-full bg-white active:scale-105 sm:h-[20px] sm:w-[20px] md:h-[35px] md:w-[35px]">
         <IoMdArrowForward className="h-[60px]" />
       </button>
     </div>

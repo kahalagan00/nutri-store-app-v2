@@ -17,6 +17,7 @@ export const STORE_WEBSITE: string = "jhuvNutri@vegas.com.us";
 // "https://nutri-store-app-v2-production.up.railway.app/api/v1"; // For Production
 export const BACKEND_URL: string = "https://api.jhuvnutrition.fit/api/v1"; // For Production 2
 
+// Images
 export const PAYMENT_METHODS_SRC: string = "/images/footer/payment_methods";
 
 // Styles

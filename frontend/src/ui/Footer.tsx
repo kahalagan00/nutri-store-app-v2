@@ -19,7 +19,7 @@ import { NavLink } from "react-router-dom";
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
   return (
-    <div className="mx-auto w-full pb-4 text-3xl">
+    <div className="mx-auto w-full pb-16 text-3xl sm:pb-4">
       {/* Top Footer */}
       <div className="mx-auto flex w-[90%] flex-col justify-items-center rounded-2xl bg-blue-100 p-4 text-black lg:grid lg:h-[400px] lg:grid-cols-4 lg:p-16 dark:bg-slate-800">
         <FooterSocialBlock />
@@ -91,12 +91,12 @@ const Footer: React.FC = () => {
       {/* Bottom footer */}
       <div className="font-lato my-6 flex h-[50px] flex-col items-center justify-evenly bg-white px-6 text-xs font-semibold text-gray-400 sm:gap-0 lg:flex-row lg:justify-between lg:gap-y-4 dark:bg-slate-700 dark:text-gray-50">
         <p className="mt-2 lg:mt-0">&copy;&nbsp;{currentYear} Jhuv Nutrition</p>
-        <div className="my-0 flex w-full flex-col items-center justify-between sm:w-[40%] sm:flex-row">
+        <div className="my-0 flex w-full flex-col items-center justify-between gap-y-2 sm:w-[40%] sm:flex-row">
           <p>Privacy Policy</p>
           <p>Terms & Conditions</p>
           <p>Cookies/Ad Choices</p>
         </div>
-        <div className="flex items-center justify-center gap-1">
+        <div className="my-1 flex items-center justify-center gap-1">
           <PaymentMethodCard name="mastercard" />
           <PaymentMethodCard name="visa" />
           <PaymentMethodCard name="amex" />
