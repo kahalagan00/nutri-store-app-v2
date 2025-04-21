@@ -39,10 +39,10 @@ const createCheckoutSession: RequestHandler = async (req, res) => {
         quantity: item.quantity,
       })),
       mode: 'payment',
-      // success_url: `http://localhost:5173/payment-success?session_id={CHECKOUT_SESSION_ID}`, // For development
-      // cancel_url: `http://localhost:5173/cart`, // For development
-      success_url: `${FRONTEND_URL}/payment-success?session_id={CHECKOUT_SESSION_ID}`, // --> Go to homepage upon successful payment transaction
-      cancel_url: `${FRONTEND_URL}/cart`, // --> Should go back to cart if transaction failed/canceled
+      // success_url: `http://localhost:5173/payment-success?session_id={CHECKOUT_SESSION_ID}`, // (For development)
+      // cancel_url: `http://localhost:5173/cart`, // (For development)
+      success_url: `${FRONTEND_URL}/payment-success?session_id={CHECKOUT_SESSION_ID}`, // --> Go to homepage upon successful payment transaction (For production)
+      cancel_url: `${FRONTEND_URL}/cart`, // --> Should go back to cart if transaction failed/canceled (For production)
     });
 
     res.json({ sessionId: session.id }); // Return session ID to frontend

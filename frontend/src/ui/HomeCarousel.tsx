@@ -50,14 +50,14 @@ const HomeCarousel: React.FC = () => {
       prevIndex === 0 ? carouselData.length - 1 : prevIndex - 1,
     );
 
-    console.log("currentIndex=", currentIndex);
+    // console.log("currentIndex=", currentIndex); // For debug
   };
 
   const handleNext = () => {
     setCurrentIndex((prevIndex) =>
       prevIndex === carouselData.length - 1 ? 0 : prevIndex + 1,
     );
-    console.log("currentIndex=", currentIndex);
+    // console.log("currentIndex=", currentIndex); // For debug
   };
 
   return (

@@ -1,15 +1,17 @@
 import { useState } from "react";
-import toast from "react-hot-toast";
+// import toast from "react-hot-toast";
 import { FiSearch } from "react-icons/fi";
 
 const SearchBar: React.FC = () => {
   const [searchValue, setSearchValue] = useState<string>("");
 
   const handleSearchClick = () => {
-    // console.log(searchValue);
-    toast("Search bar is under development", {
-      icon: "🛠️ 🔎",
-    });
+    console.log(
+      `Redirecting to SearchResultsPage right now for searchValue = ${searchValue}`,
+    );
+    // toast("Search bar is under development", {
+    //   icon: "🛠️ 🔎",
+    // });
   };
 
   // Joshmar Debug: For Icon responsiveness
@@ -37,7 +39,7 @@ const SearchBar: React.FC = () => {
   return (
     <div className="flex items-center">
       <input
-        disabled={true}
+        disabled={false}
         className="font-lato h-10 w-full min-w-[220px] rounded-md bg-slate-100 pl-4 text-xs tracking-wide outline-none"
         type="text"
         placeholder="What are you looking for"

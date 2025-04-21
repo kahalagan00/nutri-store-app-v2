@@ -24,7 +24,7 @@ const allowedOrigins = [
   'https://jhuvnutrition.fit', // For production
   // 'https://jhuv-nutrition-v2.netlify.app/home',
   // 'https://jhuv-nutrition-v2.netlify.app/login',
-  // 'http://localhost:5173',
+  // 'http://localhost:5173', // For development
 ];
 
 app.use(

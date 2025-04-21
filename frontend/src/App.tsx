@@ -21,6 +21,7 @@ import BlogsPage from "./pages/BlogsPage";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import AccountPage from "./pages/AccountPage";
 import PaymentSuccessPage from "./pages/PaymentSuccessPage";
+import SearchResultsPage from "./pages/SearchResultsPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -95,6 +96,7 @@ const App: React.FC = () => {
                 path="cart"
                 element={<CartPage isAuthenticated={isAuthenticated} />}
               />
+              <Route path="search" element={<SearchResultsPage />} />
               <Route path="about" element={<AboutPage />} />
               <Route path="promotions" element={<PromotionsPage />} />
               <Route path="reviews" element={<ReviewsPage />} />
