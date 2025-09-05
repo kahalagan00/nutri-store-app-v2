@@ -5,7 +5,7 @@
   "main": "dist/server.js",
   "scripts": {
     "start": "node dist/server.js",
-    "build": "tsc && parcel build ./app.ts --out-dir ./dist/public/js --out-file bundle.js",
+    "build": "tsc -p ./tsconfig.json && parcel build ./app.ts --out-dir ./dist/public/js --out-file bundle.js",
     "start:dev": "ts-node-dev --respawn --transpile-only ./server.ts",
     "start:prod": "cross-env NODE_ENV=production node dist/server.js",
     "debug": "node --inspect dist/server.js",
