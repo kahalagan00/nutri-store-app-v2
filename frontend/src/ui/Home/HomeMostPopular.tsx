@@ -1,6 +1,6 @@
-import ProductCard from "./ProductCard";
+import ProductCard from "../ProductCard";
 
-// Only for testing, an API should be implemented for this
+// WARN: Only for testing, an API should be implemented for this
 const bestSellingData = [
   {
     _id: "673fadeb9157c0b806d888d5",

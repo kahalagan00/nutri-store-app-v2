@@ -1,11 +1,11 @@
 import { NavLink, useLocation } from "react-router-dom";
-import Logo from "./Logo";
-import Delivery from "./Delivery";
-import SearchBar from "./SearchBar";
-import CartMenu from "./CartMenu";
-import LikedMenu from "./LikedMenu";
-import { useLogoutUser } from "../features/users/useLogoutUser";
-import { useCart } from "../context/CartContext";
+import Logo from "../Logo";
+import Delivery from "../Delivery";
+import SearchBar from "../SearchBar";
+import CartMenu from "../CartMenu";
+import LikedMenu from "../LikedMenu";
+import { useLogoutUser } from "../../features/users/useLogoutUser";
+import { useCart } from "../../context/CartContext";
 import { CiCircleQuestion, CiPillsBottle1 } from "react-icons/ci";
 import { MdOutlineDiscount } from "react-icons/md";
 import { IoMdPaper } from "react-icons/io";

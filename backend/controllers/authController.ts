@@ -5,8 +5,7 @@ import User from '../models/userModel';
 import { NextFunction, Request, RequestHandler, Response } from 'express';
 import Email from '../utils/email';
 
-// ***NOTE
-// "return" statements are good practice for TypeScript
+// NOTE: "return" statements are good practice for TypeScript
 
 const INCHES_IN_METER = 39.3701;
 const LBS_IN_KG = 2.2;

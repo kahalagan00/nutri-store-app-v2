@@ -1,5 +1,5 @@
 import { IoMdPaper, IoMdStar } from "react-icons/io";
-import { ReviewSummaryVariables } from "./HomeReviewsSummary";
+import { ReviewSummaryVariables } from "./Home/HomeReviewsSummary";
 
 export const ReviewCard = ({
   name,

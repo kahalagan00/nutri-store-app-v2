@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { CapsuleButtonForward } from "./CapsuleButtonForward";
+import { CapsuleButtonForward } from "../CapsuleButtonForward";
 
 const HomeAboutSummary: React.FC = () => {
   return (

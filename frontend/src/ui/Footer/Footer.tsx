@@ -11,8 +11,8 @@ import {
   STORE_ADDRESS,
   STORE_PHONE_NUMBER,
   STORE_WEBSITE,
-} from "../utils/constants";
-import Logo from "./Logo";
+} from "../../utils/constants";
+import Logo from "../Logo";
 import React from "react";
 import { NavLink } from "react-router-dom";
 
