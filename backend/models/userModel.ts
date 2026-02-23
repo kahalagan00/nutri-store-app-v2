@@ -1,11 +1,11 @@
 import mongoose from 'mongoose';
 import slugify from 'slugify';
 import bcrypt from 'bcryptjs';
-const crypto = require('crypto');
+import crypto from 'crypto';
 
 // Define the interface for the User
 interface IUser extends mongoose.Document {
-  _id: typeof mongoose.Schema.ObjectId;
+  _id: mongoose.Types.ObjectId;
   name: string;
   email: string;
   password: string;
@@ -47,7 +47,7 @@ const userSchema = new mongoose.Schema<IUser>({
   password: {
     type: String,
     required: [true, 'Please provide a password for the user'],
-    minLength: 8, // Minmal security = 8, Optimal security = 12, Maximum security = 15 or 16
+    minLength: 8,
     select: false,
     unique: true,
   },
