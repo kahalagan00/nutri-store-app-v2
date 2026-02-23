@@ -13,7 +13,7 @@ export const STORE_WEBSITE: string = "jhuvNutri@vegas.com.us";
 
 // URLs
 // export const BACKEND_URL: string = "http://localhost:3000/api/v1"; // For Development
-export const BACKEND_URL: string = "https://api.jhuvnutrition.fit/api/v1"; // For Production
+export const BACKEND_URL: string = "https://api.jhuvnutrition.com/api/v1"; // For Production
 
 // Images
 export const PAYMENT_METHODS_SRC: string = "/images/footer/payment_methods";
