@@ -6,7 +6,6 @@ import React, {
   useEffect,
 } from "react";
 
-// Define the context value type
 interface CartContextType {
   cartNumber: number;
   setCartNumber: (value: number) => void;
@@ -14,15 +13,12 @@ interface CartContextType {
   setCartTotal: (value: number) => void;
 }
 
-// Create the context with an initial value of `undefined`
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
-// Provider component
 export const CartProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  // const [cartNumber, setCartNumber] = useState<number>(0);
-  // const [cartTotal, setCartTotal] = useState<number>(0);
+  // NOTE: Utilize browser storage to persist cart state across page reloads and sessions
   const [cartNumber, setCartNumber] = useState<number>(() => {
     const savedCartNumber = localStorage.getItem("cartNumber");
     return savedCartNumber ? JSON.parse(savedCartNumber) : 0;
@@ -51,7 +47,6 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({
   );
 };
 
-// Custom hook for consuming the context
 export const useCart = (): CartContextType => {
   const context = useContext(CartContext);
   if (!context) {
