@@ -4,11 +4,11 @@ import { CapsuleButtonForward } from "../CapsuleButtonForward";
 const HomeAboutSummary: React.FC = () => {
   return (
     <div className="font-lato mx-auto flex w-[90%] flex-col gap-x-8 py-16 md:flex-row">
-      <div className="mx-auto flex w-[50%] items-center justify-center">
+      <div className="mx-auto flex w-full items-center justify-center md:w-[50%]">
         <img
           className="h-full w-full object-contain"
           src="/images/about_summary/0.png"
-          alt="Picture of a scientist pharmacist"
+          alt="A scientist pharmacist preparing supplements"
         />
       </div>
 
@@ -20,7 +20,7 @@ const HomeAboutSummary: React.FC = () => {
           We are dedicated to collaborating with accredited pharmacists and
           trusted farmers.
         </h1>
-        <p className="line my-6 text-xs leading-6 tracking-wide text-gray-400 dark:text-gray-200">
+        <p className="my-6 text-xs leading-6 tracking-wide text-gray-400 dark:text-gray-200">
           At Jhuv Nutrition, we are committed to providing high-quality,
           trustworthy nutrition solutions by partnering with accredited
           pharmacists and farmers. This collaboration ensures that our products

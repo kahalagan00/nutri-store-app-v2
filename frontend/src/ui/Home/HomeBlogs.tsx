@@ -1,36 +1,11 @@
 import { BlogCard } from "../BlogCard";
-
-const blogsData = [
-  {
-    author: "Daniel",
-    createdAt: "2024-11-01",
-    title: "How Jhuv Created The Perfect Whey",
-    image: "0.jpg",
-    reads: 255,
-  },
-  {
-    author: "Joshua",
-    createdAt: "2024-11-10",
-    title: "Remedies For Sleeping Issues",
-    image: "1.jpg",
-    reads: 242,
-  },
-  {
-    author: "Thomas",
-    createdAt: "2024-11-20",
-    title: "Creatine For Cognition",
-    image: "2.jpg",
-    reads: 267,
-  },
-];
+import { blogsData } from "../../data/blogsData";
+import HomeSection from "./HomeSection";
 
 const HomeBlogs: React.FC = () => {
   return (
-    <div className="mx-auto h-auto w-[90%] py-16">
-      <h1 className="font-neuton mb-8 w-full text-center text-[40px] font-bold dark:text-gray-50">
-        Latest News & Blogs
-      </h1>
-      <div className="mx-8 grid gap-4 lg:grid-cols-3">
+    <HomeSection title="Latest News & Blogs" align="center">
+      <div className="grid gap-4 lg:grid-cols-3">
         {blogsData.map((data) => (
           <BlogCard
             key={data.title}
@@ -42,7 +17,7 @@ const HomeBlogs: React.FC = () => {
           />
         ))}
       </div>
-    </div>
+    </HomeSection>
   );
 };
 

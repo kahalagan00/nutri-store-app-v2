@@ -2,10 +2,10 @@ import { NavLink } from "react-router-dom";
 import { CapsuleButtonRegular } from "../CapsuleButtonRegular";
 import { curatedCategoryData } from "../../data/curatedCategoryData";
 
-const HomeCuratedCategoies: React.FC = () => {
+const HomeCuratedCategories: React.FC = () => {
   return (
-    <div className="mx-auto w-[90%] pb-16">
-      <div className="grid h-full w-full grid-cols-[repeat(auto-fit,minmax(350px,1fr))] gap-5">
+    <div className="mx-auto w-[90%] py-16">
+      <div className="grid h-full w-full grid-cols-[repeat(auto-fit,minmax(min(350px,100%),1fr))] gap-5">
         {curatedCategoryData.map((data) => (
           <CuratedCategoryCard
             key={data.message}
@@ -21,7 +21,7 @@ const HomeCuratedCategoies: React.FC = () => {
   );
 };
 
-export default HomeCuratedCategoies;
+export default HomeCuratedCategories;
 
 const CuratedCategoryCard = ({
   bgColor,
@@ -38,7 +38,7 @@ const CuratedCategoryCard = ({
 }) => {
   return (
     <div
-      className={`font-lato h-[250px] w-full ${bgColor} flex gap-4 rounded-xl dark:brightness-90`}
+      className={`font-lato min-h-[250px] w-full ${bgColor} flex gap-4 rounded-xl dark:brightness-90`}
     >
       <div className="flex w-[50%] flex-col items-start justify-evenly pl-8">
         <p className={`${textColor} text-sm uppercase`}>{title}</p>
@@ -55,7 +55,7 @@ const CuratedCategoryCard = ({
         <img
           className="h-full w-full object-contain"
           src={imageUrl}
-          alt={`Image of (${message})`}
+          alt={message}
         />
       </div>
     </div>

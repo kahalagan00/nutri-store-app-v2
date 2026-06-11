@@ -52,15 +52,9 @@ export const removeItemFromCartApi = async (productId: string) => {
       const errorData = await res.json();
       throw new Error(
         errorData.message ||
-          "Something went wrong when trying to remove item from cart",
+        "Something went wrong when trying to remove item from cart",
       );
     }
-
-    // const data = await res.json();
-
-    // console.log(data);
-
-    // toast.success("Successfully removed item from cart");
   } catch (err) {
     console.error(err);
     toast.error("Removing item from cart failed");

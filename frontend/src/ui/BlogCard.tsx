@@ -31,7 +31,7 @@ export const BlogCard = ({
       <img
         className="h-[300px] w-full rounded-lg object-cover"
         src={imageUrl}
-        alt={`Image of ${title} by ${author}`}
+        alt={`Cover for "${title}" by ${author}`}
       />
       <div className="mx-auto flex w-[95%] -translate-y-16 flex-col rounded-lg bg-white p-8">
         <div className="flex gap-2 sm:gap-4">
