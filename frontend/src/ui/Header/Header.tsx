@@ -69,15 +69,16 @@ const Header = ({
   };
 
   return (
-    <header className="mx-auto w-full max-w-screen-xl bg-white px-8 sm:pl-16 dark:bg-slate-800 dark:text-white">
+    <header className="mx-auto w-full max-w-screen-xl bg-white px-8 sm:px-16 dark:bg-slate-800 dark:text-white">
       {/* Joshmar Debug: For DropDown Responsiveness */}
-      <nav className="flex h-24 items-center justify-between">
+      <nav className="flex h-24 items-center justify-between gap-x-4">
         <NavLink to="/home" className="justify-self-end">
           <Logo />
         </NavLink>
         {isDesktop && (
           <>
-            <div className="hidden lg:block">
+            {/* Delivery is xl-only: at lg the row doesn't fit with even padding + gaps */}
+            <div className="hidden xl:block">
               <Delivery />
             </div>
             <div className="hidden lg:block">
