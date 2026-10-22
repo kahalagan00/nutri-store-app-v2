@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import Logo from "../Logo";
 import Delivery from "../Delivery";
 import SearchBar from "../SearchBar";
@@ -14,7 +14,7 @@ import { HiOutlineHome, HiPencil, HiUserCircle } from "react-icons/hi2";
 import { RiBloggerLine } from "react-icons/ri";
 import { IoLogInOutline, IoLogOutOutline } from "react-icons/io5";
 import { RxCross1, RxHamburgerMenu } from "react-icons/rx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Header = ({
   isAuthenticated,
@@ -35,6 +35,12 @@ const Header = ({
   const { setCartNumber, setCartTotal } = useCart();
   const { logout, isPending: isLoggingOut } = useLogoutUser();
   const [isShowDropdown, setIsShowDropDown] = useState(false);
+  const { key: locationKey } = useLocation();
+
+  // Close the mobile dropdown after any navigation (key changes even for same-path navigations)
+  useEffect(() => {
+    setIsShowDropDown(false);
+  }, [locationKey]);
 
   const bottomHeaderIconStyle =
     "h-9 w-9 rounded-full p-2 transition hover:bg-slate-300 active:translate-y-1";
