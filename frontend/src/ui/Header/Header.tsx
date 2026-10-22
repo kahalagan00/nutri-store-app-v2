@@ -139,7 +139,9 @@ const Header = ({
               onClick={handleLogOut}
               className="font-lato justify-self-center border-b-white text-sm font-bold tracking-wide text-gray-600 hover:border-slate-800 lg:border-b-2 dark:border-b-slate-800 dark:text-white dark:hover:border-b-white"
             >
-              <span className="hidden lg:inline-block">Logout</span>
+              <span className="hidden lg:inline-block">
+                {isLoggingOut ? "Logging out…" : "Logout"}
+              </span>
               <span className="lg:hidden">
                 <IoLogOutOutline className="h-10 w-10 rounded-full p-2 transition hover:bg-slate-300 active:translate-y-1" />
               </span>
@@ -148,6 +150,9 @@ const Header = ({
         )}
         <button
           type="button"
+          aria-label="Menu"
+          aria-expanded={isShowDropdown}
+          aria-controls="header-mobile-menu"
           onClick={() => setIsShowDropDown((value) => !value)}
           className="flex h-10 w-10 items-center justify-center rounded-full bg-rose-500 px-2 text-white lg:hidden"
         >
@@ -156,7 +161,10 @@ const Header = ({
       </nav>
 
       {isShowDropdown && !isDesktop && (
-        <div className="mt-4 flex w-full flex-col items-center justify-between gap-y-4 rounded-xl bg-slate-300 py-4 drop-shadow-md lg:hidden dark:bg-slate-700">
+        <div
+          id="header-mobile-menu"
+          className="mt-4 flex w-full flex-col items-center justify-between gap-y-4 rounded-xl bg-slate-300 py-4 drop-shadow-md lg:hidden dark:bg-slate-700"
+        >
           <Delivery />
           <SearchBar />
           <CartMenu />
@@ -189,7 +197,7 @@ const Header = ({
               onClick={handleLogOut}
               className="font-lato justify-self-center border-b-white text-sm font-bold tracking-wide text-gray-600 hover:border-slate-800 lg:border-b-2 dark:text-gray-100"
             >
-              Logout
+              {isLoggingOut ? "Logging out…" : "Logout"}
             </button>
           )}
         </div>
@@ -266,8 +274,8 @@ const Header = ({
         ))}
       </nav>
       <nav className="flex w-full justify-between pb-4 pt-6 sm:hidden">
-        {bottomNavLinks.map(({ route, icon: Icon }) => (
-          <NavLink to={route} key={route}>
+        {bottomNavLinks.map(({ route, label, icon: Icon }) => (
+          <NavLink to={route} key={route} aria-label={label}>
             {({ isActive }) => (
               <Icon
                 className={`${bottomHeaderIconStyle} ${
