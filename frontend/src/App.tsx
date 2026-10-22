@@ -83,7 +83,8 @@ const App: React.FC = () => {
                 path="account"
                 element={
                   <ProtectedRoute
-                    isAuthenticated={!isAuthenticated}
+                    isAuthenticated={isAuthenticated}
+                    requireAuth
                     redirectPath="/"
                   >
                     <AccountPage />
@@ -110,6 +111,7 @@ const App: React.FC = () => {
               element={
                 <ProtectedRoute
                   isAuthenticated={isAuthenticated}
+                  requireAuth={false}
                   redirectPath="/"
                 >
                   <LoginPage setIsAuthenticated={setIsAuthenticated} />
@@ -121,6 +123,7 @@ const App: React.FC = () => {
               element={
                 <ProtectedRoute
                   isAuthenticated={isAuthenticated}
+                  requireAuth={false}
                   redirectPath="/"
                 >
                   <SignUpPage setIsAuthenticated={setIsAuthenticated} />
@@ -132,6 +135,7 @@ const App: React.FC = () => {
               element={
                 <ProtectedRoute
                   isAuthenticated={isAuthenticated}
+                  requireAuth={false}
                   redirectPath="/"
                 >
                   <ForgotPasswordPage />

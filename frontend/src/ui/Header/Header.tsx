@@ -1,4 +1,4 @@
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import Logo from "../Logo";
 import Delivery from "../Delivery";
 import SearchBar from "../SearchBar";
@@ -32,11 +32,6 @@ const Header = ({
     { route: "/blogs", label: "Blogs" },
     { route: "/contact", label: "Contact" },
   ];
-  const location = useLocation();
-  if (location.pathname === "/") {
-    location.pathname = "/home";
-  }
-
   const { setCartNumber, setCartTotal } = useCart();
   const { logout, isPending: isLoggingOut } = useLogoutUser();
   const [isShowDropdown, setIsShowDropDown] = useState(false);
