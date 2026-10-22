@@ -37,7 +37,7 @@ const Header = ({
   const [isShowDropdown, setIsShowDropDown] = useState(false);
 
   const bottomHeaderIconStyle =
-    "h-10 w-10 rounded-full p-2 transition hover:bg-slate-300 active:translate-y-1";
+    "h-9 w-9 rounded-full p-2 transition hover:bg-slate-300 active:translate-y-1";
 
   const handleLogOut = () => {
     logout(undefined, {
@@ -236,7 +236,7 @@ const Header = ({
           </NavLink>
         ))}
       </nav>
-      <nav className="flex w-full justify-between px-4 pb-4 pt-6 sm:hidden">
+      <nav className="flex w-full justify-between pb-4 pt-6 sm:hidden">
         <NavLink to="/">
           <HiOutlineHome className={bottomHeaderIconStyle} />
         </NavLink>
