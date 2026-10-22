@@ -171,14 +171,14 @@ const Header = ({
           <LikedMenu />
           {!isAuthenticated ? (
             <NavLink
-              className="font-lato justify-self-center border-b-white text-sm font-bold tracking-wide text-gray-600 hover:border-slate-800 lg:border-b-2 dark:text-gray-100"
+              className="font-lato justify-self-center border-b-2 border-b-transparent text-sm font-bold tracking-wide text-gray-600 hover:border-b-slate-800 dark:text-gray-100 dark:hover:border-b-white"
               to="/signup"
             >
               Sign Up
             </NavLink>
           ) : (
             <NavLink
-              className="font-lato justify-self-center border-b-white text-sm font-bold tracking-wide text-gray-600 hover:border-slate-800 lg:border-b-2 dark:text-gray-100"
+              className="font-lato justify-self-center border-b-2 border-b-transparent text-sm font-bold tracking-wide text-gray-600 hover:border-b-slate-800 dark:text-gray-100 dark:hover:border-b-white"
               to="/account"
             >
               <span>Account</span>
@@ -186,7 +186,7 @@ const Header = ({
           )}
           {!isAuthenticated ? (
             <NavLink
-              className="font-lato justify-self-center border-b-white text-sm font-bold tracking-wide text-gray-600 hover:border-slate-800 lg:border-b-2 dark:text-gray-100"
+              className="font-lato justify-self-center border-b-2 border-b-transparent text-sm font-bold tracking-wide text-gray-600 hover:border-b-slate-800 dark:text-gray-100 dark:hover:border-b-white"
               to="/login"
             >
               Login
@@ -195,7 +195,7 @@ const Header = ({
             <button
               disabled={isLoggingOut}
               onClick={handleLogOut}
-              className="font-lato justify-self-center border-b-white text-sm font-bold tracking-wide text-gray-600 hover:border-slate-800 lg:border-b-2 dark:text-gray-100"
+              className="font-lato justify-self-center border-b-2 border-b-transparent text-sm font-bold tracking-wide text-gray-600 hover:border-b-slate-800 dark:text-gray-100 dark:hover:border-b-white"
             >
               {isLoggingOut ? "Logging out…" : "Logout"}
             </button>
@@ -279,7 +279,9 @@ const Header = ({
             {({ isActive }) => (
               <Icon
                 className={`${bottomHeaderIconStyle} ${
-                  isActive ? "bg-rose-500 text-white" : "hover:bg-slate-300"
+                  isActive
+                    ? "bg-rose-500 text-white"
+                    : "hover:bg-slate-300 dark:hover:bg-slate-500"
                 }`}
               />
             )}
