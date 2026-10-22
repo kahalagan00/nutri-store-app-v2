@@ -246,7 +246,7 @@ const Header = ({
           </button>
         )}
       </nav> */}
-      <nav className="hidden w-3/4 justify-between pb-4 pt-6 sm:flex lg:w-2/4">
+      <nav className="hidden w-full max-w-xl flex-wrap justify-between gap-x-4 gap-y-2 pb-4 pt-6 sm:flex">
         {bottomNavLinks.map((link) => (
           <NavLink
             to={link.route}
