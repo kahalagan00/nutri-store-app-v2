@@ -9,10 +9,8 @@ import { useCart } from "../../context/CartContext";
 import { CiCircleQuestion, CiPillsBottle1 } from "react-icons/ci";
 import { MdOutlineDiscount } from "react-icons/md";
 import { IoMdPaper } from "react-icons/io";
-import { RiContactsBookLine } from "react-icons/ri";
-import { HiOutlineHome, HiPencil, HiUserCircle } from "react-icons/hi2";
-import { RiBloggerLine } from "react-icons/ri";
-import { IoLogInOutline, IoLogOutOutline } from "react-icons/io5";
+import { RiBloggerLine, RiContactsBookLine } from "react-icons/ri";
+import { HiOutlineHome } from "react-icons/hi2";
 import { RxCross1, RxHamburgerMenu } from "react-icons/rx";
 import { IconType } from "react-icons";
 import { useEffect, useState } from "react";
@@ -102,9 +100,6 @@ const Header = ({
               <span className="hidden text-center lg:inline-block">
                 Sign Up
               </span>
-              <span className="lg:hidden">
-                <HiPencil className="h-10 w-10 rounded-full p-2 transition hover:bg-slate-300 active:translate-y-1" />
-              </span>
             </NavLink>
           </div>
         ) : (
@@ -114,9 +109,6 @@ const Header = ({
               to="/account"
             >
               <span className="hidden lg:inline-block">Account</span>
-              <span className="lg:hidden">
-                <HiUserCircle className="h-10 w-10 rounded-full p-2 transition hover:bg-slate-300 active:translate-y-1" />
-              </span>
             </NavLink>
           </div>
         )}
@@ -127,9 +119,6 @@ const Header = ({
               to="/login"
             >
               <span className="hidden lg:inline-block">Login</span>
-              <span className="lg:hidden">
-                <IoLogInOutline className="h-10 w-10 rounded-full p-2 transition hover:bg-slate-300 active:translate-y-1" />
-              </span>
             </NavLink>
           </div>
         ) : (
@@ -141,9 +130,6 @@ const Header = ({
             >
               <span className="hidden lg:inline-block">
                 {isLoggingOut ? "Logging out…" : "Logout"}
-              </span>
-              <span className="lg:hidden">
-                <IoLogOutOutline className="h-10 w-10 rounded-full p-2 transition hover:bg-slate-300 active:translate-y-1" />
               </span>
             </button>
           </div>
@@ -203,59 +189,6 @@ const Header = ({
         </div>
       )}
 
-      {/* Joshmar Debug: For Icon Responsiveness */}
-      {/* <nav className="grid h-24 grid-cols-[160px_1fr_1fr_1fr_1fr_1fr_1fr] items-center justify-items-center gap-x-4 overflow-hidden lg:gap-2 lg:[grid-template-columns:160px_max-content_max-content_max-content_max-content_max-content_max-content]">
-        <NavLink to="/home" className="justify-self-start">
-          <Logo />
-        </NavLink>
-        <Delivery />
-        <SearchBar />
-        <CartMenu />
-        <LikedMenu />
-        {!isAuthenticated ? (
-          <NavLink
-            className="font-lato justify-self-center border-b-white text-sm font-bold tracking-wide text-gray-600 hover:border-slate-800 lg:border-b-2"
-            to="/signup"
-          >
-            <span className="hidden text-center lg:inline-block">Sign Up</span>
-            <span className="lg:hidden">
-              <HiPencil className="h-10 w-10 rounded-full p-2 transition hover:bg-slate-300 active:translate-y-1" />
-            </span>
-          </NavLink>
-        ) : (
-          <NavLink
-            className="font-lato justify-self-center border-b-white text-sm font-bold tracking-wide text-gray-600 hover:border-slate-800 lg:border-b-2"
-            to="/account"
-          >
-            <span className="hidden lg:inline-block">Account</span>
-            <span className="lg:hidden">
-              <HiUserCircle className="h-10 w-10 rounded-full p-2 transition hover:bg-slate-300 active:translate-y-1" />
-            </span>
-          </NavLink>
-        )}
-        {!isAuthenticated ? (
-          <NavLink
-            className="font-lato justify-self-center border-b-white text-sm font-bold tracking-wide text-gray-600 hover:border-slate-800 lg:border-b-2"
-            to="/login"
-          >
-            <span className="hidden lg:inline-block">Login</span>
-            <span className="lg:hidden">
-              <IoLogInOutline className="h-10 w-10 rounded-full p-2 transition hover:bg-slate-300 active:translate-y-1" />
-            </span>
-          </NavLink>
-        ) : (
-          <button
-            disabled={isLoggingOut}
-            onClick={handleLogOut}
-            className="font-lato justify-self-center border-b-white text-sm font-bold tracking-wide text-gray-600 hover:border-slate-800 lg:border-b-2"
-          >
-            <span className="hidden lg:inline-block">Logout</span>
-            <span className="lg:hidden">
-              <IoLogOutOutline className="h-10 w-10 rounded-full p-2 transition hover:bg-slate-300 active:translate-y-1" />
-            </span>
-          </button>
-        )}
-      </nav> */}
       <nav className="hidden w-full max-w-xl flex-wrap justify-between gap-x-4 gap-y-2 pb-4 pt-6 sm:flex">
         {bottomNavLinks.map((link) => (
           <NavLink
