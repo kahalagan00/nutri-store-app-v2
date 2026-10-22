@@ -35,6 +35,17 @@ const Header = ({
   const { setCartNumber, setCartTotal } = useCart();
   const { logout, isPending: isLoggingOut } = useLogoutUser();
   const [isShowDropdown, setIsShowDropDown] = useState(false);
+  // Matches Tailwind's `lg` breakpoint so only one copy of the header widgets is mounted
+  const [isDesktop, setIsDesktop] = useState(
+    () => window.matchMedia("(min-width: 1024px)").matches,
+  );
+
+  useEffect(() => {
+    const mql = window.matchMedia("(min-width: 1024px)");
+    const onChange = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
+    mql.addEventListener("change", onChange);
+    return () => mql.removeEventListener("change", onChange);
+  }, []);
   const { key: locationKey } = useLocation();
 
   // Close the mobile dropdown after any navigation (key changes even for same-path navigations)
@@ -64,18 +75,22 @@ const Header = ({
         <NavLink to="/home" className="justify-self-end">
           <Logo />
         </NavLink>
-        <div className="hidden lg:block">
-          <Delivery />
-        </div>
-        <div className="hidden lg:block">
-          <SearchBar />
-        </div>
-        <div className="hidden lg:block">
-          <CartMenu />
-        </div>
-        <div className="hidden lg:block">
-          <LikedMenu />
-        </div>
+        {isDesktop && (
+          <>
+            <div className="hidden lg:block">
+              <Delivery />
+            </div>
+            <div className="hidden lg:block">
+              <SearchBar />
+            </div>
+            <div className="hidden lg:block">
+              <CartMenu />
+            </div>
+            <div className="hidden lg:block">
+              <LikedMenu />
+            </div>
+          </>
+        )}
         {!isAuthenticated ? (
           <div className="hidden lg:block">
             <NavLink
@@ -138,7 +153,7 @@ const Header = ({
         </button>
       </nav>
 
-      {isShowDropdown && (
+      {isShowDropdown && !isDesktop && (
         <div className="mt-4 flex w-full flex-col items-center justify-between gap-y-4 rounded-xl bg-slate-300 py-4 drop-shadow-md lg:hidden dark:bg-slate-700">
           <Delivery />
           <SearchBar />
