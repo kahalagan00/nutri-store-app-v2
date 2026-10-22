@@ -14,6 +14,7 @@ import { HiOutlineHome, HiPencil, HiUserCircle } from "react-icons/hi2";
 import { RiBloggerLine } from "react-icons/ri";
 import { IoLogInOutline, IoLogOutOutline } from "react-icons/io5";
 import { RxCross1, RxHamburgerMenu } from "react-icons/rx";
+import { IconType } from "react-icons";
 import { useEffect, useState } from "react";
 
 const Header = ({
@@ -23,14 +24,14 @@ const Header = ({
   isAuthenticated: boolean | null;
   setIsAuthenticated: (auth: boolean) => void;
 }) => {
-  const bottomNavLinks = [
-    { route: "/home", label: "Home" },
-    { route: "/products", label: "Products" },
-    { route: "/about", label: "About" },
-    { route: "/promotions", label: "Promotions" },
-    { route: "/reviews", label: "Reviews" },
-    { route: "/blogs", label: "Blogs" },
-    { route: "/contact", label: "Contact" },
+  const bottomNavLinks: { route: string; label: string; icon: IconType }[] = [
+    { route: "/home", label: "Home", icon: HiOutlineHome },
+    { route: "/products", label: "Products", icon: CiPillsBottle1 },
+    { route: "/about", label: "About", icon: CiCircleQuestion },
+    { route: "/promotions", label: "Promotions", icon: MdOutlineDiscount },
+    { route: "/reviews", label: "Reviews", icon: IoMdPaper },
+    { route: "/blogs", label: "Blogs", icon: RiBloggerLine },
+    { route: "/contact", label: "Contact", icon: RiContactsBookLine },
   ];
   const { setCartNumber, setCartTotal } = useCart();
   const { logout, isPending: isLoggingOut } = useLogoutUser();
@@ -54,7 +55,7 @@ const Header = ({
   }, [locationKey]);
 
   const bottomHeaderIconStyle =
-    "h-9 w-9 rounded-full p-2 transition hover:bg-slate-300 active:translate-y-1";
+    "h-9 w-9 rounded-full p-2 transition active:translate-y-1";
 
   const handleLogOut = () => {
     logout(undefined, {
@@ -252,34 +253,30 @@ const Header = ({
           <NavLink
             to={link.route}
             key={link.route}
-            className={`font-lato border-b-2 border-b-white text-sm font-bold tracking-wide hover:border-b-gray-500 dark:border-b-slate-800 dark:hover:border-b-white`}
+            className={({ isActive }) =>
+              `font-lato border-b-2 text-sm font-bold tracking-wide ${
+                isActive
+                  ? "border-b-rose-500"
+                  : "border-b-white hover:border-b-gray-500 dark:border-b-slate-800 dark:hover:border-b-white"
+              }`
+            }
           >
             {link.label}
           </NavLink>
         ))}
       </nav>
       <nav className="flex w-full justify-between pb-4 pt-6 sm:hidden">
-        <NavLink to="/">
-          <HiOutlineHome className={bottomHeaderIconStyle} />
-        </NavLink>
-        <NavLink to="/products">
-          <CiPillsBottle1 className={bottomHeaderIconStyle} />
-        </NavLink>
-        <NavLink to="/about">
-          <CiCircleQuestion className={bottomHeaderIconStyle} />
-        </NavLink>
-        <NavLink to="/promotions">
-          <MdOutlineDiscount className={bottomHeaderIconStyle} />
-        </NavLink>
-        <NavLink to="/reviews">
-          <IoMdPaper className={bottomHeaderIconStyle} />
-        </NavLink>
-        <NavLink to="/blogs">
-          <RiBloggerLine className={bottomHeaderIconStyle} />
-        </NavLink>
-        <NavLink to="/contact">
-          <RiContactsBookLine className={bottomHeaderIconStyle} />
-        </NavLink>
+        {bottomNavLinks.map(({ route, icon: Icon }) => (
+          <NavLink to={route} key={route}>
+            {({ isActive }) => (
+              <Icon
+                className={`${bottomHeaderIconStyle} ${
+                  isActive ? "bg-rose-500 text-white" : "hover:bg-slate-300"
+                }`}
+              />
+            )}
+          </NavLink>
+        ))}
       </nav>
     </header>
   );
