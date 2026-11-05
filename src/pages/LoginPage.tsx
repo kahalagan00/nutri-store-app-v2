@@ -106,9 +106,10 @@ const LoginPage = ({
 
           <button
             type="submit"
-            className="mt-6 h-12 w-full rounded-lg bg-blue-800 text-white hover:bg-blue-700 dark:bg-cyan-400 dark:text-slate-900 hover:dark:bg-cyan-300"
+            disabled={isLoggingIn}
+            className="mt-6 h-12 w-full rounded-lg bg-blue-800 text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60 dark:bg-cyan-400 dark:text-slate-900 hover:dark:bg-cyan-300"
           >
-            Login
+            {isLoggingIn ? "Logging in…" : "Login"}
           </button>
         </form>
         <div className="mt-5 flex justify-center">
