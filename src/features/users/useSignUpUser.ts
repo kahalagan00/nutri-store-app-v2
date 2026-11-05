@@ -15,7 +15,7 @@ type SignUpVariables = {
   passwordConfirm: string;
 };
 
-export const useSignUpUser = () => {
+export const useSignUpUser = (setIsAuthenticated: (auth: boolean) => void) => {
   const { setCartNumber, setCartTotal } = useCart();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
@@ -42,15 +42,17 @@ export const useSignUpUser = () => {
         weight,
       ),
     onSuccess: ({ user, cartNumber, cartTotal }) => {
+      setIsAuthenticated(true);
       queryClient.setQueryData(["user"], user);
       setCartNumber(cartNumber);
       setCartTotal(cartTotal);
       navigate("/", { replace: true });
       toast.success("Successfully signed up");
     },
-    onError: () => {
+    onError: (err: Error) => {
+      setIsAuthenticated(false);
       // console.log("ERROR 💩", err);
-      toast.error("Fill out all fields correctly to sign up");
+      toast.error(err.message);
     },
   });
 

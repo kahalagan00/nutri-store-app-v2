@@ -53,19 +53,22 @@ const LoginPage = ({
           Login to your account below
         </p>
 
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <p className="font-lato mb-1 mt-8 dark:text-gray-200">
-            Email <span className="font-bold text-red-500">*</span> &nbsp;
-            {errors.email && (
-              <span className={FORM_ERROR_STYLE}>{errors.email.message}</span>
-            )}
-          </p>
+        <form onSubmit={handleSubmit(onSubmit)} noValidate>
+          <label
+            htmlFor="email"
+            className="font-lato mb-1 mt-8 block dark:text-gray-200"
+          >
+            Email <span className="font-bold text-red-500">*</span>
+          </label>
           <input
             disabled={isLoggingIn}
             className={FORM_BASE_INPUT_STYLE}
             type="email"
             placeholder="Enter email"
             id="email"
+            autoComplete="email"
+            aria-invalid={errors.email ? "true" : "false"}
+            aria-describedby={errors.email ? "email-error" : undefined}
             {...register("email", {
               required: "This field is required",
               pattern: {
@@ -74,29 +77,39 @@ const LoginPage = ({
               },
             })}
           />
+          {errors.email && (
+            <p id="email-error" className={`${FORM_ERROR_STYLE} mt-1 text-sm`}>
+              {errors.email.message}
+            </p>
+          )}
 
-          <p className="font-lato mb-1 mt-6 dark:text-gray-200">
-            Password <span className="font-bold text-red-500">*</span> &nbsp;
-            {errors.password && (
-              <span className={FORM_ERROR_STYLE}>
-                {errors.password.message}
-              </span>
-            )}
-          </p>
+          <label
+            htmlFor="password"
+            className="font-lato mb-1 mt-6 block dark:text-gray-200"
+          >
+            Password <span className="font-bold text-red-500">*</span>
+          </label>
           <input
             disabled={isLoggingIn}
             className={FORM_BASE_INPUT_STYLE}
             type="password"
             placeholder="Enter password"
             id="password"
+            autoComplete="current-password"
+            aria-invalid={errors.password ? "true" : "false"}
+            aria-describedby={errors.password ? "password-error" : undefined}
             {...register("password", {
               required: "This field is required",
-              minLength: {
-                value: 8,
-                message: "Password needs a minimum of 8 characters",
-              },
             })}
           />
+          {errors.password && (
+            <p
+              id="password-error"
+              className={`${FORM_ERROR_STYLE} mt-1 text-sm`}
+            >
+              {errors.password.message}
+            </p>
+          )}
 
           <button
             type="submit"

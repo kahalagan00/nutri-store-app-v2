@@ -9,9 +9,7 @@ type LoginVariables = {
   password: string;
 };
 
-export const useLoginUser = (
-  setIsAuthenticated: (auth: boolean) => void,
-) => {
+export const useLoginUser = (setIsAuthenticated: (auth: boolean) => void) => {
   const { setCartNumber, setCartTotal } = useCart();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
