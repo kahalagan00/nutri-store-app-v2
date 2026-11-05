@@ -1,4 +1,4 @@
-import { PAGE_BASE_BACKGROUND_STYLE } from "../utils/constants";
+import { ASSETS_R2_URL, PAGE_BASE_BACKGROUND_STYLE } from "../utils/constants";
 
 // About page that shows what the company is about in great detail.
 function AboutPage() {
@@ -11,12 +11,12 @@ function AboutPage() {
         <div className="hidden w-[45%] flex-col items-start justify-center gap-8 md:flex">
           <img
             className="h-full w-4/5 object-contain drop-shadow-xl"
-            src="/images/about_page/0.jpg"
+            src={`${ASSETS_R2_URL}/about_page/0.jpg`}
             alt="Picture of cows in a farm"
           />
           <img
             className="h-full w-4/5 object-contain drop-shadow-xl"
-            src="/images/about_page/1.jpg"
+            src={`${ASSETS_R2_URL}/about_page/1.jpg`}
             alt="Pharmacist helping client"
           />
         </div>
