@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { CapsuleButtonForward } from "../CapsuleButtonForward";
+import { ASSETS_R2_URL } from "../../utils/constants";
 
 const HomeAboutSummary: React.FC = () => {
   return (
@@ -7,7 +8,7 @@ const HomeAboutSummary: React.FC = () => {
       <div className="mx-auto flex w-full items-center justify-center md:w-[50%]">
         <img
           className="h-full w-full object-contain"
-          src="/images/about_summary/0.png"
+          src={`${ASSETS_R2_URL}/about_summary/0.png`}
           alt="A scientist pharmacist preparing supplements"
         />
       </div>

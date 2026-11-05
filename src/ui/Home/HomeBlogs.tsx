@@ -1,6 +1,7 @@
 import { BlogCard } from "../BlogCard";
 import { blogsData } from "../../data/blogsData";
 import HomeSection from "./HomeSection";
+import { ASSETS_R2_URL } from "../../utils/constants";
 
 const HomeBlogs: React.FC = () => {
   return (
@@ -12,7 +13,7 @@ const HomeBlogs: React.FC = () => {
             title={data.title}
             author={data.author}
             createdAt={data.createdAt}
-            imageUrl={`/images/blogs/${data.image}`}
+            imageUrl={`${ASSETS_R2_URL}/blogs/${data.image}`}
             reads={data.reads}
           />
         ))}
