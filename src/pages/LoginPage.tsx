@@ -19,7 +19,7 @@ const LoginPage = ({
 }: {
   setIsAuthenticated: (auth: boolean) => void;
 }) => {
-  const { login, isPending: isLoggingIn } = useLoginUser();
+  const { login, isPending: isLoggingIn } = useLoginUser(setIsAuthenticated);
   const {
     register,
     formState: { errors },
@@ -32,13 +32,7 @@ const LoginPage = ({
       return;
     }
 
-    login(data, {
-      onSuccess: () => {
-        setIsAuthenticated(true);
-        reset();
-      },
-      onError: () => setIsAuthenticated(false),
-    });
+    login(data, { onSuccess: () => reset() });
   };
 
   return (

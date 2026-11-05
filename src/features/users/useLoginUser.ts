@@ -9,7 +9,9 @@ type LoginVariables = {
   password: string;
 };
 
-export const useLoginUser = () => {
+export const useLoginUser = (
+  setIsAuthenticated: (auth: boolean) => void,
+) => {
   const { setCartNumber, setCartTotal } = useCart();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
@@ -18,6 +20,7 @@ export const useLoginUser = () => {
     mutationFn: ({ email, password }: LoginVariables) =>
       loginUserApi(email, password),
     onSuccess: ({ user, cartNumber, cartTotal }) => {
+      setIsAuthenticated(true);
       queryClient.setQueryData(["user"], user);
       setCartNumber(cartNumber);
       setCartTotal(cartTotal);
@@ -25,6 +28,7 @@ export const useLoginUser = () => {
       toast.success("Successfully logged in");
     },
     onError: (err: Error) => {
+      setIsAuthenticated(false);
       toast.error(err.message);
     },
   });
