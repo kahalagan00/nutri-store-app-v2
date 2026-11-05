@@ -1,4 +1,5 @@
 import { companyFeaturesData } from "../../data/companyFeaturesData";
+import { ASSETS_R2_URL } from "../../utils/constants";
 
 const HomeCompanyFeatures: React.FC = () => {
   return (
@@ -7,7 +8,7 @@ const HomeCompanyFeatures: React.FC = () => {
         {companyFeaturesData.map((feature, i) => (
           <FeatureBlock
             key={`${feature.message}${i}`}
-            imageUrl={`/images/company_features/${feature.image}`}
+            imageUrl={`${ASSETS_R2_URL}/company_features/${feature.image}`}
             message={feature.message}
           />
         ))}

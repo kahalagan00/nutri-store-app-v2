@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 import { CapsuleButtonForward } from "../CapsuleButtonForward";
 import { hotCategoriesData } from "../../data/hotCategoriesData";
 import HomeSection from "./HomeSection";
+import { ASSETS_R2_URL } from "../../utils/constants";
 
 const HomeHotCategories: React.FC = () => {
   return (
@@ -52,7 +53,7 @@ const HotCategoryCard = ({
     >
       <img
         className="w-3/4"
-        src={`/images/popular_categories/${imageUrl}`}
+        src={`${ASSETS_R2_URL}/popular_categories/${imageUrl}`}
         alt=""
       />
       <h2 className="font-neuton text-3xl font-bold">{title}</h2>

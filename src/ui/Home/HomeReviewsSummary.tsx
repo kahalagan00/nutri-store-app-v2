@@ -1,17 +1,26 @@
 import { reviewSummaryData } from "../../data/reviewsSummaryData";
 import { ReviewCard } from "../ReviewCard";
 import HomeSection from "./HomeSection";
+import { ASSETS_R2_URL } from "../../utils/constants";
 
 const HomeReviewsSummary: React.FC = () => {
   return (
-    <div className="bg-[url('/images/reviews_summary/background.png')] bg-cover bg-center dark:bg-none">
+    // URL passed via CSS variable so the dark:bg-none class can still remove it
+    <div
+      className="bg-[image:var(--bg-image)] bg-cover bg-center dark:bg-none"
+      style={
+        {
+          "--bg-image": `url('${ASSETS_R2_URL}/reviews_summary/background.png')`,
+        } as React.CSSProperties
+      }
+    >
       <HomeSection title="Why Customers Love Us?" align="center">
         <div className="grid justify-center gap-8 lg:grid-cols-[repeat(3,_320px)] lg:gap-4">
           {reviewSummaryData.map((data) => (
             <ReviewCard
               key={data.name}
               name={data.name}
-              imageUrl={`/images/reviews_summary/${data.image}`}
+              imageUrl={`${ASSETS_R2_URL}/reviews_summary/${data.image}`}
               occupation={data.occupation}
               company={data.company}
               rating={data.rating}

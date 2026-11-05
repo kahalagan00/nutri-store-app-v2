@@ -1,5 +1,5 @@
 import { ReviewCard } from "../ui/ReviewCard";
-import { PAGE_BASE_BACKGROUND_STYLE } from "../utils/constants";
+import { ASSETS_R2_URL, PAGE_BASE_BACKGROUND_STYLE } from "../utils/constants";
 
 const fullReviewsData = [
   {
@@ -70,7 +70,7 @@ function ReviewsPage() {
           <ReviewCard
             key={data.name}
             name={data.name}
-            imageUrl={`/images/reviews_page/${data.image}`}
+            imageUrl={`${ASSETS_R2_URL}/reviews_page/${data.image}`}
             occupation={data.occupation}
             company={data.company}
             rating={data.rating}

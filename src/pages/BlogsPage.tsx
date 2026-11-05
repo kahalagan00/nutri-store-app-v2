@@ -1,5 +1,5 @@
 import { BlogCard } from "../ui/BlogCard";
-import { PAGE_BASE_BACKGROUND_STYLE } from "../utils/constants";
+import { ASSETS_R2_URL, PAGE_BASE_BACKGROUND_STYLE } from "../utils/constants";
 
 const fullBlogsData = [
   {
@@ -95,7 +95,7 @@ function BlogsPage() {
             title={data.title}
             author={data.author}
             createdAt={data.createdAt}
-            imageUrl={`/images/blogs_page/${data.image}`}
+            imageUrl={`${ASSETS_R2_URL}/blogs_page/${data.image}`}
             reads={data.reads}
           />
         ))}

@@ -1,4 +1,4 @@
-import { PAGE_BASE_BACKGROUND_STYLE } from "../utils/constants";
+import { ASSETS_R2_URL, PAGE_BASE_BACKGROUND_STYLE } from "../utils/constants";
 
 // Shows telephone and email information about the company
 function ContactPage() {
@@ -11,12 +11,12 @@ function ContactPage() {
         <div className="hidden w-[45%] flex-col items-start justify-center gap-8 md:flex">
           <img
             className="h-full w-4/5 object-contain drop-shadow-xl"
-            src="/images/contact_page/0.jpg"
+            src={`${ASSETS_R2_URL}/contact_page/0.jpg`}
             alt="Picture of snowman with sale sign"
           />
           <img
             className="h-full w-4/5 object-contain drop-shadow-xl"
-            src="/images/contact_page/1.jpg"
+            src={`${ASSETS_R2_URL}/contact_page/1.jpg`}
             alt="Picture of snowman with sale sign"
           />
         </div>

@@ -1,5 +1,9 @@
 import { IoMdCalendar, IoMdLock, IoMdMail, IoMdPerson } from "react-icons/io";
-import { BACKEND_URL, PAGE_BASE_BACKGROUND_STYLE } from "../utils/constants";
+import {
+  ASSETS_R2_URL,
+  BACKEND_URL,
+  PAGE_BASE_BACKGROUND_STYLE,
+} from "../utils/constants";
 import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
 import { updatePasswordUserApi } from "../services/apiUsers";
@@ -83,7 +87,7 @@ function AccountPage() {
           <div className="flex h-28 w-28 items-center justify-center rounded-full bg-rose-400">
             <img
               className="h-[60%]"
-              src="/images/account_page/default_user.png"
+              src={`${ASSETS_R2_URL}/account_page/default_user.png`}
               alt="Image of default user"
             />
           </div>

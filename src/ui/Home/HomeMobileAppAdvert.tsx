@@ -1,3 +1,5 @@
+import { ASSETS_R2_URL } from "../../utils/constants";
+
 const HomeMobileAppAdvert: React.FC = () => {
   return (
     <div className="mx-auto w-[90%] py-16">
@@ -14,12 +16,12 @@ const HomeMobileAppAdvert: React.FC = () => {
           </p>
           <div className="flex flex-col gap-2 lg:grid lg:grid-cols-2">
             <DownloadButton
-              imageUrl="/images/mobile_advert/apple-logo.svg"
+              imageUrl={`${ASSETS_R2_URL}/mobile_advert/apple-logo.svg`}
               name="App Store"
               href="https://www.apple.com/app-store/"
             />
             <DownloadButton
-              imageUrl="/images/mobile_advert/googleplay-logo.svg"
+              imageUrl={`${ASSETS_R2_URL}/mobile_advert/googleplay-logo.svg`}
               name="Google Play"
               href="https://play.google.com/store"
             />
@@ -28,7 +30,7 @@ const HomeMobileAppAdvert: React.FC = () => {
         <div className="hidden w-[40%] md:block">
           <img
             className="h-full w-full object-cover"
-            src="/images/mobile_advert/mobile-app.png"
+            src={`${ASSETS_R2_URL}/mobile_advert/mobile-app.png`}
             alt="Mobile phone with app held by hand"
           />
         </div>

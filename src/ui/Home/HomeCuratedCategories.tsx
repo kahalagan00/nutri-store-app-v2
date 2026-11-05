@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { CapsuleButtonRegular } from "../CapsuleButtonRegular";
 import { curatedCategoryData } from "../../data/curatedCategoryData";
+import { ASSETS_R2_URL } from "../../utils/constants";
 
 const HomeCuratedCategories: React.FC = () => {
   return (
@@ -11,7 +12,7 @@ const HomeCuratedCategories: React.FC = () => {
             key={data.message}
             title={data.title}
             message={data.message}
-            imageUrl={`/images/curated_categories/${data.image}`}
+            imageUrl={`${ASSETS_R2_URL}/curated_categories/${data.image}`}
             bgColor={data.bgColor}
             textColor={data.textColor}
           />

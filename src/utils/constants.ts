@@ -17,7 +17,7 @@ export const BACKEND_URL: string = import.meta.env.VITE_BACKEND_URL;
 export const ASSETS_R2_URL: string = import.meta.env.VITE_ASSETS_R2_URL;
 
 // Images
-export const PAYMENT_METHODS_SRC: string = "/images/footer/payment_methods";
+export const PAYMENT_METHODS_SRC: string = `${ASSETS_R2_URL}/footer/payment_methods`;
 
 // Styles
 export const FORM_ERROR_STYLE: string = "font-lato font-light text-red-500";
