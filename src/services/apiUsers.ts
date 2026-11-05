@@ -44,30 +44,36 @@ export const loginUserApi = async (
   let cartNumber = 0;
   let cartTotal = 0;
 
-  // Create the cart
+  // Create the cart. Login already succeeded (auth cookie is set), so a cart
+  // failure must not fail the login; fall back to an empty cart count.
   if (user) {
-    const res2 = await fetch(`${BACKEND_URL}/carts/createCart`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
-      body: JSON.stringify({ totalPrice: 0, cartItems: [] }),
-    });
+    try {
+      const res2 = await fetch(`${BACKEND_URL}/carts/createCart`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ totalPrice: 0, cartItems: [] }),
+      });
 
-    if (!res2.ok) {
-      const errorData = await res2.json();
-      throw new Error(
-        errorData.message ||
-          "Something went wrong when trying to create or load user cart",
-      );
-    }
+      if (!res2.ok) {
+        const errorData = await res2.json();
+        throw new Error(
+          errorData.message ||
+            "Something went wrong when trying to create or load user cart",
+        );
+      }
 
-    const { data } = await res2.json();
+      const { data } = await res2.json();
 
-    // If the user already had a cart then "data" will be an array
-    // if not then it's an object
-    if (Array.isArray(data)) {
-      cartTotal = data[0].totalPrice;
-      cartNumber = data[0].cartItems?.length;
+      // If the user already had a cart then "data" will be an array
+      // if not then it's an object
+      if (Array.isArray(data)) {
+        cartTotal = data[0].totalPrice;
+        cartNumber = data[0].cartItems?.length;
+      }
+    } catch (err) {
+      console.error(err);
+      toast.error("Logged in, but your cart couldn't be loaded");
     }
   }
 
