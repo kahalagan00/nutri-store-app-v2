@@ -12,6 +12,8 @@ type User = {
   symptoms: string[];
 };
 
+const REQUEST_TIMEOUT_MS = 15000;
+
 type LoginResponse = {
   user: User;
   cartNumber: number;
@@ -22,17 +24,27 @@ export const loginUserApi = async (
   email: string,
   password: string,
 ): Promise<LoginResponse> => {
-  const res = await fetch(`${BACKEND_URL}/users/login`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    credentials: "include",
-    body: JSON.stringify({ email, password }),
-  });
+  let res: Response;
+  try {
+    res = await fetch(`${BACKEND_URL}/users/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({ email, password }),
+      signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+    });
+  } catch (err) {
+    if (err instanceof DOMException && err.name === "TimeoutError") {
+      throw new Error("Server not responding, try again");
+    }
+    throw new Error("Network error, check your connection and try again");
+  }
 
   if (!res.ok) {
-    const errorData = await res.json();
+    // Error body may not be JSON (e.g. 502/429 HTML page from a proxy)
+    const errorData = await res.json().catch(() => null);
     throw new Error(
-      errorData.message || "Something went wrong when trying to log in",
+      errorData?.message || "Something went wrong when trying to log in",
     );
   }
 
@@ -53,6 +65,7 @@ export const loginUserApi = async (
         headers: { "Content-Type": "application/json" },
         credentials: "include",
         body: JSON.stringify({ totalPrice: 0, cartItems: [] }),
+        signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
       });
 
       if (!res2.ok) {
@@ -94,26 +107,36 @@ export const signUpUserApi = async (
   height: number,
   weight: number,
 ): Promise<LoginResponse> => {
-  const res = await fetch(`${BACKEND_URL}/users/signup`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    credentials: "include",
-    body: JSON.stringify({
-      name,
-      email,
-      password,
-      passwordConfirm,
-      dateOfBirth,
-      symptoms,
-      height,
-      weight,
-    }),
-  });
+  let res: Response;
+  try {
+    res = await fetch(`${BACKEND_URL}/users/signup`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({
+        name,
+        email,
+        password,
+        passwordConfirm,
+        dateOfBirth,
+        symptoms,
+        height,
+        weight,
+      }),
+      signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+    });
+  } catch (err) {
+    if (err instanceof DOMException && err.name === "TimeoutError") {
+      throw new Error("Server not responding, try again");
+    }
+    throw new Error("Network error, check your connection and try again");
+  }
 
   if (!res.ok) {
-    const errorData = await res.json();
+    // Error body may not be JSON (e.g. 502/429 HTML page from a proxy)
+    const errorData = await res.json().catch(() => null);
     throw new Error(
-      errorData.message || "Something went wrong when trying to log in",
+      errorData?.message || "Something went wrong when trying to log in",
     );
   }
 
@@ -124,30 +147,37 @@ export const signUpUserApi = async (
   let cartNumber = 0;
   let cartTotal = 0;
 
-  // Create the cart
+  // Create the cart. Signup already succeeded (auth cookie is set), so a cart
+  // failure must not fail the signup; fall back to an empty cart count.
   if (user) {
-    const res2 = await fetch(`${BACKEND_URL}/carts/createCart`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
-      body: JSON.stringify({ totalPrice: 0, cartItems: [] }),
-    });
+    try {
+      const res2 = await fetch(`${BACKEND_URL}/carts/createCart`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ totalPrice: 0, cartItems: [] }),
+        signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+      });
 
-    if (!res2.ok) {
-      const errorData = await res2.json();
-      throw new Error(
-        errorData.message ||
-          "Something went wrong when trying to create or load user cart",
-      );
-    }
+      if (!res2.ok) {
+        const errorData = await res2.json();
+        throw new Error(
+          errorData.message ||
+            "Something went wrong when trying to create or load user cart",
+        );
+      }
 
-    const { data } = await res2.json();
+      const { data } = await res2.json();
 
-    // If the user already had a cart then "data" will be an array
-    // if not then it's an object
-    if (Array.isArray(data)) {
-      cartTotal = data[0].totalPrice;
-      cartNumber = data[0].cartItems?.length;
+      // If the user already had a cart then "data" will be an array
+      // if not then it's an object
+      if (Array.isArray(data)) {
+        cartTotal = data[0].totalPrice;
+        cartNumber = data[0].cartItems?.length;
+      }
+    } catch (err) {
+      console.error(err);
+      toast.error("Account created, but your cart couldn't be loaded");
     }
   }
 
