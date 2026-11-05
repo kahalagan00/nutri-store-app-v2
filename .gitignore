@@ -12,17 +12,15 @@ node_modules
 
 # Prevent dangerous environment variable information from leaking
 *.env
+# Vite local overrides (.env.local, .env.development.local, .env.production.local)
+.env*.local
 
 *.prettierrc
 
 # Build directories (frontend and backend)
-backend/dist/
-backend/.cache
-frontend/dist/
-frontend/.cache
-frontend/build/   # Vite build output
-frontend/README.md
-backend/public/js/bundle.js  # Ignore only the bundle.js in public/js/
+dist/
+.cache
+build/   # Vite build output
 
 # System files
 .DS_Store

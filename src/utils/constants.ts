@@ -12,8 +12,9 @@ export const STORE_PHONE_NUMBER: string = "+1-702-GET-JHUV";
 export const STORE_WEBSITE: string = "jhuvNutri@vegas.com.us";
 
 // URLs
-// export const BACKEND_URL: string = "http://localhost:3000/api/v1"; // For Development
-export const BACKEND_URL: string = "https://api.jhuvnutrition.com/api/v1"; // For Production
+// Set per mode in .env.development / .env.production
+export const BACKEND_URL: string = import.meta.env.VITE_BACKEND_URL;
+export const ASSETS_R2_URL: string = import.meta.env.VITE_ASSETS_R2_URL;
 
 // Images
 export const PAYMENT_METHODS_SRC: string = "/images/footer/payment_methods";
