@@ -1,5 +1,5 @@
 import toast from "react-hot-toast";
-import { BACKEND_URL } from "../../utils/constants";
+import { BACKEND_URL, REQUEST_TIMEOUT_MS } from "../../utils/constants";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export const getCart = async () => {
@@ -8,6 +8,7 @@ export const getCart = async () => {
       method: "GET",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
+      signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
     });
 
     if (!res.ok) {
@@ -26,7 +27,11 @@ export const getCart = async () => {
 export const useGetCart = () => {
   const queryClient = useQueryClient();
 
-  const { mutate: get, isPending } = useMutation({
+  const {
+    mutate: get,
+    isPending,
+    isError,
+  } = useMutation({
     mutationFn: getCart,
     onSuccess: (cart) => {
       queryClient.setQueryData(["cart"], cart);
@@ -36,5 +41,5 @@ export const useGetCart = () => {
     },
   });
 
-  return { get, isPending };
+  return { get, isPending, isError };
 };

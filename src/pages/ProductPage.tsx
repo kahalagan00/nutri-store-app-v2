@@ -1,4 +1,3 @@
-import toast from "react-hot-toast";
 import { useGetProducts } from "../features/products/useGetProducts";
 import ProductCard from "../ui/ProductCard";
 import Spinner from "../ui/Spinner";
@@ -22,7 +21,7 @@ type Product = {
 
 // Shows a list of all the items in the store/database.
 const ProductPage: React.FC = () => {
-  const { isLoading, products, error } = useGetProducts();
+  const { isLoading, products, error, refetch } = useGetProducts();
   const [outputProducts, setOutputProducts] = useState(products);
 
   useEffect(() => {
@@ -34,7 +33,7 @@ const ProductPage: React.FC = () => {
     }
   }, [products]);
 
-  if (isLoading || !products[0]) {
+  if (isLoading) {
     return (
       <div className="h-[500px]">
         <Spinner />
@@ -65,9 +64,32 @@ const ProductPage: React.FC = () => {
     console.log(sortedProducts);
   };
 
-  if (error) {
-    toast.error("Error when fetching products");
-    return;
+  // A failed refetch keeps the products already listed, so this only shows
+  // when there is nothing to list: the request failed or the store is empty
+  if (!products?.length) {
+    return (
+      <div className={PAGE_BASE_BACKGROUND_STYLE}>
+        <h1 className="font-neuton pb-8 pt-4 text-5xl tracking-wide dark:text-gray-50">
+          Products
+        </h1>
+        {error ? (
+          <div role="alert" className="font-lato dark:text-gray-50">
+            <p>Products could not be loaded.</p>
+            <button
+              type="button"
+              className="mt-4 rounded-xl bg-slate-800 px-4 py-2 text-gray-200 hover:bg-slate-700 dark:bg-slate-200 dark:text-slate-800 hover:dark:bg-slate-300"
+              onClick={() => refetch()}
+            >
+              Try again
+            </button>
+          </div>
+        ) : (
+          <p className="font-lato dark:text-gray-50">
+            No products available right now.
+          </p>
+        )}
+      </div>
+    );
   }
 
   return (

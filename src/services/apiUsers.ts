@@ -1,5 +1,5 @@
 import toast from "react-hot-toast";
-import { BACKEND_URL } from "../utils/constants";
+import { BACKEND_URL, REQUEST_TIMEOUT_MS } from "../utils/constants";
 
 type User = {
   _id: string;
@@ -11,8 +11,6 @@ type User = {
   slug: string;
   symptoms: string[];
 };
-
-const REQUEST_TIMEOUT_MS = 15000;
 
 type LoginResponse = {
   user: User;

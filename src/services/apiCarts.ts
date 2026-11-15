@@ -1,5 +1,5 @@
 import toast from "react-hot-toast";
-import { BACKEND_URL } from "../utils/constants";
+import { BACKEND_URL, REQUEST_TIMEOUT_MS } from "../utils/constants";
 
 type UpdateVariables = {
   productId: string;
@@ -46,6 +46,7 @@ export const removeItemFromCartApi = async (productId: string) => {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
+      signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
     });
 
     if (!res.ok) {
@@ -55,8 +56,11 @@ export const removeItemFromCartApi = async (productId: string) => {
         "Something went wrong when trying to remove item from cart",
       );
     }
+
+    return true;
   } catch (err) {
     console.error(err);
     toast.error("Removing item from cart failed");
+    return false;
   }
 };

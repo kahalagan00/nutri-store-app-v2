@@ -4,6 +4,7 @@ export const STRIPE_PUBLISHABLE_KEY =
 
 // Numbers
 export const ADD_TO_CART_DELAY: number = 3000;
+export const REQUEST_TIMEOUT_MS: number = 15000;
 
 // Text
 export const STORE_ADDRESS: string =
