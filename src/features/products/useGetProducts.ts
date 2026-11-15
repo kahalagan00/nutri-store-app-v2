@@ -6,10 +6,11 @@ export const useGetProducts = () => {
     isLoading,
     data: products,
     error,
+    refetch,
   } = useQuery({
     queryKey: ["products"],
     queryFn: getProductsApi,
   });
 
-  return { isLoading, error, products };
+  return { isLoading, error, products, refetch };
 };

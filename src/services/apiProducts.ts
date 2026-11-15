@@ -11,6 +11,6 @@ export const getProductsApi = async () => {
     return data;
   } catch (err) {
     console.error(err);
+    throw err;
   }
-  return [];
 };
