@@ -18,6 +18,24 @@ const product = {
   stockQuantity: 5,
 };
 
+const zinc = {
+  ...product,
+  _id: "2",
+  name: "Zinc",
+  price: 20,
+  stockQuantity: 2,
+};
+const omega = {
+  ...product,
+  _id: "3",
+  name: "Omega 3",
+  price: 15,
+  stockQuantity: 9,
+};
+
+const listedNames = () =>
+  screen.getAllByText(/^(Vitamin C|Zinc|Omega 3)$/).map((el) => el.textContent);
+
 const okResponse = (data: unknown) => ({
   ok: true,
   json: async () => ({ data }),
@@ -139,6 +157,68 @@ describe("ProductPage", () => {
       await screen.findByText(/no products available/i),
     ).toBeInTheDocument();
     expect(spinner(container)).not.toBeInTheDocument();
+  });
+
+  it("shows the empty state when the API returns null data", async () => {
+    fetchMock.mockResolvedValue(okResponse(null));
+    renderPage();
+
+    expect(
+      await screen.findByText(/no products available/i),
+    ).toBeInTheDocument();
+  });
+
+  it("shows the error when the API response has no data key", async () => {
+    fetchMock.mockResolvedValue({ ok: true, json: async () => ({}) });
+    renderPage();
+
+    expect(
+      await screen.findByText(/products could not be loaded/i),
+    ).toBeInTheDocument();
+  });
+
+  it("sorts by the selected option", async () => {
+    fetchMock.mockResolvedValue(okResponse([zinc, product]));
+    renderPage();
+    await screen.findByText("Vitamin C");
+    expect(listedNames()).toEqual(["Vitamin C", "Zinc"]);
+
+    await userEvent.selectOptions(
+      screen.getByLabelText("Sort products"),
+      "highPrice",
+    );
+    expect(listedNames()).toEqual(["Zinc", "Vitamin C"]);
+
+    await userEvent.selectOptions(
+      screen.getByLabelText("Sort products"),
+      "lowStock",
+    );
+    expect(listedNames()).toEqual(["Zinc", "Vitamin C"]);
+
+    await userEvent.selectOptions(
+      screen.getByLabelText("Sort products"),
+      "highStock",
+    );
+    expect(listedNames()).toEqual(["Vitamin C", "Zinc"]);
+  });
+
+  it("keeps the selected sort when a refetch brings changed products", async () => {
+    fetchMock.mockResolvedValueOnce(okResponse([product, zinc]));
+    fetchMock.mockResolvedValueOnce(okResponse([product, zinc, omega]));
+    const { client } = renderPage();
+    await screen.findByText("Vitamin C");
+    await userEvent.selectOptions(
+      screen.getByLabelText("Sort products"),
+      "highPrice",
+    );
+
+    await act(async () => {
+      await client.refetchQueries();
+      await new Promise((resolve) => setTimeout(resolve, 0));
+    });
+
+    expect(listedNames()).toEqual(["Zinc", "Omega 3", "Vitamin C"]);
+    expect(screen.getByLabelText("Sort products")).toHaveValue("highPrice");
   });
 
   it("keeps the listed products when a later refetch fails", async () => {
