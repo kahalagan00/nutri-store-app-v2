@@ -23,10 +23,26 @@ describe("cartPaymentApi", () => {
       .mockResolvedValue({ ok: true, json: async () => ({ sessionId: "s1" }) });
     vi.stubGlobal("fetch", fetchMock);
 
-    await cartPaymentApi([], [item]);
+    await cartPaymentApi([], [item], "Canada");
 
     expect(JSON.parse(fetchMock.mock.calls[0][1].body)).toEqual({
       items: [item],
+      country: "Canada",
+    });
+  });
+
+  it("sends the shipping country and coupon code", async () => {
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValue({ ok: true, json: async () => ({ sessionId: "s1" }) });
+    vi.stubGlobal("fetch", fetchMock);
+
+    await cartPaymentApi([item], [], "Canada", "HEALTH10");
+
+    expect(JSON.parse(fetchMock.mock.calls[0][1].body)).toEqual({
+      items: [item],
+      country: "Canada",
+      couponCode: "HEALTH10",
     });
   });
 
@@ -36,7 +52,7 @@ describe("cartPaymentApi", () => {
       vi.fn().mockResolvedValue({ ok: false, json: async () => ({}) }),
     );
 
-    await expect(cartPaymentApi([item], [])).rejects.toThrow();
+    await expect(cartPaymentApi([item], [], "Canada")).rejects.toThrow();
   });
 
   it("throws when no sessionId is returned", async () => {
@@ -45,6 +61,6 @@ describe("cartPaymentApi", () => {
       vi.fn().mockResolvedValue({ ok: true, json: async () => ({}) }),
     );
 
-    await expect(cartPaymentApi([item], [])).rejects.toThrow();
+    await expect(cartPaymentApi([item], [], "Canada")).rejects.toThrow();
   });
 });

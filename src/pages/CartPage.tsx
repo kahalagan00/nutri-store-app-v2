@@ -29,6 +29,8 @@ const CartPage = ({ isAuthenticated }: { isAuthenticated: boolean | null }) => {
   const [checkout, setCheckout] = useState(false);
   const [shippingFee, setShippingFee] = useState(0);
   const [couponDiscount, setCouponDiscount] = useState(0);
+  const [couponCode, setCouponCode] = useState<string>();
+  const [shippingCountry, setShippingCountry] = useState("");
   const [isPaying, setIsPaying] = useState(false);
 
   const updateCartMenu = (totalAmount: number, totalPrice: number) => {
@@ -36,12 +38,14 @@ const CartPage = ({ isAuthenticated }: { isAuthenticated: boolean | null }) => {
     setCartTotal(totalPrice);
   };
 
-  const handleApplyCouponDiscount = (value: number) => {
+  const handleApplyCouponDiscount = (value: number, code: string) => {
     // console.log(value);
     setCouponDiscount(value);
+    setCouponCode(code);
   };
 
   const handleUpdateShippingFee = (data: { country: string }) => {
+    setShippingCountry(data.country);
     if (data.country === "United States") {
       setShippingFee(5);
     } else {
@@ -65,7 +69,12 @@ const CartPage = ({ isAuthenticated }: { isAuthenticated: boolean | null }) => {
     }
     setIsPaying(true);
     try {
-      await cartPaymentApi(cartItems, parsedCartItems);
+      await cartPaymentApi(
+        cartItems,
+        parsedCartItems,
+        shippingCountry,
+        couponCode,
+      );
     } catch {
       toast.error("Payment could not be started. Please try again");
     } finally {
@@ -98,6 +107,9 @@ const CartPage = ({ isAuthenticated }: { isAuthenticated: boolean | null }) => {
           updateCartMenu(cart.cartItems.length, cart.totalPrice);
         },
       });
+    } else {
+      // Drop the fetched rows when the user logs out while on this page
+      setCartItems([]);
     }
   }, [isAuthenticated]);
 
@@ -316,7 +328,7 @@ const CalculateShippingBox = ({
 const CouponCodeBox = ({
   onApplyCouponDiscount,
 }: {
-  onApplyCouponDiscount: (value: number) => void;
+  onApplyCouponDiscount: (value: number, code: string) => void;
 }) => {
   const {
     register,
@@ -329,12 +341,14 @@ const CouponCodeBox = ({
   const onSubmit = (data: { coupon: string }) => {
     // console.log(data);
 
-    // Store discount is random between 5% - 20%
-    const randomDiscount = Math.floor(Math.random() * (20 - 5 + 1)) + 5;
-    toast.success(
-      `Applied "${data.coupon}" and received ${randomDiscount}% discount`,
-    );
-    onApplyCouponDiscount(randomDiscount);
+    // HEALTH10 (10% off) is the only valid coupon
+    const code = data.coupon.toUpperCase();
+    if (code !== "HEALTH10") {
+      toast.error("Invalid coupon code");
+      return;
+    }
+    toast.success(`Applied "${code}" and received 10% discount`);
+    onApplyCouponDiscount(10, code);
     setIsDiscountApplied(true);
     reset();
   };
@@ -356,17 +370,13 @@ const CouponCodeBox = ({
         disabled={isDiscountApplied}
         className={`mt-4 h-10 w-full rounded-xl p-4 ${errors.coupon && "bg-red-300"} font-lato`}
         type="text"
-        placeholder="XXXX"
-        minLength={4}
-        maxLength={4}
+        placeholder="Coupon code"
         {...register("coupon", {
           required: "This field is required",
           pattern: {
             value: /^[a-zA-Z0-9]+$/,
             message: "Only alphanumeric characters are allowed",
           },
-          validate: (value) =>
-            value.length === 4 || "Input must be exactly 4 characters long",
         })}
       />
 

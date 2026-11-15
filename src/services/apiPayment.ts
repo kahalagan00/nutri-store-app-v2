@@ -13,6 +13,8 @@ type CartItem = {
 export const cartPaymentApi = async (
   cartItems: CartItem[],
   parsedCartItems: CartItem[],
+  country: string,
+  couponCode?: string,
 ) => {
   const stripePromise = loadStripe(STRIPE_PUBLISHABLE_KEY);
   try {
@@ -24,6 +26,8 @@ export const cartPaymentApi = async (
       credentials: "include",
       body: JSON.stringify({
         items: cartItems.length > 0 ? cartItems : parsedCartItems,
+        country,
+        couponCode,
       }),
     });
 
