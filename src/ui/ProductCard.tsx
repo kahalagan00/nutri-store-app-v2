@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { IoMdCart, IoMdHeart } from "react-icons/io";
 import { useUpdateCart } from "../features/cart/useUpdateCart";
-import { ADD_TO_CART_DELAY, ASSETS_R2_URL } from "../utils/constants";
+import { ASSETS_R2_URL } from "../utils/constants";
 import { useCart } from "../context/CartContext";
 import QuantityModifier from "./QuantityModifier";
 import toast from "react-hot-toast";
@@ -39,16 +39,15 @@ const ProductCard: React.FC<ProductCard> = ({
   // ingredients,
   // warnings,
   stockQuantity,
-  // availability,
+  availability,
 }) => {
   const [isLiked, setIsLiked] = useState(() =>
     readStoredList(LIKED_PRODUCTS_KEY).includes(_id),
   );
   const [isImageBroken, setIsImageBroken] = useState(false);
   const [bagAmount, setBagAmount] = useState(1);
-  const [isAddingToCart, setIsAddingToCart] = useState(false);
   const { setCartNumber, setCartTotal } = useCart();
-  const { updateCart } = useUpdateCart();
+  const { updateCart, isPending: isAddingToCart } = useUpdateCart();
 
   // Read on every render: a cart change re-renders this card through CartContext
   const quantityInCart =
@@ -57,6 +56,13 @@ const ProductCard: React.FC<ProductCard> = ({
         ?.quantity,
     ) || 0;
   const remainingStock = Math.max(stockQuantity - quantityInCart, 0);
+
+  // Why the product can't be added, empty when it can. Only an explicit
+  // false counts as unavailable, so a product without the field stays addable
+  let blockedReason = "";
+  if (stockQuantity <= 0) blockedReason = "No stock";
+  else if (availability === false) blockedReason = "Unavailable";
+  else if (remainingStock <= 0) blockedReason = "All stock in cart";
 
   const handleToggleLike = () => {
     const likedProducts = readStoredList(LIKED_PRODUCTS_KEY).filter(
@@ -86,25 +92,21 @@ const ProductCard: React.FC<ProductCard> = ({
     setBagAmount((bagAmount) => bagAmount - 1);
   };
 
+  // The button stays disabled while the request is pending
   const handleAddToCart = () => {
-    setIsAddingToCart(true);
-
     updateCart(
       { productId: _id, name, price, quantity: bagAmount, image, purpose },
       {
         onSuccess: (cart) => {
-          setCartNumber(cart.cartItems.length);
-          setCartTotal(cart.totalPrice);
-          localStorage.setItem("cartItems", JSON.stringify(cart.cartItems));
+          // A missing cart, or a cart without a total, is treated as empty
+          const items = cart?.cartItems ?? [];
+          setCartNumber(items.length);
+          setCartTotal(cart?.totalPrice ?? 0);
+          localStorage.setItem("cartItems", JSON.stringify(items));
           setBagAmount(1);
         },
       },
     );
-
-    // Disable cart functionality for current product for some time before enabling it again
-    setTimeout(() => {
-      setIsAddingToCart(false);
-    }, ADD_TO_CART_DELAY);
   };
 
   return (
@@ -146,24 +148,22 @@ const ProductCard: React.FC<ProductCard> = ({
         </p>
       </div>
       <div className="mt-auto flex items-center justify-between px-4 py-4">
-        {remainingStock > 0 ? (
+        {blockedReason ? (
+          <p className="font-bold text-red-500">{blockedReason}</p>
+        ) : (
           <QuantityModifier
             number={bagAmount}
             onClickDecrement={handleRemoveBagAmount}
             onClickIncrement={handleAddBagAmount}
             productName={name}
           />
-        ) : (
-          <p className="font-bold text-red-500">
-            {stockQuantity > 0 ? "All stock in cart" : "No stock"}
-          </p>
         )}
         <button
           type="button"
           aria-label={`Add ${name} to cart`}
           onClick={handleAddToCart}
-          disabled={isAddingToCart || remainingStock <= 0}
-          className={`flex h-11 w-11 items-center justify-center rounded-full bg-blue-600 p-2.5 hover:bg-blue-500 dark:bg-cyan-400 dark:hover:bg-cyan-300 ${isAddingToCart || remainingStock <= 0 ? "opacity-50" : ""}`}
+          disabled={isAddingToCart || !!blockedReason}
+          className={`flex h-11 w-11 items-center justify-center rounded-full bg-blue-600 p-2.5 hover:bg-blue-500 dark:bg-cyan-400 dark:hover:bg-cyan-300 ${isAddingToCart || blockedReason ? "opacity-50" : ""}`}
         >
           <IoMdCart className="h-full w-full text-white dark:text-slate-900" />
         </button>

@@ -202,6 +202,14 @@ describe("ProductPage", () => {
     expect(listedNames()).toEqual(["Vitamin C", "Zinc"]);
   });
 
+  it("leaves the cached products in the order the API sent them", async () => {
+    fetchMock.mockResolvedValue(okResponse([zinc, product]));
+    const { client } = renderPage();
+    await screen.findByText("Vitamin C");
+
+    expect(client.getQueryData(["products"])).toEqual([zinc, product]);
+  });
+
   it("keeps the selected sort when a refetch brings changed products", async () => {
     fetchMock.mockResolvedValueOnce(okResponse([product, zinc]));
     fetchMock.mockResolvedValueOnce(okResponse([product, zinc, omega]));

@@ -25,6 +25,7 @@ export const updateCartApi = async (updateData: UpdateVariables) => {
         purpose,
         image,
       }),
+      signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
     });
 
     if (!res.ok) {
@@ -36,6 +37,13 @@ export const updateCartApi = async (updateData: UpdateVariables) => {
     return data;
   } catch (err) {
     console.error(err);
+    // The raw timeout message means nothing to a shopper, and the add may
+    // still have gone through on the server
+    if ((err as Error).name === "TimeoutError") {
+      throw new Error(
+        "Adding to cart took too long. Check your cart before trying again",
+      );
+    }
     throw err;
   }
 };

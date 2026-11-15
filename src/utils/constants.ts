@@ -3,7 +3,6 @@ export const STRIPE_PUBLISHABLE_KEY =
   "pk_test_51QJNj4KXU3G1bVf7KUBRiSlum1YeXAy5tsCB1iKQESwmchg8Sx7Zp99pDGuyvVufcrGyK2K7m5eHYLI0lJUhPcxj00TsNrksje";
 
 // Numbers
-export const ADD_TO_CART_DELAY: number = 3000;
 export const REQUEST_TIMEOUT_MS: number = 15000;
 
 // Text

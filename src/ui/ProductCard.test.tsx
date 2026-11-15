@@ -1,17 +1,26 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { render, screen, cleanup, fireEvent } from "@testing-library/react";
+import {
+  render,
+  screen,
+  cleanup,
+  fireEvent,
+  waitFor,
+  act,
+} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom/vitest";
 import toast from "react-hot-toast";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { updateCartApi } from "../services/apiCarts";
 import { CartProvider } from "../context/CartContext";
 import ProductCard from "./ProductCard";
 
-const { updateCart } = vi.hoisted(() => ({ updateCart: vi.fn() }));
-
-vi.mock("../features/cart/useUpdateCart", () => ({
-  useUpdateCart: () => ({ updateCart }),
+vi.mock("../services/apiCarts", () => ({ updateCartApi: vi.fn() }));
+vi.mock("react-hot-toast", () => ({
+  default: Object.assign(vi.fn(), { success: vi.fn(), error: vi.fn() }),
 }));
-vi.mock("react-hot-toast", () => ({ default: vi.fn() }));
+
+const updateCartMock = vi.mocked(updateCartApi);
 
 const product = {
   _id: "1",
@@ -27,9 +36,11 @@ const product = {
 
 const renderCard = (props = {}) =>
   render(
-    <CartProvider>
-      <ProductCard {...product} {...props} />
-    </CartProvider>,
+    <QueryClientProvider client={new QueryClient()}>
+      <CartProvider>
+        <ProductCard {...product} {...props} />
+      </CartProvider>
+    </QueryClientProvider>,
   );
 
 const saveCartQuantity = (quantity: number) =>
@@ -49,6 +60,7 @@ beforeEach(() => {
 
 afterEach(() => {
   cleanup();
+  vi.useRealTimers();
   vi.resetAllMocks();
 });
 
@@ -156,17 +168,80 @@ describe("ProductCard", () => {
   });
 
   it("tightens the cap after an add succeeds", async () => {
-    updateCart.mockImplementation((_item, { onSuccess }) =>
-      onSuccess({
-        cartItems: [{ productId: "1", quantity: 5 }],
-        totalPrice: 97.5,
-      }),
-    );
+    updateCartMock.mockResolvedValue({
+      cartItems: [{ productId: "1", quantity: 5 }],
+      totalPrice: 97.5,
+    });
     renderCard();
 
     await userEvent.click(addToCart());
 
-    expect(screen.getByText("All stock in cart")).toBeInTheDocument();
+    expect(await screen.findByText("All stock in cart")).toBeInTheDocument();
     expect(addToCart()).toBeDisabled();
+  });
+
+  it("blocks adding a product marked unavailable even when it has stock", () => {
+    renderCard({ availability: false });
+
+    expect(screen.getByText("Unavailable")).toBeInTheDocument();
+    expect(addToCart()).toBeDisabled();
+    expect(
+      screen.queryByRole("button", { name: /increase quantity/i }),
+    ).not.toBeInTheDocument();
+  });
+
+  it("allows adding a product whose availability is missing", () => {
+    renderCard({ availability: undefined });
+
+    expect(addToCart()).toBeEnabled();
+  });
+
+  it("keeps add-to-cart disabled until the request completes, not for a fixed time", async () => {
+    vi.useFakeTimers({ shouldAdvanceTime: true });
+    const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
+    let resolveRequest: (cart: unknown) => void = () => {};
+    updateCartMock.mockReturnValue(
+      new Promise((resolve) => {
+        resolveRequest = resolve;
+      }),
+    );
+    renderCard();
+
+    await user.click(addToCart());
+    await waitFor(() => expect(addToCart()).toBeDisabled());
+
+    // Longer than the old 3s re-enable timer
+    await act(() => vi.advanceTimersByTimeAsync(5000));
+    expect(addToCart()).toBeDisabled();
+    await user.click(addToCart());
+    expect(updateCartMock).toHaveBeenCalledTimes(1);
+
+    resolveRequest({ cartItems: [], totalPrice: 0 });
+    await waitFor(() => expect(addToCart()).toBeEnabled());
+  });
+
+  it("re-enables add-to-cart when the request fails", async () => {
+    updateCartMock.mockRejectedValue(new Error("Adding to cart failed"));
+    renderCard();
+
+    await userEvent.click(addToCart());
+
+    await waitFor(() =>
+      expect(toast.error).toHaveBeenCalledWith("Adding to cart failed"),
+    );
+    await waitFor(() => expect(addToCart()).toBeEnabled());
+  });
+
+  it("treats a missing cart in the add response as empty instead of failing", async () => {
+    saveCartQuantity(2);
+    updateCartMock.mockResolvedValue(null);
+    renderCard();
+
+    await userEvent.click(addToCart());
+
+    await waitFor(() => expect(localStorage.getItem("cartItems")).toBe("[]"));
+    expect(toast.error).not.toHaveBeenCalled();
+    expect(localStorage.getItem("cartNumber")).toBe("0");
+    expect(localStorage.getItem("cartTotal")).toBe("0");
   });
 });
