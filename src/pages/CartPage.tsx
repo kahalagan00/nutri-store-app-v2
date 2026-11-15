@@ -29,6 +29,7 @@ const CartPage = ({ isAuthenticated }: { isAuthenticated: boolean | null }) => {
   const [checkout, setCheckout] = useState(false);
   const [shippingFee, setShippingFee] = useState(0);
   const [couponDiscount, setCouponDiscount] = useState(0);
+  const [isPaying, setIsPaying] = useState(false);
 
   const updateCartMenu = (totalAmount: number, totalPrice: number) => {
     setCartNumber(totalAmount);
@@ -58,11 +59,18 @@ const CartPage = ({ isAuthenticated }: { isAuthenticated: boolean | null }) => {
   };
 
   const handlePayment = async () => {
-    if (cartItems.length === 0 && cartNumber === 0) {
+    if (cartItems.length === 0 && !parsedCartItems?.length) {
       toast.error("Your cart is empty 🛒 ❌");
       return;
     }
-    await cartPaymentApi(cartItems, parsedCartItems);
+    setIsPaying(true);
+    try {
+      await cartPaymentApi(cartItems, parsedCartItems);
+    } catch {
+      toast.error("Payment could not be started. Please try again");
+    } finally {
+      setIsPaying(false);
+    }
   };
 
   const handleRemoveFromCart = async (value: string) => {
@@ -91,7 +99,7 @@ const CartPage = ({ isAuthenticated }: { isAuthenticated: boolean | null }) => {
         },
       });
     }
-  }, []);
+  }, [isAuthenticated]);
 
   // Grabs from local storage whenever the page reloads
   const savedCartItems = localStorage.getItem("cartItems");
@@ -196,6 +204,7 @@ const CartPage = ({ isAuthenticated }: { isAuthenticated: boolean | null }) => {
           <CouponCodeBox onApplyCouponDiscount={handleApplyCouponDiscount} />
           <CartTotalBox
             onCheckout={handleCheckout}
+            isPaying={isPaying}
             shippingFee={shippingFee}
             couponDiscount={couponDiscount}
             cartSubTotal={parseFloat(cartTotal.toFixed(2))}
@@ -375,11 +384,13 @@ const CouponCodeBox = ({
 const CartTotalBox = ({
   shippingFee,
   onCheckout,
+  isPaying,
   couponDiscount,
   cartSubTotal,
 }: {
   shippingFee: number;
   onCheckout: () => void;
+  isPaying: boolean;
   couponDiscount: number;
   cartSubTotal: number;
 }) => {
@@ -412,10 +423,11 @@ const CartTotalBox = ({
 
       <button
         type="button"
-        className="font-lato mt-6 flex h-10 w-full items-center justify-center rounded-xl bg-slate-200 p-4 text-gray-800 hover:bg-slate-100 dark:bg-slate-800 dark:text-gray-50 hover:dark:bg-slate-700"
+        disabled={isPaying}
+        className={`font-lato mt-6 flex h-10 w-full items-center justify-center rounded-xl bg-slate-200 p-4 text-gray-800 hover:bg-slate-100 dark:bg-slate-800 dark:text-gray-50 hover:dark:bg-slate-700 ${isPaying ? "opacity-40" : ""}`}
         onClick={onCheckout}
       >
-        Checkout
+        {isPaying ? "Redirecting..." : "Checkout"}
       </button>
     </div>
   );

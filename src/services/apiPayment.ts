@@ -23,19 +23,27 @@ export const cartPaymentApi = async (
       headers: { "Content-Type": "application/json" },
       credentials: "include",
       body: JSON.stringify({
-        items: cartItems ? cartItems : parsedCartItems,
+        items: cartItems.length > 0 ? cartItems : parsedCartItems,
       }),
     });
+
+    if (!res.ok) {
+      throw new Error("Creating checkout session failed");
+    }
 
     const { sessionId } = await res.json();
     const stripe = await stripePromise;
 
-    if (stripe && sessionId) {
-      await stripe.redirectToCheckout({ sessionId }); // Use sessionId here
-    } else {
-      console.error("Stripe or sessionId is missing");
+    if (!stripe || !sessionId) {
+      throw new Error("Stripe or sessionId is missing");
+    }
+
+    const { error } = await stripe.redirectToCheckout({ sessionId }); // Use sessionId here
+    if (error) {
+      throw new Error(error.message);
     }
   } catch (err) {
     console.error(err);
+    throw err;
   }
 };
