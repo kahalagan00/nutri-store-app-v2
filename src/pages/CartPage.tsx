@@ -25,7 +25,7 @@ const CartPage = ({ isAuthenticated }: { isAuthenticated: boolean | null }) => {
   const { get, isPending: isLoadingCart } = useGetCart();
   const { cartNumber, cartTotal, setCartNumber, setCartTotal } = useCart();
   // const [orderQuantity, setOrderQuantity] = useState(1);
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [checkout, setCheckout] = useState(false);
   const [shippingFee, setShippingFee] = useState(0);
   const [couponDiscount, setCouponDiscount] = useState(0);
@@ -36,6 +36,16 @@ const CartPage = ({ isAuthenticated }: { isAuthenticated: boolean | null }) => {
   const updateCartMenu = (totalAmount: number, totalPrice: number) => {
     setCartNumber(totalAmount);
     setCartTotal(totalPrice);
+  };
+
+  // A user without a cart, or a cart without a total, is treated as empty
+  const handleCartLoaded = (
+    cart: { cartItems?: CartItem[]; totalPrice?: number | null } | null,
+  ) => {
+    const items = cart?.cartItems ?? [];
+    setCartItems(items);
+    localStorage.setItem("cartItems", JSON.stringify(items));
+    updateCartMenu(items.length, cart?.totalPrice ?? 0);
   };
 
   const handleApplyCouponDiscount = (value: number, code: string) => {
@@ -86,27 +96,13 @@ const CartPage = ({ isAuthenticated }: { isAuthenticated: boolean | null }) => {
     // console.log(`Remove from cart clicked for ${value}`);
     await removeItemFromCartApi(value);
 
-    get(undefined, {
-      onSuccess: (cart) => {
-        // console.log(cart);
-        setCartItems(cart.cartItems);
-        localStorage.setItem("cartItems", JSON.stringify(cart.cartItems));
-        updateCartMenu(cart.cartItems.length, cart.totalPrice);
-      },
-    });
+    get(undefined, { onSuccess: handleCartLoaded });
   };
 
   useEffect(() => {
     // Only fetch cart data if there is a user currently logged in
     if (isAuthenticated) {
-      get(undefined, {
-        onSuccess: (cart) => {
-          // console.log(cart);
-          setCartItems(cart.cartItems);
-          localStorage.setItem("cartItems", JSON.stringify(cart.cartItems));
-          updateCartMenu(cart.cartItems.length, cart.totalPrice);
-        },
-      });
+      get(undefined, { onSuccess: handleCartLoaded });
     } else {
       // Drop the fetched rows when the user logs out while on this page
       setCartItems([]);
@@ -114,8 +110,14 @@ const CartPage = ({ isAuthenticated }: { isAuthenticated: boolean | null }) => {
   }, [isAuthenticated]);
 
   // Grabs from local storage whenever the page reloads
-  const savedCartItems = localStorage.getItem("cartItems");
-  const parsedCartItems = savedCartItems ? JSON.parse(savedCartItems) : null;
+  // A corrupted or non-list value is treated as an empty cart
+  let parsedCartItems: CartItem[] = [];
+  try {
+    const saved = JSON.parse(localStorage.getItem("cartItems") ?? "[]");
+    if (Array.isArray(saved)) parsedCartItems = saved;
+  } catch {
+    // keep the empty cart
+  }
 
   // console.log(cartItems);
   // console.log(parsedCartItems);
@@ -253,14 +255,11 @@ const CalculateShippingBox = ({
     register,
     formState: { errors },
     handleSubmit,
-    reset,
   } = useForm<{ country: string; city: string; zip: string }>();
-  const [isShippingApplied, setIsShippingApplied] = useState(false);
 
   const onSubmit = (data: { country: string }) => {
     onUpdateShippingFee(data);
-    setIsShippingApplied(true);
-    reset();
+    toast.success("Shipping updated");
   };
 
   return (
@@ -276,7 +275,6 @@ const CalculateShippingBox = ({
         {...register("country")}
         defaultValue="United States"
         className="font-lato mt-4 h-12 w-full rounded-xl p-2"
-        disabled={isShippingApplied}
       >
         <optgroup label="North America">
           <option value="United States">United States</option>
@@ -294,7 +292,6 @@ const CalculateShippingBox = ({
 
       <div className="font-lato mt-2 flex gap-2">
         <input
-          disabled={isShippingApplied}
           className={`mt-4 h-10 w-1/2 rounded-xl p-4 ${errors.city && "bg-red-300"}`}
           type="text"
           placeholder="City"
@@ -303,10 +300,9 @@ const CalculateShippingBox = ({
           })}
         />
         <input
-          disabled={isShippingApplied}
           className={`mt-4 h-10 w-1/2 rounded-xl p-4 ${errors.zip && "bg-red-300"}`}
           type="text"
-          maxLength={5}
+          maxLength={10}
           placeholder="ZIP Code"
           {...register("zip", {
             required: "This field is required",
@@ -315,9 +311,8 @@ const CalculateShippingBox = ({
       </div>
 
       <button
-        disabled={isShippingApplied}
         type="submit"
-        className={`font-lato mt-4 flex h-10 w-full items-center justify-center rounded-xl bg-slate-800 p-4 text-gray-200 hover:bg-slate-700 dark:bg-slate-200 dark:text-slate-800 hover:dark:bg-slate-300 ${!isShippingApplied ? "hover:bg-slate-700" : "opacity-40"}`}
+        className="font-lato mt-4 flex h-10 w-full items-center justify-center rounded-xl bg-slate-800 p-4 text-gray-200 hover:bg-slate-700 dark:bg-slate-200 dark:text-slate-800 hover:dark:bg-slate-300"
       >
         Update
       </button>

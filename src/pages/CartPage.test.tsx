@@ -133,3 +133,73 @@ describe("CartPage logout", () => {
     expect(screen.queryByText("Vitamin C")).not.toBeInTheDocument();
   });
 });
+
+describe("CartPage shipping", () => {
+  it("keeps the submitted address visible and lets the user change it", async () => {
+    localStorage.setItem("cartTotal", JSON.stringify(50));
+    const user = renderCart();
+
+    await user.selectOptions(screen.getByRole("combobox"), "Germany");
+    await user.type(screen.getByPlaceholderText("City"), "Berlin");
+    await user.type(screen.getByPlaceholderText("ZIP Code"), "10115");
+    await user.click(screen.getByRole("button", { name: "Update" }));
+
+    expect(screen.getByRole("combobox")).toHaveValue("Germany");
+    expect(screen.getByPlaceholderText("City")).toHaveValue("Berlin");
+    expect(screen.getByText("$20")).toBeInTheDocument();
+
+    await user.selectOptions(screen.getByRole("combobox"), "United States");
+    await user.click(screen.getByRole("button", { name: "Update" }));
+
+    expect(screen.getByText("$5")).toBeInTheDocument();
+  });
+
+  it("accepts postcodes longer than 5 characters", async () => {
+    const user = renderCart();
+
+    await user.type(screen.getByPlaceholderText("ZIP Code"), "SW1A 1AA");
+
+    expect(screen.getByPlaceholderText("ZIP Code")).toHaveValue("SW1A 1AA");
+  });
+});
+
+describe("CartPage bad data", () => {
+  const renderLoggedIn = (cart: unknown) => {
+    getMock.mockImplementationOnce((_, { onSuccess }) => onSuccess(cart));
+    render(
+      <CartProvider>
+        <CartPage isAuthenticated={true} />
+      </CartProvider>,
+    );
+  };
+
+  it("renders an empty cart when the saved cart items are corrupted", () => {
+    localStorage.setItem("cartItems", "{not json");
+    renderCart();
+    expect(screen.getByText("Cart Total")).toBeInTheDocument();
+  });
+
+  it("renders an empty cart when the saved cart items are not a list", () => {
+    localStorage.setItem("cartItems", JSON.stringify({ a: 1 }));
+    renderCart();
+    expect(screen.getByText("Cart Total")).toBeInTheDocument();
+  });
+
+  it("renders when the saved cart total is not a number", () => {
+    localStorage.setItem("cartTotal", "null");
+    renderCart();
+    expect(screen.getByText("Cart Total")).toBeInTheDocument();
+  });
+
+  it("renders when the fetched cart has no total price", () => {
+    renderLoggedIn({ cartItems: [item], totalPrice: null });
+    expect(screen.getByText("Vitamin C")).toBeInTheDocument();
+  });
+
+  it("renders an empty cart when the user has no cart", () => {
+    localStorage.setItem("cartItems", JSON.stringify([]));
+    renderLoggedIn(null);
+    expect(screen.getByText("Cart Total")).toBeInTheDocument();
+    expect(screen.queryByText("Vitamin C")).not.toBeInTheDocument();
+  });
+});

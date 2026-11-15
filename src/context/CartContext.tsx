@@ -38,7 +38,8 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({
       value={{
         cartNumber,
         setCartNumber,
-        cartTotal,
+        // Guard against a missing total from the API or browser storage
+        cartTotal: Number(cartTotal) || 0,
         setCartTotal,
       }}
     >
