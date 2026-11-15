@@ -1,5 +1,9 @@
 import { loadStripe } from "@stripe/stripe-js";
-import { BACKEND_URL, STRIPE_PUBLISHABLE_KEY } from "../utils/constants";
+import {
+  BACKEND_URL,
+  REQUEST_TIMEOUT_MS,
+  STRIPE_PUBLISHABLE_KEY,
+} from "../utils/constants";
 
 type CartItem = {
   name: string;
@@ -29,6 +33,7 @@ export const cartPaymentApi = async (
         country,
         couponCode,
       }),
+      signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
     });
 
     if (!res.ok) {
