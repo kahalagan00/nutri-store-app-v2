@@ -4,20 +4,32 @@ const QuantityModifier = ({
   onClickDecrement,
   number,
   onClickIncrement,
+  productName,
 }: {
   onClickDecrement: () => void;
   number: number;
   onClickIncrement: () => void;
+  productName: string;
 }) => {
   return (
-    <div className="bord grid h-8 w-28 grid-cols-3 place-items-center gap-3 self-center rounded-md border-2 border-gray-300 bg-slate-100 px-2">
-      <button onClick={onClickDecrement}>
+    <div className="flex items-center self-center rounded-md border-2 border-gray-300 bg-slate-100">
+      <button
+        type="button"
+        aria-label={`Decrease quantity of ${productName}`}
+        className="flex h-10 w-10 items-center justify-center"
+        onClick={onClickDecrement}
+      >
         <IoMdRemove />
       </button>
-      <p className="flex h-full w-9 items-center justify-center bg-gray-300 text-xs">
+      <p className="flex h-7 w-9 items-center justify-center bg-gray-300 text-xs">
         {number}
       </p>
-      <button onClick={onClickIncrement}>
+      <button
+        type="button"
+        aria-label={`Increase quantity of ${productName}`}
+        className="flex h-10 w-10 items-center justify-center"
+        onClick={onClickIncrement}
+      >
         <IoMdAdd />
       </button>
     </div>

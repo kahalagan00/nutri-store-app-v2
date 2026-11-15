@@ -65,6 +65,36 @@ describe("ProductPage", () => {
     expect(await screen.findByText("Vitamin C")).toBeInTheDocument();
   });
 
+  it("times the products request out", async () => {
+    fetchMock.mockResolvedValue(okResponse([product]));
+    renderPage();
+    await screen.findByText("Vitamin C");
+
+    expect(fetchMock).toHaveBeenCalledWith(
+      expect.any(String),
+      expect.objectContaining({ signal: expect.any(AbortSignal) }),
+    );
+  });
+
+  it("shows the error when the request times out", async () => {
+    fetchMock.mockRejectedValue(new DOMException("timed out", "TimeoutError"));
+    renderPage();
+
+    expect(
+      await screen.findByText(/products could not be loaded/i),
+    ).toBeInTheDocument();
+  });
+
+  it("labels the sort select", async () => {
+    fetchMock.mockResolvedValue(okResponse([product]));
+    renderPage();
+
+    expect(await screen.findByLabelText("Sort products")).toHaveAttribute(
+      "name",
+      "sort",
+    );
+  });
+
   it("shows an error with a retry instead of spinning when the request fails", async () => {
     fetchMock.mockRejectedValueOnce(new Error("offline"));
     fetchMock.mockResolvedValueOnce(okResponse([product]));

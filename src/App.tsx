@@ -29,6 +29,10 @@ const queryClient = new QueryClient({
       // staleTime: 60 * 1000,
       // refetchOnWindowFocus: false, refetchOnReconnect: false
       staleTime: 0,
+      // A timed-out request already waited REQUEST_TIMEOUT_MS, so fail it
+      // straight away; other errors keep the default 3 retries
+      retry: (failureCount, error) =>
+        error.name !== "TimeoutError" && failureCount < 3,
     },
   },
 });

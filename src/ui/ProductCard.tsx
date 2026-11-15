@@ -18,6 +18,18 @@ interface ProductCard {
   availability: boolean;
 }
 
+const LIKED_PRODUCTS_KEY = "likedProducts";
+
+// A corrupted or non-list value in browser storage is treated as empty
+const readStoredList = (key: string) => {
+  try {
+    const saved = JSON.parse(localStorage.getItem(key) ?? "[]");
+    return Array.isArray(saved) ? saved : [];
+  } catch {
+    return [];
+  }
+};
+
 const ProductCard: React.FC<ProductCard> = ({
   _id,
   name,
@@ -29,16 +41,40 @@ const ProductCard: React.FC<ProductCard> = ({
   stockQuantity,
   // availability,
 }) => {
-  const [isLiked, setIsLiked] = useState(false);
+  const [isLiked, setIsLiked] = useState(() =>
+    readStoredList(LIKED_PRODUCTS_KEY).includes(_id),
+  );
+  const [isImageBroken, setIsImageBroken] = useState(false);
   const [bagAmount, setBagAmount] = useState(1);
   const [isAddingToCart, setIsAddingToCart] = useState(false);
   const { setCartNumber, setCartTotal } = useCart();
   const { updateCart } = useUpdateCart();
 
+  // Read on every render: a cart change re-renders this card through CartContext
+  const quantityInCart =
+    Number(
+      readStoredList("cartItems").find((item) => item?.productId === _id)
+        ?.quantity,
+    ) || 0;
+  const remainingStock = Math.max(stockQuantity - quantityInCart, 0);
+
+  const handleToggleLike = () => {
+    const likedProducts = readStoredList(LIKED_PRODUCTS_KEY).filter(
+      (id) => id !== _id,
+    );
+    if (!isLiked) likedProducts.push(_id);
+    localStorage.setItem(LIKED_PRODUCTS_KEY, JSON.stringify(likedProducts));
+    setIsLiked(!isLiked);
+  };
+
   const handleAddBagAmount = () => {
-    // Prevent user from increasing items to add in the bag if it's already equals to the stockQuantity
-    if (bagAmount === stockQuantity) {
-      toast(`👝 There is only ${stockQuantity} in stock left for ${name}`);
+    // Prevent user from increasing items to add in the bag past what is left after the cart's share of the stock
+    if (bagAmount >= remainingStock) {
+      toast(
+        quantityInCart > 0
+          ? `👝 There is only ${stockQuantity} in stock for ${name} and ${quantityInCart} already in your cart`
+          : `👝 There is only ${stockQuantity} in stock left for ${name}`,
+      );
       return;
     }
     setBagAmount((bagAmount) => bagAmount + 1);
@@ -72,48 +108,62 @@ const ProductCard: React.FC<ProductCard> = ({
   };
 
   return (
-    <div className="flex h-[25rem] w-72 flex-col justify-start overflow-hidden rounded-xl border border-gray-300 bg-slate-100 drop-shadow-xl dark:border-gray-500 dark:bg-slate-500">
-      <div className="flex items-center justify-between pr-4 pt-4" id="pointer">
-        <div className="flex w-16 -translate-x-1 -skew-x-12 items-center justify-center bg-rose-500 px-4 py-1">
-          <p className="text-bold text-sm text-white">-25%</p>
-        </div>
-        <IoMdHeart
-          onClick={() => setIsLiked((value) => !value)}
-          className={`h-7 w-7 cursor-pointer ${isLiked && "text-red-600"}`}
-        />
+    <div className="flex min-h-[25rem] w-72 flex-col justify-start overflow-hidden rounded-xl border border-gray-300 bg-slate-100 drop-shadow-xl dark:border-gray-500 dark:bg-slate-500">
+      <div className="flex items-center justify-end pr-2 pt-2" id="pointer">
+        <button
+          type="button"
+          aria-label={`Like ${name}`}
+          aria-pressed={isLiked}
+          onClick={handleToggleLike}
+          className="flex h-11 w-11 items-center justify-center"
+        >
+          <IoMdHeart className={`h-7 w-7 ${isLiked && "text-red-600"}`} />
+        </button>
       </div>
-      <div className="flex h-3/5 items-center justify-center overflow-hidden">
-        <img
-          className="max-h-full"
-          src={`${ASSETS_R2_URL}/products/${image}`}
-          alt=""
-        />
+      <div className="flex h-44 shrink-0 items-center justify-center overflow-hidden">
+        {isImageBroken ? (
+          <span className="font-lato text-xs text-gray-400 dark:text-gray-100">
+            No image
+          </span>
+        ) : (
+          <img
+            className="max-h-full"
+            src={`${ASSETS_R2_URL}/products/${image}`}
+            alt={`Image of ${name}`}
+            onError={() => setIsImageBroken(true)}
+          />
+        )}
       </div>
-      <div className="pl-4">
+      <div className="px-4">
         <p className="font-lato text-xs font-semibold uppercase tracking-wide text-gray-400 dark:text-gray-100">
           {purpose}
         </p>
-        <p className="font-neuton text-2xl font-semibold dark:text-gray-50">
+        <p className="font-neuton break-words text-2xl font-semibold dark:text-gray-50">
           {name}
         </p>
         <p className="font-neuton py-2 text-2xl font-normal text-blue-500 dark:text-cyan-400">
-          ${price}
+          ${price.toFixed(2)}
         </p>
       </div>
-      <div className="flex items-center justify-between px-4 py-4">
-        {stockQuantity > 0 ? (
+      <div className="mt-auto flex items-center justify-between px-4 py-4">
+        {remainingStock > 0 ? (
           <QuantityModifier
             number={bagAmount}
             onClickDecrement={handleRemoveBagAmount}
             onClickIncrement={handleAddBagAmount}
+            productName={name}
           />
         ) : (
-          <p className="font-bold text-red-500">No stock</p>
+          <p className="font-bold text-red-500">
+            {stockQuantity > 0 ? "All stock in cart" : "No stock"}
+          </p>
         )}
         <button
+          type="button"
+          aria-label={`Add ${name} to cart`}
           onClick={handleAddToCart}
-          disabled={isAddingToCart || stockQuantity <= 0}
-          className={`flex h-11 w-11 items-center justify-center rounded-full bg-blue-600 p-2.5 hover:bg-blue-500 dark:bg-cyan-400 dark:hover:bg-cyan-300 ${isAddingToCart || stockQuantity <= 0 ? "opacity-50" : ""}`}
+          disabled={isAddingToCart || remainingStock <= 0}
+          className={`flex h-11 w-11 items-center justify-center rounded-full bg-blue-600 p-2.5 hover:bg-blue-500 dark:bg-cyan-400 dark:hover:bg-cyan-300 ${isAddingToCart || remainingStock <= 0 ? "opacity-50" : ""}`}
         >
           <IoMdCart className="h-full w-full text-white dark:text-slate-900" />
         </button>

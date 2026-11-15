@@ -41,7 +41,7 @@ const ProductPage: React.FC = () => {
     );
   }
 
-  const handleFilterChange = (value: string) => {
+  const handleSortChange = (value: string) => {
     console.log(value);
     let sortedProducts = [...outputProducts];
 
@@ -97,11 +97,14 @@ const ProductPage: React.FC = () => {
       <h1 className="font-neuton pb-8 pt-4 text-5xl tracking-wide dark:text-gray-50">
         Products
       </h1>
+      <label htmlFor="sort" className="sr-only">
+        Sort products
+      </label>
       <select
-        name="filters"
-        id="filters"
-        className="font-lato mb-4 outline-none dark:bg-slate-700 dark:text-gray-50"
-        onChange={(e) => handleFilterChange(e.target.value)}
+        name="sort"
+        id="sort"
+        className="font-lato mb-4 dark:bg-slate-700 dark:text-gray-50"
+        onChange={(e) => handleSortChange(e.target.value)}
       >
         <option value="lowPrice">Sort by: Low to high price</option>
         <option value="highPrice">Sort by: High to low price</option>
